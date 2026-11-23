@@ -21,3 +21,7 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run lint`         | Lint with ESLint                 |
 | `npm run format`       | Format with Prettier             |
 | `npm run format:check` | Check formatting                 |
+
+## Credits
+
+Avatars: [OpenMoji](https://openmoji.org), the open-source emoji and icon project, licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
