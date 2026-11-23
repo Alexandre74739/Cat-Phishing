@@ -89,3 +89,11 @@ body {
     transition: none;
   }
 }
+
+@utility dots {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--color-ink) 14%, transparent) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 22px 22px;
+}
