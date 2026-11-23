@@ -27,6 +27,14 @@ const icons = {
 export type ButtonVariant = keyof typeof variants;
 export type ButtonIcon = keyof typeof icons;
 
+export type ButtonAction = {
+  label: string;
+  href: string;
+  variant: ButtonVariant;
+  icon: ButtonIcon;
+  iconSide?: "start" | "end";
+};
+
 type ButtonProps = {
   href?: string;
   children: ReactNode;

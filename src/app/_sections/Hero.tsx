@@ -1,27 +1,16 @@
 "use client";
 
-import { Check, Play } from "lucide-react";
+import { Play } from "lucide-react";
 import { motion } from "motion/react";
-import {
-  Button,
-  type ButtonIcon,
-  type ButtonVariant,
-} from "@/_components/ui/Button";
+import { Button, type ButtonAction } from "@/_components/ui/Button";
+import { CheckList } from "@/_components/ui/CheckList";
 import { GutterTiles, NearTiles } from "./Tiles";
-
-type HeroAction = {
-  label: string;
-  href: string;
-  variant: ButtonVariant;
-  icon: ButtonIcon;
-  iconSide?: "start" | "end";
-};
 
 type HeroProps = {
   title: string;
   highlight: string;
   description: string;
-  actions: HeroAction[];
+  actions: ButtonAction[];
   highlights: string[];
   video?: { src: string; poster?: string; label: string };
 };
@@ -65,16 +54,10 @@ export function Hero({
               </Button>
             ))}
           </div>
-          <ul className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 font-ui font-semibold text-ink-soft lg:justify-start xl:text-lg">
-            {highlights.map((highlight) => (
-              <li key={highlight} className="flex items-center gap-2">
-                <span className="grid size-6 place-items-center rounded-full border-2 border-ink bg-grape text-paper">
-                  <Check size={14} strokeWidth={3.5} aria-hidden="true" />
-                </span>
-                {highlight}
-              </li>
-            ))}
-          </ul>
+          <CheckList
+            items={highlights}
+            className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 lg:justify-start xl:text-lg"
+          />
         </motion.div>
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
