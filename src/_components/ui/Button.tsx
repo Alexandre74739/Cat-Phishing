@@ -1,6 +1,6 @@
 "use client";
 
-import { Blocks, Gamepad2 } from "lucide-react";
+import { ArrowRight, Blocks, Download, Gamepad2 } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { playClickSound } from "@/lib/sound";
@@ -17,17 +17,25 @@ const sizes = {
   sm: { className: "min-h-12 px-5 text-lg", icon: 20 },
 };
 
-const icons = { play: Gamepad2, code: Blocks };
+const icons = {
+  play: Gamepad2,
+  code: Blocks,
+  install: Download,
+  next: ArrowRight,
+};
 
 export type ButtonVariant = keyof typeof variants;
 export type ButtonIcon = keyof typeof icons;
 
 type ButtonProps = {
-  href: string;
+  href?: string;
   children: ReactNode;
   variant?: ButtonVariant;
   size?: keyof typeof sizes;
   icon?: ButtonIcon;
+  iconSide?: "start" | "end";
+  expanded?: boolean;
+  className?: string;
   onClick?: () => void;
 };
 
@@ -37,19 +45,19 @@ export function Button({
   variant = "grape",
   size = "md",
   icon,
+  iconSide = "start",
+  expanded,
+  className = "",
   onClick,
 }: ButtonProps) {
   const Icon = icon && icons[icon];
-
-  return (
-    <Link
-      href={href}
-      onClick={() => {
-        playClickSound();
-        onClick?.();
-      }}
-      className={`${variants[variant]} ${sizes[size].className} toon pressable inline-flex items-center justify-center gap-2 rounded-full font-ui font-semibold whitespace-nowrap`}
-    >
+  const classes = `${variants[variant]} ${sizes[size].className} ${iconSide === "end" ? "flex-row-reverse" : ""} toon pressable inline-flex items-center justify-center gap-2 rounded-full font-ui font-semibold whitespace-nowrap ${className}`;
+  const handleClick = () => {
+    playClickSound();
+    onClick?.();
+  };
+  const content = (
+    <>
       {Icon && (
         <Icon
           size={sizes[size].icon}
@@ -59,6 +67,25 @@ export function Button({
         />
       )}
       {children}
+    </>
+  );
+
+  if (!href) {
+    return (
+      <button
+        type="button"
+        aria-expanded={expanded}
+        onClick={handleClick}
+        className={classes}
+      >
+        {content}
+      </button>
+    );
+  }
+
+  return (
+    <Link href={href} onClick={handleClick} className={classes}>
+      {content}
     </Link>
   );
 }

@@ -4,11 +4,16 @@ import { ArrowRight, Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Avatar } from "@/_components/ui/Avatar";
 import {
   Button,
   type ButtonIcon,
   type ButtonVariant,
 } from "@/_components/ui/Button";
+import {
+  InstallButton,
+  type InstallTexts,
+} from "@/_components/ui/InstallButton";
 import { Logo } from "@/_components/ui/Logo";
 import { playClickSound } from "@/lib/sound";
 
@@ -20,12 +25,18 @@ type HeaderAction = {
   label: string;
   href: string;
   icon: ButtonIcon;
+  iconSide?: "start" | "end";
   variant: ButtonVariant;
 };
 
-type HeaderProps = { sections: HeaderSection[]; actions: HeaderAction[] };
+type HeaderProps = {
+  sections: HeaderSection[];
+  actions: HeaderAction[];
+  install: InstallTexts;
+  account: { label: string; href: string; avatarId: string };
+};
 
-export function Header({ sections, actions }: HeaderProps) {
+export function Header({ sections, actions, install, account }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
 
@@ -64,13 +75,31 @@ export function Header({ sections, actions }: HeaderProps) {
               ))}
             </ul>
           </nav>
-          <ul aria-label="Get in" className="hidden items-center gap-3 lg:flex">
+          <ul
+            aria-label="Get in"
+            className="ml-auto flex items-center gap-3 lg:ml-0"
+          >
+            <li>
+              <Link
+                href={account.href}
+                aria-label={account.label}
+                title={account.label}
+                onClick={playClickSound}
+                className="toon pressable grid size-12 place-items-center rounded-full bg-paper"
+              >
+                <Avatar id={account.avatarId} size={32} />
+              </Link>
+            </li>
+            <li className="hidden lg:block">
+              <InstallButton {...install} />
+            </li>
             {actions.map((action) => (
-              <li key={action.href}>
+              <li key={action.href} className="hidden lg:block">
                 <Button
                   href={action.href}
                   variant={action.variant}
                   icon={action.icon}
+                  iconSide={action.iconSide}
                   size="sm"
                 >
                   {action.label}
@@ -147,11 +176,13 @@ export function Header({ sections, actions }: HeaderProps) {
                     href={action.href}
                     variant={action.variant}
                     icon={action.icon}
+                    iconSide={action.iconSide}
                     onClick={close}
                   >
                     {action.label}
                   </Button>
                 ))}
+                <InstallButton {...install} inline />
               </li>
             </ul>
           </motion.nav>

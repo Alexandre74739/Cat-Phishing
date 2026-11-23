@@ -12,13 +12,14 @@ export default function Home() {
           {
             label: "Play now",
             href: routes.play,
-            variant: "mint",
-            icon: "play",
+            variant: "sun",
+            icon: "next",
+            iconSide: "end",
           },
           {
             label: "Start coding",
             href: routes.code,
-            variant: "sun",
+            variant: "sky",
             icon: "code",
           },
         ]}

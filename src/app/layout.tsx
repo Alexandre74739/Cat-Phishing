@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Header } from "@/_components/layout/Header";
 import { MotionProvider } from "@/_components/layout/MotionProvider";
+import { defaultAvatarId } from "@/lib/avatars";
+import { installGuide } from "@/lib/installGuide";
 import { routes } from "@/lib/navigation";
 import "./globals.css";
 
@@ -27,16 +29,25 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               {
                 label: "Play",
                 href: routes.play,
-                icon: "play",
-                variant: "mint",
-              },
-              {
-                label: "Code",
-                href: routes.code,
-                icon: "code",
+                icon: "next",
+                iconSide: "end",
                 variant: "sun",
               },
             ]}
+            install={{
+              label: "Install the app",
+              help: {
+                dialogLabel: "How to install the app",
+                closeLabel: "Close",
+                edgeLabel: "Or: open in Edge",
+                guide: installGuide,
+              },
+            }}
+            account={{
+              label: "My account",
+              href: routes.account,
+              avatarId: defaultAvatarId,
+            }}
           />
           {children}
         </MotionProvider>

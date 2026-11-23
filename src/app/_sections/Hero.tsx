@@ -14,6 +14,7 @@ type HeroAction = {
   href: string;
   variant: ButtonVariant;
   icon: ButtonIcon;
+  iconSide?: "start" | "end";
 };
 
 type HeroProps = {
@@ -59,12 +60,7 @@ export function Hero({
           </p>
           <div className="mt-8 flex w-full flex-col gap-4 sm:w-auto sm:flex-row">
             {actions.map((action) => (
-              <Button
-                key={action.href}
-                href={action.href}
-                variant={action.variant}
-                icon={action.icon}
-              >
+              <Button key={action.href} {...action}>
                 {action.label}
               </Button>
             ))}
