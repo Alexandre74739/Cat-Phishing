@@ -39,6 +39,9 @@
   --font-display: "Luckiest Guy", "Trebuchet MS", sans-serif;
   --font-ui: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
   --font-sans: "Nunito", system-ui, sans-serif;
+
+  --shadow-pop: 0 4px 0 0 var(--color-ink);
+  --shadow-pop-pressed: 0 1px 0 0 var(--color-ink);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -58,4 +61,31 @@ body {
 :focus-visible {
   outline: 4px solid var(--color-grape);
   outline-offset: 3px;
+}
+
+@utility toon {
+  border: 3px solid var(--color-ink);
+  box-shadow: var(--shadow-pop);
+}
+
+@utility pressable {
+  cursor: pointer;
+  user-select: none;
+  transition:
+    transform 80ms,
+    box-shadow 80ms,
+    filter 150ms;
+
+  &:hover {
+    filter: brightness(1.08);
+  }
+
+  &:active {
+    transform: translateY(3px);
+    box-shadow: var(--shadow-pop-pressed);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }
