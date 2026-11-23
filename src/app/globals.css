@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+/* Fonts are self-hosted from public/fonts (players are minors: no request to a third-party CDN). */
+@font-face {
+  font-family: "Luckiest Guy";
+  src: url("/fonts/luckiest-guy.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fredoka";
+  src: url("/fonts/fredoka.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/nunito.woff2") format("woff2");
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+@theme {
+  --font-display: "Luckiest Guy", "Trebuchet MS", sans-serif;
+  --font-ui: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --font-sans: "Nunito", system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  font-synthesis: none;
+}
