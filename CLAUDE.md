@@ -57,14 +57,14 @@ When a task depends on one of these points, ask Alexandre instead of choosing yo
 - **Neon** (PostgreSQL, EU region). The driver/ORM is not chosen yet: ask before adding one.
 - **PWA**, mobile-first (the game is played on one phone, in portrait)
 - Deployment: Vercel
-- Tooling: ESLint (Next.js config, strict react-hooks rules), Prettier (default settings), unit tests with Node's native test runner (`node --test`)
+- Tooling: ESLint (Next.js config, strict react-hooks rules), Prettier (default settings). No automated tests for now.
 
 ## Reference project: CuboCode
 
 The block-coding part is based on **CuboCode** (`github.com/Alexandre74739/Jeux-Video-MDQ`). It is a different repo, used for reference only.
 
 - Reuse its **logic and architecture**: block definitions, program runtime/engine, level format, level verification script, drag-and-drop block editor, 3D world split into models / materials / animations.
-- **Do not copy its art direction**: no Cubo character, no Cubo palette or fonts.
+- **Reuse its art direction** (palette, "toon" style, Fredoka + Nunito) but not its character: no Cubo. Titles and the logo use Luckiest Guy.
 - **Cubo is replaced by a cube-shaped cat.** Its final design will come later, so keep the character in its own component folder so it can be swapped easily.
 - When you bring code over from CuboCode, adapt it to this repo's structure and naming. Don't paste whole files.
 
@@ -88,17 +88,19 @@ src/_components/         shared components
   cat/                   the cube-shaped cat (model, materials, animations)
 src/hooks/               shared hooks
 src/lib/                 logic with no UI (rules, blocks, runtime, levels, storage, db)
-tests/                   unit tests
 scripts/                 build / verification scripts
 ```
 
 ### Components and files
 
 - One component per file, **PascalCase** file name. Hooks start with `use`.
-- `.tsx` files stay around **100 lines max**. Past that, split them into sub-components in a sub-folder with the same name.
-- Game rules and puzzle logic go in `src/lib/`, as pure functions with no React, and they get unit tests.
+- `.tsx` files stay around **100 lines max**. Past that, split them into sub-components.
+- Small parts used by only one component (burger icon, nav link, mobile menu…) stay **in that component's file**, e.g. a single `layout/Header.tsx`. Don't scatter them into a folder of tiny files.
+- Game rules and puzzle logic go in `src/lib/`, as pure functions with no React.
+- **Page content is passed as props from `page.tsx` / `layout.tsx`.** Sections and components never hardcode their texts (titles, paragraphs, button labels, links).
 - Path alias `@/*` → `src/*`. Relative imports (`./`, `../`) only inside the same route, the same component folder (and its sub-folders) or `lib/`.
-- Code, identifiers, comments and UI text are in **English**. Keep comments short and useful (a JSDoc line on exported functions and components when it helps).
+- Code, identifiers, comments and UI text are in **English**.
+- **No comments by default**, no JSDoc. Names must make the code readable. Write a comment only for an important architectural choice or a strong decision that constrains what comes next (e.g. "sounds are synthesized with Web Audio, no audio files"), in one short line.
 - No dead code, no commented-out code, no `console.log` left behind.
 
 ### 3D (React Three Fiber)
@@ -126,7 +128,7 @@ scripts/                 build / verification scripts
 
 Players are minors:
 - Collect only what the game needs (a first name or nickname is enough, no email, no exact age).
-- No third-party trackers, no ads. Self-host fonts (no external CDN).
+- No third-party trackers, no ads. Fonts are self-hosted: `.woff2` files in `public/fonts/`, declared with `@font-face` in `globals.css` (no external CDN).
 - Data stays in the EU (Neon EU region).
 
 ## Git and traces: strict rules
@@ -142,7 +144,6 @@ Run and fix what fails:
 ```bash
 npm run lint
 npm run format:check   # or npm run format
-npm test
 npm run build
 ```
 
