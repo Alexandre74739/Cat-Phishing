@@ -31,7 +31,8 @@ export function Reveal({ id, text, keywords, badge }: RevealProps) {
 
   useMotionValueEvent(scrollYProgress, "change", (progress) => {
     setRevealed(
-      (wasRevealed) => progress >= revealEnd || (wasRevealed && progress > 0.3),
+      (wasRevealed) =>
+        progress >= revealEnd || (wasRevealed && progress > revealEnd - 0.05),
     );
   });
 

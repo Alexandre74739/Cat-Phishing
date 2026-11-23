@@ -30,19 +30,31 @@ export function RevealWord({
   const lit = Boolean(color) && revealed;
 
   return (
-    <motion.span
-      style={revealed ? { opacity: 1, y: 0 } : { opacity, y }}
-      className="mr-[0.25em] inline-block"
-    >
+    <motion.span style={{ opacity, y }} className="mr-[0.25em] inline-block">
       <motion.span
         animate={
           lit
             ? { scale: [1, 1.3, 1], rotate: [0, -6, 3, 0] }
             : { scale: 1, rotate: 0 }
         }
-        transition={{ duration: 0.7, delay }}
-        className={`inline-block rounded-xl px-1 transition-colors duration-500 ${lit ? `toon ${color}` : "border-3 border-transparent"}`}
+        transition={lit ? { duration: 0.7, delay } : { duration: 0.3 }}
+        className="relative isolate inline-block px-1"
       >
+        {color && (
+          <motion.span
+            aria-hidden="true"
+            initial={false}
+            animate={
+              lit ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.7 }
+            }
+            transition={
+              lit
+                ? { type: "spring", stiffness: 300, damping: 20, delay }
+                : { duration: 0.25, ease: "easeIn" }
+            }
+            className={`toon absolute -inset-y-0.5 inset-x-0 -z-10 rounded-xl ${color}`}
+          />
+        )}
         {word}
       </motion.span>
     </motion.span>

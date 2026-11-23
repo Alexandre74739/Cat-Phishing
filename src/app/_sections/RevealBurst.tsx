@@ -13,7 +13,7 @@ import { AnimatePresence, motion } from "motion/react";
 
 type Particle = { Icon: LucideIcon; look: string; x: number; y: number };
 
-const icons: Particle["Icon"][] = [Cat, Bug, Fish, Lock, ShieldCheck, CodeXml];
+const icons: LucideIcon[] = [Cat, Bug, Fish, Lock, ShieldCheck, CodeXml];
 const looks = [
   "bg-pink",
   "bg-coral",
@@ -34,6 +34,8 @@ const particles: Particle[] = Array.from({ length: 12 }, (_, index) => {
   };
 });
 
+const smooth = [0.22, 1, 0.36, 1] as const;
+
 type RevealBurstProps = {
   active: boolean;
   badge: string;
@@ -46,24 +48,33 @@ export function RevealBurst({ active, badge }: RevealBurstProps) {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 grid place-items-center"
       >
-        {active &&
-          particles.map(({ Icon, look, x, y }, index) => (
-            <motion.span
-              key={index}
-              initial={{ opacity: 1, x: 0, y: 0, scale: 0.3, rotate: 0 }}
-              animate={{
-                opacity: [1, 1, 0],
-                x,
-                y,
-                scale: [0.3, 1.2, 0.9],
-                rotate: index % 2 === 0 ? 180 : -180,
-              }}
-              transition={{ duration: 1.5, ease: "easeOut" }}
-              className={`toon absolute grid size-12 place-items-center rounded-xl text-ink ${look}`}
-            >
-              <Icon size={22} strokeWidth={2.5} />
-            </motion.span>
-          ))}
+        <AnimatePresence>
+          {active &&
+            particles.map(({ Icon, look, x, y }, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, scale: 0.4 }}
+                animate={{
+                  opacity: [0, 1, 1, 0],
+                  x,
+                  y,
+                  scale: [0.4, 1.1, 1, 0.5],
+                  rotate: index % 2 === 0 ? 120 : -120,
+                }}
+                exit={{ opacity: 0, transition: { duration: 0.2 } }}
+                transition={{
+                  duration: 1.6,
+                  delay: (index % 4) * 0.03,
+                  ease: smooth,
+                  opacity: { duration: 1.6, times: [0, 0.1, 0.65, 1] },
+                  scale: { duration: 1.6, times: [0, 0.25, 0.65, 1] },
+                }}
+                className={`toon absolute grid size-12 place-items-center rounded-xl text-ink ${look}`}
+              >
+                <Icon size={22} strokeWidth={2.5} />
+              </motion.span>
+            ))}
+        </AnimatePresence>
       </div>
       <div className="mt-8 flex min-h-14 justify-center">
         <AnimatePresence>
@@ -72,7 +83,11 @@ export function RevealBurst({ active, badge }: RevealBurstProps) {
               role="status"
               initial={{ opacity: 0, scale: 2.6, rotate: -18 }}
               animate={{ opacity: 1, scale: 1, rotate: -4 }}
-              exit={{ opacity: 0, scale: 0.6 }}
+              exit={{
+                opacity: 0,
+                scale: 0.8,
+                transition: { duration: 0.25, ease: "easeIn" },
+              }}
               transition={{
                 type: "spring",
                 stiffness: 320,
