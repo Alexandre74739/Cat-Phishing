@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
     agentFeedback: true,
   },
   cacheComponents: true,
+  env: {
+    APP_VERSION: process.env.VERCEL_GIT_COMMIT_SHA ?? Date.now().toString(),
+  },
   partialPrefetching: true,
   turbopack: {
     rules: {

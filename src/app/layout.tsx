@@ -1,6 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Header } from "@/_components/layout/Header";
 import { MotionProvider } from "@/_components/layout/MotionProvider";
+import { ServiceWorker } from "@/_components/layout/ServiceWorker";
+import { appColors } from "@/lib/appIcon";
 import { defaultAvatarId } from "@/lib/avatars";
 import { installGuide } from "@/lib/installGuide";
 import { routes } from "@/lib/navigation";
@@ -10,6 +12,17 @@ export const metadata: Metadata = {
   title: "Cat-phishing",
   description:
     "The party card game where cats pass a virus around and crack code puzzles. One phone, all your friends.",
+  applicationName: "Cat-phishing",
+  appleWebApp: {
+    capable: true,
+    title: "Cat-phishing",
+    statusBarStyle: "default",
+  },
+  formatDetection: { telephone: false },
+};
+
+export const viewport: Viewport = {
+  themeColor: appColors.background,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -51,6 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           />
           {children}
         </MotionProvider>
+        <ServiceWorker />
       </body>
     </html>
   );
