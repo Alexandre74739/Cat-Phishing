@@ -12,6 +12,8 @@ export type BadgeId =
   | "firstCatch"
   | "ifThen"
   | "bugSquasher"
+  | "bridgeBuilder"
+  | "lavaJumper"
   | "virusDodger"
   | "whileLoop"
   | "halfway"
@@ -25,6 +27,8 @@ export type BadgeId =
   | "kittenGraduate"
   | "gemHunter"
   | "mazeRunner"
+  | "networkFixer"
+  | "coreCooler"
   | "vaultCracker"
   | "stormChaser"
   | "loopLegend"
@@ -107,6 +111,18 @@ export const badges: Badge[] = [
     name: "Bug squasher",
     text: "Zap your first bug.",
     earned: levelDone("bugs-and-viruses", 1),
+  },
+  {
+    id: "bridgeBuilder",
+    name: "Bridge builder",
+    text: "Build your first bridge over a data stream.",
+    earned: levelDone("data-streams", 1),
+  },
+  {
+    id: "lavaJumper",
+    name: "Lava jumper",
+    text: "Jump over the lava for the first time.",
+    earned: levelDone("lava-core", 1),
   },
   {
     id: "virusDodger",
@@ -197,6 +213,18 @@ export const badges: Badge[] = [
     name: "Maze runner",
     text: "Finish all 10 levels of Firewall maze.",
     earned: courseDone("firewall-maze"),
+  },
+  {
+    id: "networkFixer",
+    name: "Network fixer",
+    text: "Finish all 10 levels of Data streams.",
+    earned: courseDone("data-streams"),
+  },
+  {
+    id: "coreCooler",
+    name: "Core cooler",
+    text: "Finish all 10 levels of Lava core.",
+    earned: courseDone("lava-core"),
   },
   {
     id: "vaultCracker",

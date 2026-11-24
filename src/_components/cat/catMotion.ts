@@ -1,16 +1,30 @@
 import * as THREE from "three";
-import { dirAngles } from "@/_components/puzzle/world3d/materials";
+import { dirAngles, turnTowards } from "@/_components/puzzle/world3d/materials";
 import type { Cat } from "@/lib/levels";
 
+type Effects = {
+  bump: number;
+  win: number;
+  nod: number;
+  wait: number;
+  sink: number;
+};
+
 export type CatMotion = {
-  effects: { bump: number; win: number; nod: number; wait: number };
+  effects: Effects;
+  hopHeight: number;
   waitTotal: number;
   span: { tx: number; tz: number; distance: number };
   snap: boolean;
 };
 
+const calm = (): Effects => ({ bump: 0, win: 0, nod: 0, wait: 0, sink: 0 });
+
+const hopHeights: Partial<Record<string, number>> = { move: 0.35, jump: 0.95 };
+
 export const createMotion = (): CatMotion => ({
-  effects: { bump: 0, win: 0, nod: 0, wait: 0 },
+  effects: calm(),
+  hopHeight: 0.35,
   waitTotal: 1,
   span: { tx: NaN, tz: NaN, distance: 1 },
   snap: true,
@@ -18,21 +32,20 @@ export const createMotion = (): CatMotion => ({
 
 export function applyEvent(motion: CatMotion, kind: string, duration = 0.5) {
   if (kind === "bump" || kind === "caught") motion.effects.bump = 1;
-  if (kind === "grab" || kind === "nothing") motion.effects.nod = 1;
+  if (["grab", "key", "nothing", "bridge", "smash", "open"].includes(kind))
+    motion.effects.nod = 1;
+  if (kind === "splash" || kind === "burn") motion.effects.sink = 0.001;
+  motion.hopHeight = hopHeights[kind] ?? motion.hopHeight;
   if (kind === "wait") {
     motion.effects.wait = duration;
     motion.waitTotal = duration;
   }
   if (kind === "win") motion.effects.win = 0.001;
   if (kind === "reset") {
-    motion.effects = { bump: 0, win: 0, nod: 0, wait: 0 };
+    motion.effects = calm();
     motion.snap = true;
   }
 }
-
-const turnTowards = (from: number, to: number) =>
-  ((((to - from + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2)) -
-  Math.PI;
 
 export function stepCat(
   motion: CatMotion,
@@ -65,7 +78,8 @@ export function stepCat(
   }
   const remaining = Math.hypot(tx - root.position.x, tz - root.position.z);
   const progress = Math.min(1, remaining / span.distance);
-  let hop = span.distance > 0.05 ? Math.sin(progress * Math.PI) * 0.35 : 0;
+  let hop =
+    span.distance > 0.05 ? Math.sin(progress * Math.PI) * motion.hopHeight : 0;
 
   body.rotation.x = 0;
   body.position.z = 0;
@@ -95,4 +109,9 @@ export function stepCat(
     body.rotation.y = effects.win * 9;
   }
   body.position.y = 0.33 + hop;
+  if (effects.sink > 0) {
+    effects.sink = Math.min(1, effects.sink + delta * 1.6);
+    body.position.y -= effects.sink * 0.6;
+    body.rotation.z = Math.sin(effects.sink * Math.PI * 4) * 0.25;
+  }
 }

@@ -14,7 +14,7 @@ export type LevelTexts = {
   };
   story: { listen: string };
   difficulty: string[];
-  world: WorldViewTexts & { gems: string };
+  world: WorldViewTexts & { gems: string; keys: string };
   editor: EditorTexts;
   controls: {
     run: string;

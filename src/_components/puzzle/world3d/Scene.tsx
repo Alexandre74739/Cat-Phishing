@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { CatModel } from "@/_components/cat/CatModel";
-import { cellKey, type World } from "@/lib/levels";
+import { cellKey, tileAt, type World } from "@/lib/levels";
 import { Burst, burstColors, type BurstSpec } from "./Burst";
 import { Fit } from "./Fit";
 import { Lights } from "./Lights";
@@ -10,6 +10,7 @@ import { Tile } from "./Tile";
 import { Chest } from "./Chest";
 import { Bug } from "./Bug";
 import { Gem } from "./Gem";
+import { KeyItem } from "./Obstacles";
 import { VirusModel } from "./VirusModel";
 import type { WorldEvent } from "./types";
 
@@ -47,15 +48,19 @@ export function Scene({ world, event }: { world: World; event: WorldEvent }) {
               y={y}
               south={y === world.height - 1}
               east={x === world.width - 1}
+              eastWest={tileAt(world, { x: x - 1, y }) !== "#"}
             />
             {world.goal.x === x && world.goal.y === y && (
               <Chest open={event.kind === "win"} />
             )}
             {world.gems.includes(cellKey({ x, y })) && <Gem />}
-            {world.bugs.includes(cellKey({ x, y })) && <Bug seed={x * 7 + y} />}
+            {world.keys.includes(cellKey({ x, y })) && <KeyItem />}
           </group>
         )),
       )}
+      {world.bugs.map((bug) => (
+        <Bug key={bug.id} bug={bug} offset={offset} />
+      ))}
       {world.viruses.map((virus) => (
         <VirusModel key={virus.id} virus={virus} offset={offset} />
       ))}

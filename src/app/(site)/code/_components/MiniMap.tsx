@@ -1,5 +1,6 @@
 import type { Level } from "@/lib/courses";
-import { buildWorld, cellKey } from "@/lib/levels";
+import { tileBackground } from "@/_components/puzzle/world2d/tileLooks";
+import { buildWorld, cellKey, type Tile } from "@/lib/levels";
 
 const items = {
   cat: "rounded-[22%] bg-fur ring-[length:clamp(1px,0.18em,3px)] ring-ink inset-[18%]",
@@ -9,11 +10,19 @@ const items = {
   bug: "rounded-[30%] bg-slime inset-[20%] ring-[length:clamp(1px,0.18em,3px)] ring-ink",
   virus:
     "rounded-[22%] bg-coral inset-[20%] ring-[length:clamp(1px,0.18em,3px)] ring-ink",
+  key: "rounded-full bg-sun inset-[28%] ring-[length:clamp(1px,0.15em,2px)] ring-ink",
+};
+
+const tileMarks: Partial<Record<Tile, string>> = {
+  "#": "inset-[12%] rounded-[22%] border-[length:clamp(1px,0.16em,3px)] border-ink bg-block-alt",
+  R: "inset-[14%] rounded-[22%] border-[length:clamp(1px,0.16em,3px)] border-ink bg-rock",
+  D: "inset-[14%] rounded-t-[40%] border-[length:clamp(1px,0.16em,3px)] border-ink bg-coral",
 };
 
 export function MiniMap({ level, label }: { level: Level; label: string }) {
   const world = buildWorld(level);
   const viruses = new Set(world.viruses.map(cellKey));
+  const bugs = new Set(world.bugs.map(cellKey));
   const size = `min(${92 / world.width}cqw, ${80 / world.height}cqh)`;
 
   const itemAt = (x: number, y: number) => {
@@ -21,7 +30,8 @@ export function MiniMap({ level, label }: { level: Level; label: string }) {
     if (world.cat.x === x && world.cat.y === y) return items.cat;
     if (world.goal.x === x && world.goal.y === y) return items.chest;
     if (viruses.has(key)) return items.virus;
-    if (world.bugs.includes(key)) return items.bug;
+    if (bugs.has(key)) return items.bug;
+    if (world.keys.includes(key)) return items.key;
     if (world.gems.includes(key)) return items.gem;
     return null;
   };
@@ -43,15 +53,14 @@ export function MiniMap({ level, label }: { level: Level; label: string }) {
         {world.tiles.flatMap((row, y) =>
           row.map((tile, x) => {
             const item = itemAt(x, y);
+            const mark = tileMarks[tile];
             return (
               <span
                 key={`${x},${y}`}
-                className={`relative ${tile === "#" ? "bg-block-dark" : (x + y) % 2 ? "bg-lane-alt" : "bg-lane"}`}
+                className={`relative ${tileBackground(tile, (x + y) % 2 === 1)}`}
                 style={{ width: size, height: size }}
               >
-                {tile === "#" && (
-                  <span className="absolute inset-[12%] rounded-[22%] border-[length:clamp(1px,0.16em,3px)] border-ink bg-block-alt" />
-                )}
+                {mark && <span className={`absolute ${mark}`} />}
                 {item && <span className={`absolute ${item}`} />}
               </span>
             );

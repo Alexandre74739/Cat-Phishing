@@ -86,6 +86,25 @@ const sounds = {
   },
   nothing: () => tone(220, 0.12, { type: "triangle", volume: 0.1, slide: 0.8 }),
   wait: () => tone(520, 0.06, { type: "triangle", volume: 0.08 }),
+  jump: () => tone(330, 0.3, { type: "triangle", volume: 0.14, slide: 2.4 }),
+  key: () => arpeggio([1568, 2093], 0.12, 0.07),
+  bridge: () => {
+    tone(392, 0.08, { type: "square", volume: 0.06 });
+    tone(523, 0.12, { type: "triangle", volume: 0.1, delay: 0.08 });
+  },
+  smash: () => {
+    noise(0.35, 0.3, 900);
+    tone(140, 0.2, { type: "square", volume: 0.08, slide: 0.6 });
+  },
+  open: () => arpeggio([523, 784, 1047], 0.12, 0.07),
+  splash: () => {
+    noise(0.5, 0.22, 1400);
+    tone(700, 0.4, { type: "sine", volume: 0.1, slide: 0.4 });
+  },
+  burn: () => {
+    noise(0.6, 0.25, 4000);
+    tone(500, 0.4, { type: "sawtooth", volume: 0.05, slide: 0.3 });
+  },
   check: () => tone(740, 0.04, { type: "triangle", volume: 0.06 }),
   bump: () => tone(160, 0.25, { type: "square", volume: 0.1, slide: 0.5 }),
   caught: () => {

@@ -7,6 +7,7 @@ import {
 import { countBlocks, type Block, type BlockType } from "./blocks";
 import { bugsAndViruses } from "./bugLevels";
 import { gemHunt, kittenSteps } from "./easyLevels";
+import { dataStreams, lavaCore } from "./obstacleLevels";
 import {
   antivirus,
   collecting,
@@ -373,7 +374,7 @@ const phishMarket: RawLevel[] = [
   {
     title: "First catch",
     concept: "Actions",
-    goal: "A shiny gem! Stand on it and use “grab gem” before reaching the chest.",
+    goal: "A shiny gem! Stand on it and use “grab” before reaching the chest.",
     tip: "Forward 2 times, grab, forward 2 times.",
     blocks: ["forward", "grab"],
     startDir: 1,
@@ -749,20 +750,10 @@ export const courses: Course[] = [
     title: "Data loops",
     subtitle: "Loops inside loops and “repeat until”.",
     difficulty: 2,
-    color: "bg-mint",
+    color: "bg-sun",
     newBlocks: ["repeat", "until"],
     preview: 7,
     levels: withOptimal(dataLoops),
-  },
-  {
-    slug: "bugs-and-viruses",
-    title: "Bugs & viruses",
-    subtitle: "Zap the bugs, wait for the viruses.",
-    difficulty: 2,
-    color: "bg-slime",
-    newBlocks: ["zap", "ifBug", "wait", "whileVirus"],
-    preview: 5,
-    levels: withOptimal(bugsAndViruses),
   },
   {
     slug: "firewall-maze",
@@ -773,6 +764,16 @@ export const courses: Course[] = [
     newBlocks: ["until", "ifWall"],
     preview: 9,
     levels: withOptimal(firewallMaze),
+  },
+  {
+    slug: "data-streams",
+    title: "Data streams",
+    subtitle: "Bridge the streams, smash the spam, unlock the gates.",
+    difficulty: 2,
+    color: "bg-gem",
+    newBlocks: ["bridge", "smash", "open", "ifStream", "ifSpam", "ifGate"],
+    preview: 9,
+    levels: withOptimal(dataStreams),
   },
   {
     slug: "phish-market",
@@ -793,6 +794,26 @@ export const courses: Course[] = [
     newBlocks: ["grab", "ifGem"],
     preview: 9,
     levels: withOptimal(gemVault),
+  },
+  {
+    slug: "bugs-and-viruses",
+    title: "Bugs & viruses",
+    subtitle: "Zap the moving bugs, wait for the viruses.",
+    difficulty: 3,
+    color: "bg-slime",
+    newBlocks: ["zap", "ifBug", "wait", "whileVirus"],
+    preview: 6,
+    levels: withOptimal(bugsAndViruses),
+  },
+  {
+    slug: "lava-core",
+    title: "Lava core",
+    subtitle: "Jump over the lava and dodge the moving bugs.",
+    difficulty: 3,
+    color: "bg-orange",
+    newBlocks: ["jump", "ifLava"],
+    preview: 9,
+    levels: withOptimal(lavaCore),
   },
   {
     slug: "virus-patrol",

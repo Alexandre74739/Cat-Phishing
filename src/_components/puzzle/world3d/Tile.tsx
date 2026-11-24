@@ -3,7 +3,9 @@
 import type { Tile as TileKind } from "@/lib/levels";
 import { Box, Details, type Detail } from "./Box";
 import { Component } from "./Component";
+import { Lava, Stream } from "./Liquid";
 import { groundMaterials, hash, materials } from "./materials";
+import { Gate, SpamRock } from "./Obstacles";
 
 const boardTraces: Detail[] = [
   [[0.44, 0.012, 0.05], [0.18, 0.006, 0.42], materials.boardTrace],
@@ -33,11 +35,16 @@ type TileProps = {
   y: number;
   south: boolean;
   east: boolean;
+  eastWest: boolean;
 };
 
-export function Tile({ tile, x, y, south, east }: TileProps) {
+export function Tile({ tile, x, y, south, east, eastWest }: TileProps) {
   const wall = tile === "#";
   const seed = hash(x, y);
+
+  if (tile === "~" || tile === "=")
+    return <Stream seed={seed} bridged={tile === "="} />;
+  if (tile === "L") return <Lava seed={seed} />;
 
   return (
     <group>
@@ -52,6 +59,10 @@ export function Tile({ tile, x, y, south, east }: TileProps) {
           {seed % 3 === 0 && <Details parts={boardTraces} />}
           <Component seed={seed} />
         </>
+      )}
+      {tile === "R" && <SpamRock seed={seed} />}
+      {(tile === "D" || tile === "O") && (
+        <Gate open={tile === "O"} eastWest={eastWest} />
       )}
     </group>
   );

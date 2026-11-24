@@ -1,23 +1,37 @@
-import type { Block } from "./blocks";
+import type { Block, BlockType } from "./blocks";
+import {
+  bugsInRange,
+  catcher,
+  enemyAt,
+  patrolAll,
+  virusComing,
+} from "./enemies";
 import {
   ahead,
   cellKey,
-  isWalkable,
+  setTile,
   tileAt,
   turn,
   type Point,
-  type Virus,
+  type Tile,
   type World,
 } from "./levels";
 
 export type StepKind =
   | "move"
+  | "jump"
   | "turn"
   | "grab"
+  | "key"
   | "zap"
+  | "bridge"
+  | "smash"
+  | "open"
   | "nothing"
   | "wait"
   | "bump"
+  | "splash"
+  | "burn"
   | "caught"
   | "check"
   | "win";
@@ -32,6 +46,10 @@ export type Step = {
 export type FailReason =
   | "empty"
   | "blocked"
+  | "spam"
+  | "locked"
+  | "stream"
+  | "lava"
   | "bug"
   | "virus"
   | "gemsMissing"
@@ -40,24 +58,39 @@ export type FailReason =
 
 export type Outcome = { ok: true } | { ok: false; reason: FailReason };
 
-const maxSteps = 400;
+const maxSteps = 600;
 
 const same = (a: Point, b: Point) => a.x === b.x && a.y === b.y;
 
-function patrol(world: World, virus: Virus): Virus {
-  for (const dir of [virus.dir, turn(virus.dir, 2)]) {
-    const next = ahead(virus, dir);
-    if (isWalkable(tileAt(world, next)) && !world.bugs.includes(cellKey(next)))
-      return { ...virus, ...next, dir };
-  }
-  return virus;
-}
+const solidReasons: Partial<Record<Tile, FailReason>> = {
+  "#": "blocked",
+  R: "spam",
+  D: "locked",
+};
+
+const tileChecks: Partial<Record<BlockType, Tile>> = {
+  ifWall: "#",
+  ifStream: "~",
+  ifSpam: "R",
+  ifGate: "D",
+  ifLava: "L",
+};
+
+const tileActions: Partial<
+  Record<BlockType, { from: Tile; to: Tile; kind: StepKind }>
+> = {
+  bridge: { from: "~", to: "=", kind: "bridge" },
+  smash: { from: "R", to: ".", kind: "smash" },
+  open: { from: "D", to: "O", kind: "open" },
+};
 
 class Stop {
   constructor(readonly outcome: Outcome) {}
 }
 
-// Viruses take one step each time the cat moves or waits; turning is free.
+const fail = (reason: FailReason) => new Stop({ ok: false, reason });
+
+// Turning, grabbing, zapping and building are free: only moving, jumping and waiting let the enemies step.
 // The program must end on the chest with every gem grabbed.
 export function* runProgram(
   start: World,
@@ -74,61 +107,128 @@ export function* runProgram(
     at,
   });
 
-  function* act(blockId: string, kind: "move" | "wait", to: Point) {
+  function* act(blockId: string, kind: StepKind, to: Point) {
     const from = world.cat;
-    const viruses = world.viruses.map((virus) => patrol(world, virus));
-    const caught = viruses.some(
-      (virus, index) =>
-        same(virus, to) ||
-        (same(virus, from) && same(world.viruses[index], to)),
-    );
-    world = { ...world, cat: { ...from, ...to }, viruses };
+    const moved = patrolAll(world);
+    const caughtBy = catcher(world, moved, from, to);
+    world = { ...world, cat: { ...from, ...to }, ...moved };
     yield snap(kind, blockId);
-    if (caught) {
+    if (caughtBy) {
       yield snap("caught", blockId, to);
-      throw new Stop({ ok: false, reason: "virus" });
+      throw fail(caughtBy);
     }
   }
 
-  const virusAhead = () => {
-    const next = ahead(world.cat, world.cat.dir);
-    return world.viruses.some(
-      (virus) => same(virus, next) || same(patrol(world, virus), next),
-    );
-  };
+  function* fall(blockId: string, at: Point, tile: "~" | "L") {
+    world = { ...world, cat: { ...world.cat, ...at } };
+    yield snap(tile === "~" ? "splash" : "burn", blockId, at);
+    throw fail(tile === "~" ? "stream" : "lava");
+  }
+
+  function* enter(blockId: string, kind: StepKind, to: Point) {
+    const tile = tileAt(world, to);
+    const solid = solidReasons[tile];
+    if (solid) {
+      yield snap("bump", blockId, to);
+      throw fail(solid);
+    }
+    const enemy = enemyAt(world, to);
+    if (enemy) {
+      world = { ...world, cat: { ...world.cat, ...to } };
+      yield snap("caught", blockId, to);
+      throw fail(enemy);
+    }
+    if (tile === "~" || tile === "L") yield* fall(blockId, to, tile);
+    yield* act(blockId, kind, to);
+  }
+
+  function* jump(blockId: string) {
+    const over = ahead(world.cat, world.cat.dir);
+    const tile = tileAt(world, over);
+    const solid = solidReasons[tile];
+    if (solid) {
+      yield snap("bump", blockId, over);
+      throw fail(solid);
+    }
+    if (tile === "~") yield* fall(blockId, over, tile);
+    const enemy = enemyAt(world, over);
+    if (enemy) {
+      world = { ...world, cat: { ...world.cat, ...over } };
+      yield snap("caught", blockId, over);
+      throw fail(enemy);
+    }
+    yield* enter(blockId, "jump", ahead(over, world.cat.dir));
+  }
+
+  function* grab(blockId: string) {
+    const key = cellKey(world.cat);
+    if (world.gems.includes(key)) {
+      world = { ...world, gems: world.gems.filter((gem) => gem !== key) };
+      yield snap("grab", blockId, world.cat);
+    } else if (world.keys.includes(key)) {
+      world = {
+        ...world,
+        keys: world.keys.filter((item) => item !== key),
+        keysHeld: world.keysHeld + 1,
+      };
+      yield snap("key", blockId, world.cat);
+    } else yield snap("nothing", blockId);
+  }
+
+  function* changeTile(block: Block) {
+    const action = tileActions[block.type];
+    const front = ahead(world.cat, world.cat.dir);
+    const locked = block.type === "open" && world.keysHeld === 0;
+    if (!action || tileAt(world, front) !== action.from || locked) {
+      yield snap("nothing", block.id);
+      return;
+    }
+    world = setTile(world, front, action.to);
+    if (block.type === "open")
+      world = { ...world, keysHeld: world.keysHeld - 1 };
+    yield snap(action.kind, block.id, front);
+  }
+
+  function* zap(blockId: string) {
+    const zapped = bugsInRange(world);
+    if (zapped.length === 0) {
+      yield snap("nothing", blockId);
+      return;
+    }
+    world = {
+      ...world,
+      bugs: world.bugs.filter((bug) => !zapped.includes(bug)),
+    };
+    yield snap("zap", blockId, zapped[0]);
+  }
 
   function* loop(block: Block, keepGoing: () => boolean) {
     const children = block.children ?? [];
     while (keepGoing()) {
-      if (children.length === 0)
-        throw new Stop({ ok: false, reason: "tooLong" });
+      if (children.length === 0) throw fail("tooLong");
       yield* run(children);
     }
   }
 
+  const holds = (type: BlockType) => {
+    const front = ahead(world.cat, world.cat.dir);
+    const tile = tileChecks[type];
+    if (tile) return tileAt(world, front) === tile;
+    if (type === "ifGem") return world.gems.includes(cellKey(world.cat));
+    return bugsInRange(world).length > 0;
+  };
+
   function* run(list: Block[]): Generator<Step, void> {
     for (const block of list) {
-      if (++steps > maxSteps) throw new Stop({ ok: false, reason: "tooLong" });
+      if (++steps > maxSteps) throw fail("tooLong");
       const { cat } = world;
       switch (block.type) {
-        case "forward": {
-          const next = ahead(cat, cat.dir);
-          if (!isWalkable(tileAt(world, next))) {
-            yield snap("bump", block.id, next);
-            throw new Stop({ ok: false, reason: "blocked" });
-          }
-          if (world.bugs.includes(cellKey(next))) {
-            yield snap("bump", block.id, next);
-            throw new Stop({ ok: false, reason: "bug" });
-          }
-          if (world.viruses.some((virus) => same(virus, next))) {
-            world = { ...world, cat: { ...cat, ...next } };
-            yield snap("caught", block.id, next);
-            throw new Stop({ ok: false, reason: "virus" });
-          }
-          yield* act(block.id, "move", next);
+        case "forward":
+          yield* enter(block.id, "move", ahead(cat, cat.dir));
           break;
-        }
+        case "jump":
+          yield* jump(block.id);
+          break;
         case "left":
         case "right":
           world = {
@@ -137,27 +237,17 @@ export function* runProgram(
           };
           yield snap("turn", block.id);
           break;
-        case "grab": {
-          const key = cellKey(cat);
-          if (!world.gems.includes(key)) {
-            yield snap("nothing", block.id);
-            break;
-          }
-          world = { ...world, gems: world.gems.filter((gem) => gem !== key) };
-          yield snap("grab", block.id, cat);
+        case "grab":
+          yield* grab(block.id);
           break;
-        }
-        case "zap": {
-          const next = ahead(cat, cat.dir);
-          const key = cellKey(next);
-          if (!world.bugs.includes(key)) {
-            yield snap("nothing", block.id);
-            break;
-          }
-          world = { ...world, bugs: world.bugs.filter((bug) => bug !== key) };
-          yield snap("zap", block.id, next);
+        case "zap":
+          yield* zap(block.id);
           break;
-        }
+        case "bridge":
+        case "smash":
+        case "open":
+          yield* changeTile(block);
+          break;
         case "wait":
           yield* act(block.id, "wait", cat);
           break;
@@ -169,21 +259,12 @@ export function* runProgram(
           yield* loop(block, () => !same(world.cat, world.goal));
           break;
         case "whileVirus":
-          yield* loop(block, virusAhead);
+          yield* loop(block, () => virusComing(world));
           break;
-        case "ifWall":
-        case "ifGem":
-        case "ifBug": {
-          const front = ahead(cat, cat.dir);
-          const yes =
-            block.type === "ifWall"
-              ? !isWalkable(tileAt(world, front))
-              : block.type === "ifGem"
-                ? world.gems.includes(cellKey(cat))
-                : world.bugs.includes(cellKey(front));
+        default: {
+          const yes = holds(block.type);
           yield snap("check", block.id);
           if (yes) yield* run(block.children ?? []);
-          break;
         }
       }
     }

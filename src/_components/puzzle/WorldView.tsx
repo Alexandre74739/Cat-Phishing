@@ -1,6 +1,6 @@
 "use client";
 
-import { Gem } from "lucide-react";
+import { Gem, KeyRound } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import type { World } from "@/lib/levels";
@@ -18,6 +18,7 @@ export type WorldViewTexts = {
   show2d: string;
   show3d: string;
   gems?: string;
+  keys?: string;
 };
 
 type WorldViewProps = {
@@ -58,20 +59,36 @@ export function WorldView({
           flat
         )}
       </div>
-      {world.totalGems > 0 && (
-        <p
-          className={`${chip} absolute top-2 left-2`}
-          aria-label={`${world.totalGems - world.gems.length} / ${world.totalGems} ${texts.gems ?? ""}`}
-        >
-          <Gem
-            size={18}
-            strokeWidth={2.5}
-            className="fill-gem"
-            aria-hidden="true"
-          />
-          {world.totalGems - world.gems.length} / {world.totalGems}
-        </p>
-      )}
+      <div className="absolute top-2 left-2 flex flex-col items-start gap-1.5">
+        {world.totalGems > 0 && (
+          <p
+            className={chip}
+            aria-label={`${world.totalGems - world.gems.length} / ${world.totalGems} ${texts.gems ?? ""}`}
+          >
+            <Gem
+              size={18}
+              strokeWidth={2.5}
+              className="fill-gem"
+              aria-hidden="true"
+            />
+            {world.totalGems - world.gems.length} / {world.totalGems}
+          </p>
+        )}
+        {world.keysHeld > 0 && (
+          <p
+            className={chip}
+            aria-label={`${world.keysHeld} ${texts.keys ?? ""}`}
+          >
+            <KeyRound
+              size={18}
+              strokeWidth={2.5}
+              className="fill-sun"
+              aria-hidden="true"
+            />
+            {world.keysHeld}
+          </p>
+        )}
+      </div>
       <button
         type="button"
         onClick={() => {

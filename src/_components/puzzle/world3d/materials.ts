@@ -18,6 +18,13 @@ export const palette = {
   orange: "#f39d43",
   violet: "#814f96",
   turquoise: "#68c1be",
+  wood: "#b5672d",
+  stream: "#3aa6e8",
+  streamSoft: "#bfe6fb",
+  lava: "#ff5a1f",
+  lavaDark: "#8c2a14",
+  rock: "#a99bbd",
+  rockDark: "#7d6e94",
 };
 
 export const flat = (
@@ -44,7 +51,29 @@ export const materials = {
   pin: flat("#c9ced8"),
   capacitor: flat(palette.orange),
   capacitorTop: flat(palette.cream),
-  wood: flat("#b5672d"),
+  wood: flat(palette.wood),
+  stream: new THREE.MeshPhongMaterial({
+    color: palette.stream,
+    emissive: "#0b3f73",
+    shininess: 120,
+    transparent: true,
+    opacity: 0.9,
+  }),
+  streamBit: glow(palette.streamSoft),
+  streamBed: flat("#1f5f96"),
+  lava: new THREE.MeshPhongMaterial({
+    color: palette.lava,
+    emissive: "#ff3d00",
+    emissiveIntensity: 0.8,
+    flatShading: true,
+  }),
+  lavaBed: flat(palette.lavaDark),
+  ember: glow(palette.sun),
+  rock: flat(palette.rock),
+  rockDark: flat(palette.rockDark),
+  mail: flat(palette.paper),
+  gate: flat(palette.coral),
+  gatePost: flat(palette.violet),
   coins: new THREE.MeshPhongMaterial({
     color: palette.sun,
     emissive: "#a07800",
@@ -110,3 +139,7 @@ export const hash = (x: number, y: number) =>
   ((x * 73856093) ^ (y * 19349663)) >>> 0;
 
 export const dirAngles = [Math.PI, Math.PI / 2, 0, -Math.PI / 2];
+
+export const turnTowards = (from: number, to: number) =>
+  ((((to - from + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2)) -
+  Math.PI;

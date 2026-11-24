@@ -28,3 +28,12 @@ export const antivirus: BlockType[] = [
 ];
 export const zap = () => createBlock("zap");
 export const ifBug = (children: Block[]) => createBlock("ifBug", children);
+export const bridge = () => createBlock("bridge");
+export const smash = () => createBlock("smash");
+export const open = () => createBlock("open");
+export const jump = () => createBlock("jump");
+export const ifStream = (children: Block[]) =>
+  createBlock("ifStream", children);
+export const ifSpam = (children: Block[]) => createBlock("ifSpam", children);
+export const ifGate = (children: Block[]) => createBlock("ifGate", children);
+export const ifLava = (children: Block[]) => createBlock("ifLava", children);

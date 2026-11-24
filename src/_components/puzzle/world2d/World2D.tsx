@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUp, Biohazard } from "lucide-react";
+import { ArrowUp, Biohazard, KeyRound } from "lucide-react";
 import { motion } from "motion/react";
 import { CatFace } from "@/_components/cat/CatFace";
 import type { WorldEvent } from "@/_components/puzzle/world3d/types";
@@ -8,13 +8,15 @@ import { cellKey, type World } from "@/lib/levels";
 import { BugTile } from "./BugTile";
 import { ChestIcon } from "./ChestIcon";
 import { Piece } from "./Piece";
+import { TileArt } from "./TileArt";
+import { tileBackground } from "./tileLooks";
 
 type World2DProps = { world: World; event: WorldEvent; label: string };
 
 export function World2D({ world, event, label }: World2DProps) {
   const size = `min(${96 / world.width}cqw, ${94 / world.height}cqh)`;
   const won = event.kind === "win";
-  const hurt = event.kind === "bump" || event.kind === "caught";
+  const hurt = ["bump", "caught", "splash", "burn"].includes(event.kind);
 
   return (
     <div
@@ -32,26 +34,28 @@ export function World2D({ world, event, label }: World2DProps) {
             <div
               key={`${x},${y}`}
               style={{ width: size, height: size }}
-              className={`relative grid place-items-center ${tile === "#" ? "bg-block-dark" : (x + y) % 2 ? "bg-lane-alt" : "bg-lane"}`}
+              className={`relative grid place-items-center ${tileBackground(tile, (x + y) % 2 === 1)}`}
             >
-              {tile === "#" && (
-                <span
-                  className={`absolute inset-[14%] rounded-[18%] border-[3px] border-ink shadow-[3px_4px_0_color-mix(in_srgb,var(--color-ink)_35%,transparent)] ${(x * 7 + y * 3) % 2 ? "bg-block" : "bg-block-alt"}`}
-                >
-                  <span className="absolute inset-x-[18%] top-[26%] h-[12%] rounded-full bg-ink/80" />
-                  <span className="absolute inset-x-[18%] top-[50%] h-[12%] rounded-full bg-ink/80" />
-                </span>
-              )}
+              <TileArt tile={tile} odd={(x * 7 + y * 3) % 2 === 1} />
               {world.goal.x === x && world.goal.y === y && (
                 <ChestIcon open={won} />
               )}
-              {world.bugs.includes(cellKey({ x, y })) && <BugTile />}
+              {world.keys.includes(cellKey({ x, y })) && (
+                <span className="toon absolute inset-[24%] grid place-items-center rounded-full bg-sun text-ink">
+                  <KeyRound className="size-3/4" strokeWidth={2.75} />
+                </span>
+              )}
               {world.gems.includes(cellKey({ x, y })) && (
                 <span className="absolute inset-[30%] rotate-45 rounded-[15%] border-[3px] border-ink bg-gem motion-safe:animate-pulse" />
               )}
             </div>
           )),
         )}
+        {world.bugs.map((bug) => (
+          <Piece key={bug.id} at={bug} size={size}>
+            <BugTile />
+          </Piece>
+        ))}
         {world.viruses.map((virus) => (
           <Piece key={virus.id} at={virus} size={size}>
             <motion.span

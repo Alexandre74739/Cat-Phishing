@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { courses, levelsPerCourse } from "@/lib/courses";
 import { BadgeList } from "./_components/BadgeList";
 import { CourseList } from "./_components/CourseList";
 
@@ -15,9 +16,10 @@ export default function CodePage() {
           Code puzzles
         </h1>
         <p className="mx-auto mt-5 max-w-2xl text-center text-lg font-semibold text-ink">
-          11 courses, 10 levels each. Snap code blocks together to guide the
-          cube cat to the treasure chest, grab the shiny gems, zap the bugs and
-          dodge the viruses!
+          {courses.length} courses, {levelsPerCourse} levels each. Snap code
+          blocks together to guide the cube cat to the treasure chest: grab the
+          gems, bridge the streams, jump over the lava, zap the bugs and dodge
+          the viruses!
         </p>
         <div className="mt-14">
           <CourseList
@@ -43,7 +45,7 @@ export default function CodePage() {
                 forward: "move forward",
                 left: "turn left",
                 right: "turn right",
-                grab: "grab gem",
+                grab: "grab",
                 zap: "zap bug",
                 wait: "wait",
                 repeat: "repeat",
@@ -52,6 +54,14 @@ export default function CodePage() {
                 ifGem: "if gem here",
                 ifBug: "if bug ahead",
                 whileVirus: "while virus ahead",
+                bridge: "build bridge",
+                smash: "smash spam",
+                open: "open gate",
+                jump: "jump",
+                ifStream: "if stream ahead",
+                ifSpam: "if spam ahead",
+                ifGate: "if gate ahead",
+                ifLava: "if lava ahead",
               },
             }}
           />

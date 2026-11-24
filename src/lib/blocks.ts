@@ -10,7 +10,15 @@ export type BlockType =
   | "ifWall"
   | "ifGem"
   | "ifBug"
-  | "whileVirus";
+  | "whileVirus"
+  | "bridge"
+  | "smash"
+  | "open"
+  | "jump"
+  | "ifStream"
+  | "ifSpam"
+  | "ifGate"
+  | "ifLava";
 
 export type Block = {
   id: string;
@@ -26,6 +34,10 @@ export const containerTypes: BlockType[] = [
   "ifGem",
   "ifBug",
   "whileVirus",
+  "ifStream",
+  "ifSpam",
+  "ifGate",
+  "ifLava",
 ];
 
 export const isContainer = (type: BlockType) => containerTypes.includes(type);
