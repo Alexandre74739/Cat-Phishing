@@ -1,8 +1,8 @@
 import { Footer } from "@/_components/layout/Footer";
 import { Header } from "@/_components/layout/Header";
-import { defaultAvatarId } from "@/lib/avatars";
 import { installGuide } from "@/lib/installGuide";
 import { routes } from "@/lib/navigation";
+import { playerTexts } from "@/lib/playerTexts";
 
 const sections = [
   { id: "about", label: "About" },
@@ -34,11 +34,7 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
             guide: installGuide,
           },
         }}
-        account={{
-          label: "My account",
-          href: routes.account,
-          avatarId: defaultAvatarId,
-        }}
+        players={playerTexts}
       />
       {children}
       <Footer

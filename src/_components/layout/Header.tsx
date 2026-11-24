@@ -4,7 +4,7 @@ import { ArrowRight, Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Avatar } from "@/_components/ui/Avatar";
+import { PlayerMenu } from "@/_components/player/PlayerMenu";
 import {
   Button,
   type ButtonIcon,
@@ -15,6 +15,7 @@ import {
   type InstallTexts,
 } from "@/_components/ui/InstallButton";
 import { Logo } from "@/_components/ui/Logo";
+import type { PlayerTexts } from "@/lib/playerTexts";
 import { playClickSound } from "@/lib/sound";
 
 const MotionLink = motion.create(Link);
@@ -33,10 +34,10 @@ type HeaderProps = {
   sections: HeaderSection[];
   actions: HeaderAction[];
   install: InstallTexts;
-  account: { label: string; href: string; avatarId: string };
+  players: PlayerTexts;
 };
 
-export function Header({ sections, actions, install, account }: HeaderProps) {
+export function Header({ sections, actions, install, players }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
 
@@ -80,15 +81,7 @@ export function Header({ sections, actions, install, account }: HeaderProps) {
             className="ml-auto flex items-center gap-3 lg:ml-0"
           >
             <li>
-              <Link
-                href={account.href}
-                aria-label={account.label}
-                title={account.label}
-                onClick={playClickSound}
-                className="toon pressable grid size-12 place-items-center rounded-full bg-paper"
-              >
-                <Avatar id={account.avatarId} size={32} />
-              </Link>
+              <PlayerMenu texts={players} />
             </li>
             <li className="hidden lg:block">
               <InstallButton {...install} />

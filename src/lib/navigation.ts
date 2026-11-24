@@ -2,7 +2,6 @@ export const routes = {
   home: "/",
   play: "/play",
   code: "/code",
-  account: "/account",
   legalNotice: "/legal-notice",
   privacy: "/privacy",
   terms: "/terms",
