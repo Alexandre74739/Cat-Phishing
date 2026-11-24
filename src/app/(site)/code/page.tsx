@@ -23,6 +23,12 @@ export default function CodePage() {
         </p>
         <div className="mt-14">
           <CourseList
+            pager={{
+              label: "Course pages",
+              page: "Page",
+              previous: "Previous page",
+              next: "Next page",
+            }}
             texts={{
               difficulty: ["Beginner", "Medium", "Hard", "Expert"],
               level: "Level",
