@@ -1,8 +1,15 @@
 import { unlockStatus } from "./courseProgress";
 import { courses } from "./courses";
+import { createLocalStore } from "./localStore";
+import { playerKey } from "./players";
 import type { StarsBySlug } from "./progress";
 
-const seenKey = "cat-phishing:map-seen";
+export const seenPiecesKey = "cat-phishing:map-seen";
+
+const seenStore = createLocalStore<string[]>(
+  () => playerKey(seenPiecesKey),
+  [],
+);
 
 export const secretCourse = courses.find((course) => course.unlock);
 
@@ -17,19 +24,5 @@ export const foundPieces = (stars: StarsBySlug) =>
 export const newPiece = (before: StarsBySlug, after: StarsBySlug) =>
   foundPieces(after).find((slug) => !foundPieces(before).includes(slug));
 
-export function getSeenPieces(): string[] {
-  try {
-    const raw = window.localStorage.getItem(seenKey);
-    return raw ? (JSON.parse(raw) as string[]) : [];
-  } catch {
-    return [];
-  }
-}
-
-export function saveSeenPieces(slugs: string[]) {
-  try {
-    window.localStorage.setItem(seenKey, JSON.stringify(slugs));
-  } catch {
-    return;
-  }
-}
+export const getSeenPieces = seenStore.get;
+export const saveSeenPieces = seenStore.set;
