@@ -1,6 +1,7 @@
 import { courses } from "@/lib/courses";
 import { levelHref, routes } from "@/lib/navigation";
 import { About } from "./_sections/About";
+import { Deck } from "./_sections/Deck";
 import { Demo } from "./_sections/Demo";
 import { Hero } from "./_sections/Hero";
 import { Reveal } from "./_sections/Reveal";
@@ -124,6 +125,74 @@ export default function Home() {
             next: { label: "Next level", href: levelHref(courses[0].slug, 1) },
           },
         }}
+      />
+      <Deck
+        id="cards"
+        title="The phone runs the virus. Your hands do the rest."
+        intro="Cat-phishing is a real card game first. Deal the cats, put the phone in the middle of the table and get ready to shout. The app keeps an eye on the virus, while everything else happens with your cards, your eyes and your reflexes."
+        tiles={[
+          {
+            eyebrow: "In your hand",
+            title: "Six cats in every hand",
+            description:
+              "Every player gets the same squad of six colorful cats: Charo, Chapardeur, Chad, Chapin, Charal and Chalon. Each one has its own color and its own attitude. Learn them by heart: when the game speeds up, you'll need to spot the right cat in a flash and lay it down without a second thought.",
+            stat: "×6",
+            size: "large",
+            color: "sun",
+            icon: "cats",
+            visual: {
+              kind: "fan",
+              cards: [
+                "Charo",
+                "Chapardeur",
+                "Chad",
+                "Chapin",
+                "Charal",
+                "Chalon",
+              ],
+            },
+          },
+          {
+            eyebrow: "Your lifesaver",
+            title: "Non !",
+            description:
+              "The card everyone wants to keep. Someone plays a nasty cat-astrophe card on you? Non ! The virus is coming your way? Non ! Slam it on the table and the attack is blocked, like a firewall.",
+            size: "tall",
+            color: "pink",
+            icon: "nope",
+            visual: {
+              kind: "card",
+              card: "Non !",
+              caption: "Blocks a cat-astrophe or the virus",
+            },
+          },
+          {
+            eyebrow: "Cat-astrophe cards",
+            title: "Two tricks up your sleeve",
+            description:
+              "On top of your cats, you hold two action cards. Play them at the right moment to turn the game around. New effects are being tested right now: stay tuned!",
+            stat: "×2",
+            size: "small",
+            color: "lilac",
+            icon: "action",
+          },
+          {
+            eyebrow: "On the phone",
+            title: "The virus lives in the app",
+            description:
+              "There's no virus card in the deck. The phone in the middle of the table shows who is infected. Managed to lay down one of your cats? You can pass the virus to another player. Pick their name, hand them the phone and enjoy the panic.",
+            size: "wide",
+            color: "sky",
+            icon: "phone",
+            visual: {
+              kind: "phone",
+              holder: "Maya",
+              status: "has the virus!",
+              action: "Pass it on",
+              next: "Tom",
+            },
+          },
+        ]}
       />
     </main>
   );

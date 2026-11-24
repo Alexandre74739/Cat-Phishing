@@ -1,57 +1,26 @@
 "use client";
 
-import { useRef, useSyncExternalStore } from "react";
 import { useStars } from "@/hooks/useStars";
 import { courseStats } from "@/lib/courseProgress";
 import { courses } from "@/lib/courses";
-import {
-  getHubPage,
-  getServerHubPage,
-  saveHubPage,
-  subscribeHubPage,
-} from "@/lib/hubPage";
-import { playClickSound } from "@/lib/sound";
 import { CourseCard } from "./CourseCard";
-import { Pager, type PagerTexts } from "./Pager";
 import type { HubTexts } from "./types";
 
-const pageSize = 4;
-const pages = Math.ceil(courses.length / pageSize);
-
-type CourseListProps = { texts: HubTexts; pager: PagerTexts };
-
-export function CourseList({ texts, pager }: CourseListProps) {
+export function CourseList({ texts }: { texts: HubTexts }) {
   const stars = useStars();
-  const stored = useSyncExternalStore(
-    subscribeHubPage,
-    getHubPage,
-    getServerHubPage,
-  );
-  const page = Math.min(pages - 1, Math.max(0, stored));
-  const grid = useRef<HTMLDivElement>(null);
-  const first = page * pageSize;
-
-  const goTo = (next: number) => {
-    playClickSound();
-    saveHubPage(next);
-    grid.current?.scrollIntoView({ block: "start" });
-  };
 
   return (
-    <>
-      <div ref={grid} className="grid scroll-mt-28 gap-8 md:grid-cols-2">
-        {courses.slice(first, first + pageSize).map((course, index) => (
-          <CourseCard
-            key={course.slug}
-            course={course}
-            index={index}
-            featured={first + index === 0}
-            stats={courseStats(course, stars)}
-            texts={texts}
-          />
-        ))}
-      </div>
-      <Pager page={page} pages={pages} texts={pager} onPage={goTo} />
-    </>
+    <div className="grid gap-8 md:grid-cols-2">
+      {courses.map((course, index) => (
+        <CourseCard
+          key={course.slug}
+          course={course}
+          index={index}
+          featured={index === 0}
+          stats={courseStats(course, stars)}
+          texts={texts}
+        />
+      ))}
+    </div>
   );
 }
