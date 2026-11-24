@@ -11,4 +11,5 @@ export type WardrobeTexts = {
   locked: string;
   lockStars: string;
   lockBadge: string;
+  newSecretBadge: string;
 };

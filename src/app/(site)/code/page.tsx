@@ -84,7 +84,11 @@ export default function CodePage() {
             }}
           />
         </div>
-        <BadgeList title="My badges" lockedLabel="To unlock:" />
+        <BadgeList
+          title="My badges"
+          lockedLabel="To unlock:"
+          secretLabel="Secret badge"
+        />
       </div>
     </main>
   );

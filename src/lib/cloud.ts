@@ -3,8 +3,13 @@ import { defaultAvatarId } from "./avatars";
 import type { SavedOutfit } from "./outfitStore";
 import { cleanOutfit } from "./outfits";
 import type { StarsBySlug } from "./progress";
+import { cleanSecrets, type SecretBadgeId } from "./secretBadges";
 
-export type CloudData = { stars: StarsBySlug; outfit?: SavedOutfit };
+export type CloudData = {
+  stars: StarsBySlug;
+  outfit?: SavedOutfit;
+  secrets?: SecretBadgeId[];
+};
 
 export type CloudErrorCode =
   | "badPseudo"
@@ -62,6 +67,8 @@ export function sanitizeData(raw: unknown): CloudData {
   if (!raw || typeof raw !== "object") return data;
   const outfit = cleanSavedOutfit((raw as { outfit?: unknown }).outfit);
   if (outfit) data.outfit = outfit;
+  const secrets = cleanSecrets((raw as { secrets?: unknown }).secrets);
+  if (secrets.length) data.secrets = secrets;
   const stars = (raw as { stars?: unknown }).stars;
   if (!stars || typeof stars !== "object") return data;
   for (const [key, value] of Object.entries(stars).slice(0, maxStarKeys)) {
@@ -74,19 +81,25 @@ export function sanitizeData(raw: unknown): CloudData {
 const newestOutfit = (a?: SavedOutfit, b?: SavedOutfit) =>
   !a || (b && b.at > a.at) ? b : a;
 
-// Keeps the best of both saves: a star is never lost, the newest outfit wins.
+// Keeps the best of both saves: a star or a badge is never lost, the newest outfit wins.
 export function mergeData(a: CloudData, b: CloudData): CloudData {
   const stars = { ...a.stars };
   for (const [key, value] of Object.entries(b.stars))
     stars[key] = Math.max(stars[key] ?? 0, value);
   const outfit = newestOutfit(a.outfit, b.outfit);
-  return outfit ? { stars, outfit } : { stars };
+  const secrets = cleanSecrets([...(a.secrets ?? []), ...(b.secrets ?? [])]);
+  return {
+    stars,
+    ...(outfit ? { outfit } : {}),
+    ...(secrets.length ? { secrets } : {}),
+  };
 }
 
 export const sameData = (a: CloudData, b: CloudData) => {
   const keys = Object.keys(a.stars);
   return (
     a.outfit?.at === b.outfit?.at &&
+    (a.secrets ?? []).join() === (b.secrets ?? []).join() &&
     keys.length === Object.keys(b.stars).length &&
     keys.every((key) => a.stars[key] === b.stars[key])
   );

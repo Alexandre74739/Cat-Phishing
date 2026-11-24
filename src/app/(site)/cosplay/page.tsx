@@ -35,6 +35,7 @@ export default function CosplayPage() {
             locked: "locked, {lock}",
             lockStars: "{count} stars",
             lockBadge: "Badge “{badge}”",
+            newSecretBadge: "New secret badge: {badge}!",
           }}
         />
       </div>

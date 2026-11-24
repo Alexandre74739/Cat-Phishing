@@ -153,14 +153,12 @@ type PageLinkProps = {
 };
 
 function PageLink({ page, isCurrent }: PageLinkProps) {
-  const Icon = icons[page.icon];
   return (
     <Link
       href={page.href}
       aria-current={isCurrent ? "page" : undefined}
-      className={`flex min-h-12 items-center gap-2 rounded-lg font-ui text-lg font-semibold decoration-[3px] underline-offset-8 hover:text-grape motion-safe:transition-colors ${isCurrent ? "text-grape underline" : "text-ink"}`}
+      className={`flex min-h-12 items-center rounded-lg font-ui text-lg font-semibold decoration-[3px] underline-offset-8 hover:text-grape motion-safe:transition-colors ${isCurrent ? "text-grape underline" : "text-ink"}`}
     >
-      <Icon size={22} strokeWidth={2.5} aria-hidden="true" />
       {page.label}
     </Link>
   );

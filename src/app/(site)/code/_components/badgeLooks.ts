@@ -21,6 +21,7 @@ import {
   Repeat,
   Repeat1,
   Ribbon,
+  Shirt,
   Rocket,
   ShieldCheck,
   Snowflake,
@@ -69,4 +70,5 @@ export const badgeLooks: Record<BadgeId, { Icon: LucideIcon; color: string }> =
     perfectTrio: { Icon: Ribbon, color: "bg-gem" },
     marathon: { Icon: Rocket, color: "bg-coral" },
     legend: { Icon: Crown, color: "bg-lilac" },
+    stylist: { Icon: Shirt, color: "bg-pink" },
   };

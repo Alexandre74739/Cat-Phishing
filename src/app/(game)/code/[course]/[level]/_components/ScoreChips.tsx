@@ -1,6 +1,7 @@
 "use client";
 
 import { Star, Trophy } from "lucide-react";
+import { useSecrets } from "@/hooks/useSecrets";
 import { useStars } from "@/hooks/useStars";
 import { earnedBadges } from "@/lib/badges";
 import { courseStats } from "@/lib/courseProgress";
@@ -17,8 +18,9 @@ type ScoreChipsProps = {
 
 export function ScoreChips({ course, texts }: ScoreChipsProps) {
   const stars = useStars();
+  const secrets = useSecrets();
   const stats = courseStats(course, stars);
-  const badgeCount = earnedBadges(stars).length;
+  const badgeCount = earnedBadges(stars, secrets).length;
 
   return (
     <div className="ml-auto flex items-center gap-2">

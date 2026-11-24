@@ -12,6 +12,7 @@ import {
 } from "./players";
 import { outfitKey } from "./outfitStore";
 import { getStars, starsKey } from "./progress";
+import { secretsKey } from "./secretStore";
 import { seenPiecesKey } from "./treasureMap";
 
 type Session = { token: string; pseudo: string; avatar: string; data: unknown };
@@ -81,5 +82,5 @@ export async function removePlayer(id: string, everywhere: boolean) {
       token: player.cloud.token,
     });
   else await logoutAccount(id);
-  forgetPlayer(id, [starsKey, seenPiecesKey, outfitKey]);
+  forgetPlayer(id, [starsKey, seenPiecesKey, outfitKey, secretsKey]);
 }

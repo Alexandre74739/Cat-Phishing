@@ -1,5 +1,6 @@
 "use client";
 
+import { useSecrets } from "@/hooks/useSecrets";
 import { useStars } from "@/hooks/useStars";
 import { badges } from "@/lib/badges";
 import { badgeLooks } from "./badgeLooks";
@@ -7,11 +8,14 @@ import { badgeLooks } from "./badgeLooks";
 export function BadgeList({
   title,
   lockedLabel,
+  secretLabel,
 }: {
   title: string;
   lockedLabel: string;
+  secretLabel: string;
 }) {
   const stars = useStars();
+  const secrets = useSecrets();
 
   return (
     <section aria-labelledby="badges-title" className="mt-20">
@@ -23,7 +27,8 @@ export function BadgeList({
       </h2>
       <ul className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
         {badges.map((badge) => {
-          const earned = badge.earned(stars);
+          const earned = badge.earned(stars, secrets);
+          const isHidden = !earned && !!badge.hint;
           const { Icon, color } = badgeLooks[badge.id];
           return (
             <li
@@ -36,10 +41,14 @@ export function BadgeList({
                 <Icon size={30} strokeWidth={2.5} aria-hidden="true" />
               </span>
               <span className="font-ui text-lg leading-tight font-bold">
-                {badge.name}
+                {isHidden ? secretLabel : badge.name}
               </span>
               <span className="text-sm font-semibold">
-                {earned ? badge.text : `${lockedLabel} ${badge.text}`}
+                {earned
+                  ? badge.text
+                  : isHidden
+                    ? badge.hint
+                    : `${lockedLabel} ${badge.text}`}
               </span>
             </li>
           );

@@ -1,6 +1,7 @@
 import { courses, levelKey, levelsPerCourse } from "./courses";
 import { courseStats, totalStars } from "./courseProgress";
 import { hasRecord, type StarsBySlug } from "./progress";
+import type { SecretBadgeId } from "./secretBadges";
 
 export type BadgeId =
   | "firstCode"
@@ -35,13 +36,15 @@ export type BadgeId =
   | "perfectCourse"
   | "perfectTrio"
   | "marathon"
-  | "legend";
+  | "legend"
+  | SecretBadgeId;
 
 export type Badge = {
   id: BadgeId;
   name: string;
   text: string;
-  earned: (stars: StarsBySlug) => boolean;
+  hint?: string;
+  earned: (stars: StarsBySlug, secrets: readonly SecretBadgeId[]) => boolean;
 };
 
 const levelDone = (slug: string, number: number) => (stars: StarsBySlug) =>
@@ -263,7 +266,16 @@ export const badges: Badge[] = [
     earned: (stars) =>
       totalStars(stars) === courses.length * levelsPerCourse * 3,
   },
+  {
+    id: "stylist",
+    name: "Stylist",
+    text: "You changed your cube cat's look!",
+    hint: "Your cube cat would love a new outfit…",
+    earned: (_, secrets) => secrets.includes("stylist"),
+  },
 ];
 
-export const earnedBadges = (stars: StarsBySlug) =>
-  badges.filter((badge) => badge.earned(stars));
+export const earnedBadges = (
+  stars: StarsBySlug,
+  secrets: readonly SecretBadgeId[] = [],
+) => badges.filter((badge) => badge.earned(stars, secrets));
