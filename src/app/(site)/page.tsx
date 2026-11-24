@@ -91,43 +91,8 @@ export default function Home() {
           },
         ]}
       />
-      <Demo
-        id="game"
-        title="Write your very first program, right here, in under a minute"
-        intro="The cat wants to reach the treasure chest. Add “move forward” blocks, press Run, and fix your code if needed. No signup, no install: just you, a few blocks and a very motivated cat."
-        texts={{
-          world: {
-            label:
-              "The cube cat on a data path, with a treasure chest at the end",
-            show2d: "2D view",
-            show3d: "3D view",
-          },
-          program: {
-            title: "My program",
-            clear: "Clear",
-            start: "when I run",
-            forward: "move forward",
-            add: "+ forward",
-            run: "Run",
-          },
-          messages: {
-            empty: "Add “move forward” blocks, then press Run!",
-            idle: "Press Run to watch the cat move!",
-            running: "Here we go…",
-            short: "Almost! The cat didn't reach the chest. Add a block.",
-            far: "Oops, too far: the cat hit the firewall! Remove a block.",
-          },
-          win: {
-            title: "Access granted!",
-            text: "You just wrote your very first program. Ready for the real puzzles?",
-            stars: "3 stars out of 3",
-            replay: "Play again",
-            next: { label: "Next level", href: levelHref(courses[0].slug, 1) },
-          },
-        }}
-      />
       <Deck
-        id="cards"
+        id="game"
         title="The phone runs the virus. Your hands do the rest."
         intro="Cat-phishing is a real card game first. Deal the cats, put the phone in the middle of the table and get ready to shout. The app keeps an eye on the virus, while everything else happens with your cards, your eyes and your reflexes."
         tiles={[
@@ -193,6 +158,41 @@ export default function Home() {
             },
           },
         ]}
+      />
+      <Demo
+        id="puzzles"
+        title="Write your very first program, right here, in under a minute"
+        intro="The cat wants to reach the treasure chest. Add “move forward” blocks, press Run, and fix your code if needed. No signup, no install: just you, a few blocks and a very motivated cat."
+        texts={{
+          world: {
+            label:
+              "The cube cat on a data path, with a treasure chest at the end",
+            show2d: "2D view",
+            show3d: "3D view",
+          },
+          program: {
+            title: "My program",
+            clear: "Clear",
+            start: "when I run",
+            forward: "move forward",
+            add: "+ forward",
+            run: "Run",
+          },
+          messages: {
+            empty: "Add “move forward” blocks, then press Run!",
+            idle: "Press Run to watch the cat move!",
+            running: "Here we go…",
+            short: "Almost! The cat didn't reach the chest. Add a block.",
+            far: "Oops, too far: the cat hit the firewall! Remove a block.",
+          },
+          win: {
+            title: "Access granted!",
+            text: "You just wrote your very first program. Ready for the real puzzles?",
+            stars: "3 stars out of 3",
+            replay: "Play again",
+            next: { label: "Next level", href: levelHref(courses[0].slug, 1) },
+          },
+        }}
       />
     </main>
   );
