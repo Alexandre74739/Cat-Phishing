@@ -5,6 +5,7 @@ import {
   CloudUpload,
   Download,
   Gamepad2,
+  House,
   LogIn,
   LogOut,
   Pencil,
@@ -27,6 +28,7 @@ export const sizes = {
 
 export const icons = {
   play: Gamepad2,
+  home: House,
   code: Blocks,
   cat: Cat,
   install: Download,
