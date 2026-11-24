@@ -44,7 +44,7 @@ export function Hero({
             {title}{" "}
             <span className="whitespace-nowrap text-grape">{highlight}</span>
           </h1>
-          <p className="mt-6 max-w-2xl text-lg font-semibold text-ink-soft sm:text-xl xl:text-2xl">
+          <p className="mt-6 max-w-2xl text-lg font-semibold text-ink sm:text-xl xl:text-2xl">
             {description}
           </p>
           <div className="mt-8 flex w-full flex-col gap-4 sm:w-auto sm:flex-row">

@@ -73,7 +73,7 @@ function AboutRow({
         <h3 className="font-display text-3xl leading-tight tracking-wide sm:text-4xl lg:text-5xl">
           {title}
         </h3>
-        <p className="mt-5 max-w-xl text-lg font-semibold text-ink-soft">
+        <p className="mt-5 max-w-xl text-lg font-semibold text-ink">
           {description}
         </p>
         <CheckList

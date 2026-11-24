@@ -4,3 +4,6 @@ export const routes = {
   code: "/code",
   account: "/account",
 } as const;
+
+export const levelHref = (course: string, level: number) =>
+  `${routes.code}/${course}/${level}`;
