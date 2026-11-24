@@ -91,7 +91,7 @@ export default function Home() {
         ]}
       />
       <Demo
-        id="puzzles"
+        id="game"
         title="Write your very first program, right here, in under a minute"
         intro="The cat wants to reach the treasure chest. Add “move forward” blocks, press Run, and fix your code if needed."
         texts={{
