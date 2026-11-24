@@ -93,8 +93,22 @@ export default function Home() {
       />
       <Deck
         id="game"
-        title="The phone runs the virus. Your hands do the rest."
+        title="A party card game where the phone runs the virus & your hands do the rest"
         intro="Cat-phishing is a real card game first. Deal the cats, put the phone in the middle of the table and get ready to shout. The app keeps an eye on the virus, while everything else happens with your cards, your eyes and your reflexes."
+        actions={[
+          {
+            label: "Start a game",
+            href: routes.play,
+            variant: "sun",
+            icon: "play",
+          },
+          {
+            label: "Try a puzzle",
+            href: "#puzzles",
+            variant: "sky",
+            icon: "code",
+          },
+        ]}
         tiles={[
           {
             eyebrow: "In your hand",
