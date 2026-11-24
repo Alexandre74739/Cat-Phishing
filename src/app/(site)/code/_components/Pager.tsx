@@ -1,4 +1,5 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { pageItems } from "@/lib/pagination";
 
 export type PagerTexts = {
   label: string;
@@ -23,7 +24,7 @@ export function Pager({ page, pages, texts, onPage }: PagerProps) {
   return (
     <nav
       aria-label={texts.label}
-      className="mt-10 flex items-center justify-center gap-3"
+      className="mt-10 flex items-center justify-center gap-2 sm:gap-3"
     >
       <button
         type="button"
@@ -34,18 +35,28 @@ export function Pager({ page, pages, texts, onPage }: PagerProps) {
       >
         <ArrowLeft size={22} strokeWidth={3} aria-hidden="true" />
       </button>
-      {Array.from({ length: pages }, (_, index) => (
-        <button
-          key={index}
-          type="button"
-          onClick={() => onPage(index)}
-          aria-current={index === page ? "page" : undefined}
-          aria-label={`${texts.page} ${index + 1}`}
-          className={`${button} ${index === page ? "bg-grape text-paper" : "bg-paper"}`}
-        >
-          {index + 1}
-        </button>
-      ))}
+      {pageItems(page, pages).map((item) =>
+        typeof item === "number" ? (
+          <button
+            key={item}
+            type="button"
+            onClick={() => onPage(item)}
+            aria-current={item === page ? "page" : undefined}
+            aria-label={`${texts.page} ${item + 1}`}
+            className={`${button} ${item === page ? "bg-grape text-paper" : "bg-paper"}`}
+          >
+            {item + 1}
+          </button>
+        ) : (
+          <span
+            key={item}
+            aria-hidden="true"
+            className="w-6 text-center font-ui text-xl font-bold text-ink"
+          >
+            …
+          </span>
+        ),
+      )}
       <button
         type="button"
         onClick={() => onPage(page + 1)}
