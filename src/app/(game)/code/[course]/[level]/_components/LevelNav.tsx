@@ -54,7 +54,7 @@ export function LevelNav({ course, current, texts }: LevelNavProps) {
                     key={star}
                     size={13}
                     strokeWidth={2.5}
-                    className="fill-sun text-ink"
+                    className="fill-orange text-ink"
                   />
                 ))}
               </span>

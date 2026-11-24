@@ -1,6 +1,6 @@
 export type DeckTileSize = "large" | "tall" | "small" | "wide";
 
-export type DeckTileColor = "sun" | "pink" | "lilac" | "sky";
+export type DeckTileColor = "orange-soft" | "mint" | "lilac" | "action-soft";
 
 export type DeckTileIcon = "cats" | "nope" | "action" | "phone";
 

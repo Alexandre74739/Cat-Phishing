@@ -15,9 +15,13 @@ type BannerProps = {
 };
 
 const floatingIcons = [
-  { Icon: Cat, className: "left-[4%] top-8 bg-sun", rotate: -12 },
-  { Icon: Smartphone, className: "left-[10%] bottom-14 bg-pink", rotate: 8 },
-  { Icon: ShieldAlert, className: "right-[4%] top-8 bg-lilac", rotate: 12 },
+  { Icon: Cat, className: "left-[4%] top-8 bg-orange", rotate: -12 },
+  { Icon: Smartphone, className: "left-[10%] bottom-14 bg-lilac", rotate: 8 },
+  {
+    Icon: ShieldAlert,
+    className: "right-[4%] top-8 bg-orange-soft",
+    rotate: 12,
+  },
   { Icon: Zap, className: "right-[10%] bottom-16 bg-mint", rotate: -8 },
 ];
 
@@ -35,7 +39,7 @@ export function Banner({ id, title, highlight, text, action }: BannerProps) {
       className={`scroll-mt-20 bg-ink py-[3px] ${slant}`}
     >
       <div
-        className={`relative overflow-hidden bg-sky-soft pt-10 pb-16 sm:pt-12 sm:pb-20 ${slant}`}
+        className={`relative overflow-hidden bg-action-soft pt-10 pb-16 sm:pt-12 sm:pb-20 ${slant}`}
       >
         {floatingIcons.map(({ Icon, className, rotate }, index) => (
           <motion.span
@@ -80,7 +84,7 @@ export function Banner({ id, title, highlight, text, action }: BannerProps) {
                   whileInView={{ rotate: -3, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ ...pop, delay: 0.3 }}
-                  className="toon inline-block rounded-xl bg-sun px-2"
+                  className="toon inline-block rounded-xl bg-orange px-2"
                 >
                   {highlight}
                 </motion.span>

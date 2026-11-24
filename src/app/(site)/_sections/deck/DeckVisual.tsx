@@ -19,7 +19,7 @@ export function DeckVisual({ visual }: { visual: DeckVisualContent }) {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             className="w-32 sm:w-36"
           >
-            <CardArt name={visual.card} color="bg-coral" Icon={Hand} />
+            <CardArt name={visual.card} color="bg-orange-soft" Icon={Hand} />
           </motion.div>
           <figcaption className="rounded-full bg-paper px-4 py-1 text-center font-ui text-sm font-semibold">
             {visual.caption}

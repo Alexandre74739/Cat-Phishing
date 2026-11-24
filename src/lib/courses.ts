@@ -139,7 +139,7 @@ export const courses: Course[] = [
     title: "Secret island",
     subtitle: "A hidden world. All your blocks for one last adventure!",
     difficulty: 3,
-    color: "bg-sun",
+    color: "bg-orange",
     newBlocks: [],
     preview: 2,
     levels: withOptimal(secretIsland),

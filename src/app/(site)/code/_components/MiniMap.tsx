@@ -10,7 +10,7 @@ const items = {
   bug: "rounded-[30%] bg-slime inset-[20%] ring-[length:clamp(1px,0.18em,3px)] ring-ink",
   virus:
     "rounded-[22%] bg-coral inset-[20%] ring-[length:clamp(1px,0.18em,3px)] ring-ink",
-  key: "rounded-full bg-sun inset-[28%] ring-[length:clamp(1px,0.15em,2px)] ring-ink",
+  key: "rounded-full bg-orange inset-[28%] ring-[length:clamp(1px,0.15em,2px)] ring-ink",
 };
 
 const tileMarks: Partial<Record<Tile, string>> = {

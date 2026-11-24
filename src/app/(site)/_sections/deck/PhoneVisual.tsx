@@ -21,15 +21,15 @@ export function PhoneVisual({
           <span className="h-1.5 w-10 rounded-full bg-lilac" />
           <span className="relative mt-1">
             <Avatar id="1f98a" size={48} />
-            <span className="toon absolute -right-2 -bottom-1 grid size-7 place-items-center rounded-full bg-slime text-ink motion-safe:animate-bounce">
+            <span className="toon absolute -right-2 -bottom-1 grid size-7 place-items-center rounded-full bg-mint text-ink motion-safe:animate-bounce">
               <Bug size={14} strokeWidth={3} />
             </span>
           </span>
           <span className="font-display text-lg tracking-wide">{holder}</span>
-          <span className="rounded-full bg-coral px-3 py-0.5 font-ui text-xs font-semibold">
+          <span className="rounded-full bg-orange-soft px-3 py-0.5 font-ui text-xs font-semibold">
             {status}
           </span>
-          <span className="toon mt-1 w-full rounded-full bg-sun py-1 text-center font-ui text-sm font-semibold">
+          <span className="toon mt-1 w-full rounded-full bg-orange py-1 text-center font-ui text-sm font-semibold">
             {action}
           </span>
         </div>

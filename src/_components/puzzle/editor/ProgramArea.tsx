@@ -29,7 +29,7 @@ export function ProgramArea({
       aria-label={texts.programTitle}
       className="toon flex min-h-85 min-w-0 flex-1 flex-col overflow-hidden rounded-3xl bg-paper md:min-h-0"
     >
-      <div className="flex items-center gap-2 border-b-[3px] border-ink bg-sun px-4 py-1.5">
+      <div className="flex items-center gap-2 border-b-[3px] border-ink bg-orange px-4 py-1.5">
         <h2 className="font-ui text-lg font-bold whitespace-nowrap">
           {texts.programTitle}
         </h2>
@@ -42,7 +42,7 @@ export function ProgramArea({
               <Star
                 size={16}
                 strokeWidth={2.5}
-                className="fill-sun"
+                className="fill-orange"
                 aria-hidden="true"
               />
             </p>
@@ -73,7 +73,7 @@ export function ProgramArea({
                 aria-hidden="true"
                 animate={{ x: [0, -12, 0] }}
                 transition={{ repeat: Infinity, duration: 1.2 }}
-                className="grid size-11 shrink-0 place-items-center rounded-full border-[3px] border-ink bg-sun text-ink"
+                className="grid size-11 shrink-0 place-items-center rounded-full border-[3px] border-ink bg-orange text-ink"
               >
                 <ArrowLeft size={24} strokeWidth={3} />
               </motion.span>

@@ -23,7 +23,7 @@ export function ScoreChips({ course, texts }: ScoreChipsProps) {
   return (
     <div className="ml-auto flex items-center gap-2">
       <p
-        className={`${chip} bg-sun`}
+        className={`${chip} bg-orange`}
         aria-label={`${stats.stars} / ${stats.maxStars} ${texts.stars}`}
       >
         <Star

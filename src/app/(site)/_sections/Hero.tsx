@@ -70,7 +70,7 @@ export function Hero({
             aria-hidden="true"
             className="toon absolute inset-0 translate-x-3 translate-y-3 rounded-[30px] bg-grape"
           />
-          <div className="toon dots relative aspect-video w-full overflow-hidden rounded-[30px] bg-sky">
+          <div className="toon dots relative aspect-video w-full overflow-hidden rounded-[30px] bg-mint">
             {video ? (
               <video
                 src={video.src}

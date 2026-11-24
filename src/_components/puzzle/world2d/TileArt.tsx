@@ -22,7 +22,7 @@ export function TileArt({ tile, odd }: { tile: Tile; odd: boolean }) {
   if (tile === "L")
     return (
       <Flame
-        className={`${icon} fill-sun text-sun motion-safe:animate-pulse`}
+        className={`${icon} fill-orange text-orange motion-safe:animate-pulse`}
         strokeWidth={2.5}
       />
     );

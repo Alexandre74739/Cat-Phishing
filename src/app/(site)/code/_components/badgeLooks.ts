@@ -36,8 +36,8 @@ import type { BadgeId } from "@/lib/badges";
 
 export const badgeLooks: Record<BadgeId, { Icon: LucideIcon; color: string }> =
   {
-    firstCode: { Icon: Footprints, color: "bg-sun" },
-    shiningStar: { Icon: Star, color: "bg-sun" },
+    firstCode: { Icon: Footprints, color: "bg-orange" },
+    shiningStar: { Icon: Star, color: "bg-orange" },
     betterThanCatchat: { Icon: Cat, color: "bg-fur" },
     firstCatch: { Icon: Gem, color: "bg-pink" },
     loopRookie: { Icon: Repeat, color: "bg-orange" },
@@ -53,9 +53,9 @@ export const badgeLooks: Record<BadgeId, { Icon: LucideIcon; color: string }> =
     halfway: { Icon: Flame, color: "bg-action" },
     starCollector: { Icon: Gem, color: "bg-sky" },
     halfwayThere: { Icon: Flag, color: "bg-action" },
-    starHoarder: { Icon: Trophy, color: "bg-sun" },
+    starHoarder: { Icon: Trophy, color: "bg-orange" },
     starGalaxy: { Icon: Orbit, color: "bg-lilac" },
-    graduate: { Icon: GraduationCap, color: "bg-sun" },
+    graduate: { Icon: GraduationCap, color: "bg-orange" },
     kittenGraduate: { Icon: PawPrint, color: "bg-lilac" },
     inboxZero: { Icon: MailX, color: "bg-coral" },
     gatekeeper: { Icon: ShieldCheck, color: "bg-mint" },
@@ -64,7 +64,7 @@ export const badgeLooks: Record<BadgeId, { Icon: LucideIcon; color: string }> =
     debugger: { Icon: Bug, color: "bg-slime" },
     mazeRunner: { Icon: BrickWall, color: "bg-lilac" },
     castleHero: { Icon: Castle, color: "bg-pink" },
-    islandExplorer: { Icon: TreePalm, color: "bg-sun" },
+    islandExplorer: { Icon: TreePalm, color: "bg-orange" },
     perfectCourse: { Icon: Medal, color: "bg-mint" },
     perfectTrio: { Icon: Ribbon, color: "bg-gem" },
     marathon: { Icon: Rocket, color: "bg-coral" },

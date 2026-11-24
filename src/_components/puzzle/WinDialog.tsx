@@ -99,7 +99,7 @@ export function WinDialog({
                 strokeWidth={2.5}
                 className={
                   index < stars
-                    ? "fill-sun text-ink"
+                    ? "fill-orange text-ink"
                     : "fill-ink/10 text-ink/30"
                 }
               />

@@ -2,9 +2,9 @@ import { Blocks, Gamepad2, ShieldCheck } from "lucide-react";
 
 // Temporary placeholders: the final illustrations will replace this component.
 const illustrations = {
-  play: { Icon: Gamepad2, back: "bg-sun", middle: "bg-pink" },
-  safe: { Icon: ShieldCheck, back: "bg-lilac", middle: "bg-coral" },
-  code: { Icon: Blocks, back: "bg-mint", middle: "bg-sky" },
+  play: { Icon: Gamepad2, back: "bg-orange", middle: "bg-orange-soft" },
+  safe: { Icon: ShieldCheck, back: "bg-lilac", middle: "bg-scene-deep" },
+  code: { Icon: Blocks, back: "bg-mint", middle: "bg-action-soft" },
 };
 
 export type AboutIllustrationName = keyof typeof illustrations;

@@ -28,7 +28,7 @@ export function CourseProgress({
           <Star
             size={16}
             strokeWidth={2.5}
-            className="fill-sun"
+            className="fill-orange"
             aria-hidden="true"
           />
           {stars} / {maxStars}
@@ -43,7 +43,7 @@ export function CourseProgress({
         className="mt-1.5 h-4 overflow-hidden rounded-full border-[3px] border-ink bg-cream"
       >
         <div
-          className="h-full bg-sun motion-safe:transition-[width] motion-safe:duration-700"
+          className="h-full bg-orange motion-safe:transition-[width] motion-safe:duration-700"
           style={{ width: `${(stars / maxStars) * 100}%` }}
         />
       </div>

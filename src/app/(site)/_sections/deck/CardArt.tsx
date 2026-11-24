@@ -2,11 +2,11 @@ import { Cat, type LucideIcon } from "lucide-react";
 
 // Temporary placeholder: the final card designs will replace this component.
 export const cardColors = [
-  "bg-coral",
-  "bg-sun",
+  "bg-orange-soft",
+  "bg-orange",
   "bg-mint",
-  "bg-sky",
-  "bg-pink",
+  "bg-action-soft",
+  "bg-scene-deep",
   "bg-lilac",
 ];
 

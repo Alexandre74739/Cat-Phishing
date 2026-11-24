@@ -29,7 +29,7 @@ export const blockLooks: Record<
   BlockLookKind,
   { Icon: LucideIcon; color: string; soft: string }
 > = {
-  start: { Icon: Play, color: "bg-sun", soft: "bg-sun-soft" },
+  start: { Icon: Play, color: "bg-orange", soft: "bg-orange-soft" },
   forward: { Icon: ArrowUp, ...movement },
   left: { Icon: CornerUpLeft, ...movement },
   right: { Icon: CornerUpRight, ...movement },

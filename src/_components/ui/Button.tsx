@@ -7,8 +7,7 @@ import { playClickSound } from "@/lib/sound";
 
 const variants = {
   grape: "bg-grape text-paper",
-  sky: "bg-sky text-ink",
-  sun: "bg-sun text-ink",
+  orange: "bg-orange text-ink",
   mint: "bg-mint text-ink",
 };
 

@@ -22,7 +22,7 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
             href: routes.play,
             icon: "next",
             iconSide: "end",
-            variant: "sun",
+            variant: "orange",
           },
         ]}
         install={{

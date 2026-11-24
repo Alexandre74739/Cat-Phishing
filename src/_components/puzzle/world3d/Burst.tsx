@@ -18,13 +18,13 @@ export const burstColors: Partial<Record<StepKind, string>> = {
   caught: palette.coral,
   grab: palette.gem,
   zap: palette.slime,
-  key: palette.sun,
+  key: palette.orange,
   bridge: palette.wood,
   smash: palette.rock,
-  open: palette.sun,
+  open: palette.orange,
   splash: palette.sky,
   burn: palette.lava,
-  win: palette.sun,
+  win: palette.orange,
 };
 
 function spawn({ position, count }: BurstSpec) {

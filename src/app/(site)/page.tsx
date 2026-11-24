@@ -18,14 +18,14 @@ export default function Home() {
           {
             label: "Play now",
             href: routes.play,
-            variant: "sun",
+            variant: "orange",
             icon: "next",
             iconSide: "end",
           },
           {
             label: "Start coding",
             href: routes.code,
-            variant: "sky",
+            variant: "mint",
             icon: "code",
           },
         ]}
@@ -54,7 +54,7 @@ export default function Home() {
             action: {
               label: "Play now",
               href: routes.play,
-              variant: "sun",
+              variant: "orange",
               icon: "next",
               iconSide: "end",
             },
@@ -85,7 +85,7 @@ export default function Home() {
             action: {
               label: "Start coding",
               href: routes.code,
-              variant: "sky",
+              variant: "mint",
               icon: "code",
             },
             illustration: "code",
@@ -100,13 +100,13 @@ export default function Home() {
           {
             label: "Start a game",
             href: routes.play,
-            variant: "sun",
+            variant: "orange",
             icon: "play",
           },
           {
             label: "Start coding",
             href: routes.code,
-            variant: "sky",
+            variant: "mint",
             icon: "code",
           },
         ]}
@@ -118,7 +118,7 @@ export default function Home() {
               "Every player gets the same squad of six colorful cats: Charo, Chapardeur, Chad, Chapin, Charal and Chalon. Each one has its own color and its own attitude. Learn them by heart: when the game speeds up, you'll need to spot the right cat in a flash and lay it down without a second thought.",
             stat: "×6",
             size: "large",
-            color: "sun",
+            color: "orange-soft",
             icon: "cats",
             visual: {
               kind: "fan",
@@ -138,7 +138,7 @@ export default function Home() {
             description:
               "The card everyone wants to keep. Someone plays a nasty cat-astrophe card on you? No ! The virus is coming your way? No ! Slam it on the table and the attack is blocked, like a firewall.",
             size: "tall",
-            color: "pink",
+            color: "mint",
             icon: "nope",
             visual: {
               kind: "card",
@@ -162,7 +162,7 @@ export default function Home() {
             description:
               "There's no virus card in the deck. The phone in the middle of the table shows who is infected. Managed to lay down one of your cats? You can pass the virus to another player. Pick their name, hand them the phone and enjoy the panic.",
             size: "wide",
-            color: "sky",
+            color: "action-soft",
             icon: "phone",
             visual: {
               kind: "phone",
@@ -182,7 +182,7 @@ export default function Home() {
         action={{
           label: "Play now",
           href: routes.play,
-          variant: "sun",
+          variant: "orange",
           icon: "next",
           iconSide: "end",
         }}
@@ -256,7 +256,7 @@ export default function Home() {
         action={{
           label: "Play now",
           href: routes.play,
-          variant: "sun",
+          variant: "orange",
           icon: "next",
           iconSide: "end",
         }}

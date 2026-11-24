@@ -15,12 +15,12 @@ type Particle = { Icon: LucideIcon; look: string; x: number; y: number };
 
 const icons: LucideIcon[] = [Cat, Bug, Fish, Lock, ShieldCheck, CodeXml];
 const looks = [
-  "bg-pink",
-  "bg-coral",
-  "bg-sky",
-  "bg-sun",
-  "bg-mint",
   "bg-lilac",
+  "bg-orange-soft",
+  "bg-action-soft",
+  "bg-orange",
+  "bg-mint",
+  "bg-scene-deep",
 ];
 
 const toParticles = (spread: number): Particle[] =>

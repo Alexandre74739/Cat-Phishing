@@ -14,7 +14,7 @@ type RevealProps = {
   badge: string;
 };
 
-const keywordColors = ["bg-sun", "bg-pink", "bg-sky", "bg-mint"];
+const keywordColors = ["bg-orange", "bg-lilac", "bg-mint", "bg-orange-soft"];
 const revealEnd = 0.7;
 const firstLineVisible = 48;
 

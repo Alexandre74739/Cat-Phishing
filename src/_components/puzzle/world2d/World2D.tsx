@@ -41,7 +41,7 @@ export function World2D({ world, event, label }: World2DProps) {
                 <ChestIcon open={won} />
               )}
               {world.keys.includes(cellKey({ x, y })) && (
-                <span className="toon absolute inset-[24%] grid place-items-center rounded-full bg-sun text-ink">
+                <span className="toon absolute inset-[24%] grid place-items-center rounded-full bg-orange text-ink">
                   <KeyRound className="size-3/4" strokeWidth={2.75} />
                 </span>
               )}
@@ -73,7 +73,7 @@ export function World2D({ world, event, label }: World2DProps) {
             className="size-4/5"
           />
           <span
-            className="absolute inset-0 grid justify-center text-sun"
+            className="absolute inset-0 grid justify-center text-orange"
             style={{ rotate: `${world.cat.dir * 90}deg` }}
           >
             <ArrowUp

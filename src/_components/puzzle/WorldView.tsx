@@ -82,7 +82,7 @@ export function WorldView({
             <KeyRound
               size={18}
               strokeWidth={2.5}
-              className="fill-sun"
+              className="fill-orange"
               aria-hidden="true"
             />
             {world.keysHeld}

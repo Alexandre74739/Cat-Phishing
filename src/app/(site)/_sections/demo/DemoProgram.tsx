@@ -3,6 +3,7 @@
 import { ArrowUp, Play, RotateCcw, Trash2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { BlockChip } from "@/_components/puzzle/block/BlockChip";
+import { blockLooks } from "@/_components/puzzle/block/blockLooks";
 import type { Block } from "@/lib/blocks";
 import type { DemoTexts } from "./types";
 import { maxBlocks, type DemoState } from "./useDemo";
@@ -34,7 +35,7 @@ export function DemoProgram({
 
   return (
     <div className="toon flex flex-col overflow-hidden rounded-[30px] bg-paper">
-      <div className="flex items-center justify-between gap-3 border-b-[3px] border-ink bg-sun px-5 py-3">
+      <div className="flex items-center justify-between gap-3 border-b-[3px] border-ink bg-orange px-5 py-3">
         <h3 className="font-ui text-xl font-bold">{texts.title}</h3>
         <button
           type="button"
@@ -73,7 +74,7 @@ export function DemoProgram({
           type="button"
           onClick={onAdd}
           disabled={running || program.length >= maxBlocks}
-          className={`${control} bg-sky`}
+          className={`${control} ${blockLooks.forward.color}`}
         >
           <ArrowUp size={20} strokeWidth={3} aria-hidden="true" />
           {texts.add}
@@ -82,7 +83,7 @@ export function DemoProgram({
           type="button"
           onClick={onRun}
           disabled={running || program.length === 0}
-          className={`${control} flex-1 bg-slime`}
+          className={`${control} flex-1 bg-mint`}
         >
           {failed ? (
             <RotateCcw size={20} strokeWidth={3} aria-hidden="true" />

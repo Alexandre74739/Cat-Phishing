@@ -20,10 +20,10 @@ const sizes = {
 };
 
 const colors = {
-  sun: "bg-sun-soft",
-  pink: "bg-pink",
+  "orange-soft": "bg-orange-soft",
+  mint: "bg-mint",
   lilac: "bg-lilac",
-  sky: "bg-sky-soft",
+  "action-soft": "bg-action-soft",
 };
 
 type DeckTileProps = {

@@ -53,7 +53,7 @@ export function InstallHelp({
       {platform === "firefox-windows" && (
         <a
           href={`microsoft-edge:${window.location.href}`}
-          className="toon pressable mt-4 flex min-h-12 items-center justify-center gap-2 rounded-full bg-sky px-4 font-ui font-semibold"
+          className="toon pressable mt-4 flex min-h-12 items-center justify-center gap-2 rounded-full bg-mint px-4 font-ui font-semibold"
         >
           <ExternalLink size={18} strokeWidth={2.5} aria-hidden="true" />
           {texts.edgeLabel}
