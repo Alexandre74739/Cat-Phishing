@@ -1,30 +1,17 @@
 "use client";
 
-import { ArrowRight, Blocks, Download, Gamepad2 } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { playClickSound } from "@/lib/sound";
+import {
+  icons,
+  sizes,
+  variants,
+  type ButtonIcon,
+  type ButtonVariant,
+} from "./buttonLooks";
 
-const variants = {
-  grape: "bg-grape text-paper",
-  orange: "bg-orange text-ink",
-  mint: "bg-mint text-ink",
-};
-
-const sizes = {
-  md: { className: "min-h-14 px-7 text-xl", icon: 22 },
-  sm: { className: "min-h-12 px-5 text-lg", icon: 20 },
-};
-
-const icons = {
-  play: Gamepad2,
-  code: Blocks,
-  install: Download,
-  next: ArrowRight,
-};
-
-export type ButtonVariant = keyof typeof variants;
-export type ButtonIcon = keyof typeof icons;
+export type { ButtonIcon, ButtonVariant };
 
 export type ButtonAction = {
   label: string;
@@ -42,6 +29,9 @@ type ButtonProps = {
   icon?: ButtonIcon;
   iconSide?: "start" | "end";
   expanded?: boolean;
+  type?: "button" | "submit";
+  disabled?: boolean;
+  fullWidth?: boolean;
   className?: string;
   onClick?: () => void;
 };
@@ -54,11 +44,14 @@ export function Button({
   icon,
   iconSide = "start",
   expanded,
+  type = "button",
+  disabled,
+  fullWidth,
   className = "",
   onClick,
 }: ButtonProps) {
   const Icon = icon && icons[icon];
-  const classes = `${variants[variant]} ${sizes[size].className} ${iconSide === "end" ? "flex-row-reverse" : ""} toon pressable inline-flex items-center justify-center gap-2 rounded-full font-ui font-semibold whitespace-nowrap ${className}`;
+  const classes = `${variants[variant]} ${sizes[size].className} ${iconSide === "end" ? "flex-row-reverse" : ""} toon pressable inline-flex items-center justify-center gap-2 rounded-full font-ui font-semibold disabled:opacity-50 ${fullWidth ? "w-full py-2 text-center text-balance" : "whitespace-nowrap"} ${className}`;
   const handleClick = () => {
     playClickSound();
     onClick?.();
@@ -80,7 +73,8 @@ export function Button({
   if (!href) {
     return (
       <button
-        type="button"
+        type={type}
+        disabled={disabled}
         aria-expanded={expanded}
         onClick={handleClick}
         className={classes}
