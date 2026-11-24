@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { courses, levelsPerCourse } from "@/lib/courses";
 import { BadgeList } from "./_components/BadgeList";
 import { CourseList } from "./_components/CourseList";
+import { TreasureSection } from "./_components/TreasureSection";
 
 export const metadata: Metadata = {
   title: "Code puzzles · Cat-phishing",
@@ -22,6 +23,23 @@ export default function CodePage() {
           the viruses!
         </p>
         <div className="mt-14">
+          <TreasureSection
+            texts={{
+              title: "The treasure map",
+              text: "Finish a course below to win a piece of the map. Find all {total} pieces and {stars} stars to open the {world}!",
+              complete:
+                "The map is complete! Now collect {stars} stars to open the {world}.",
+              open: "The map is complete! The {world} is open: go explore it!",
+              map: "Treasure map: {count} of {total} pieces found",
+              pieces: "{count} / {total} pieces",
+              stars: "Stars to open the {world}",
+              courses: "Courses that hide a piece of the map",
+              done: "finished",
+              newPiece: "New piece!",
+              found: "New piece of the map found: {course}!",
+              play: "Explore the {world}",
+            }}
+          />
           <CourseList
             pager={{
               label: "Course pages",

@@ -1,3 +1,4 @@
+import type { MapRewardTexts } from "@/_components/puzzle/map/MapReward";
 import type { LockedCourseTexts } from "@/_components/puzzle/LockedCourse";
 import type { WinTexts } from "@/_components/puzzle/WinDialog";
 import type { WorldViewTexts } from "@/_components/puzzle/WorldView";
@@ -35,5 +36,6 @@ export type LevelTexts = {
     beatCatchat: string;
     improve: string;
     newBadge: string;
+    map: MapRewardTexts;
   };
 };

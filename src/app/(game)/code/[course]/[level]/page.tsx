@@ -157,6 +157,11 @@ const texts: LevelTexts = {
       "You beat Catchat! Your program is even shorter than Catchat's.",
     improve: "You used {used} blocks. Try with {optimal} or fewer for 3 stars!",
     newBadge: "New badge:",
+    map: {
+      found: "You found a piece of the treasure map! {count} of {total}.",
+      complete: "The treasure map is complete! It leads to the {world}.",
+      map: "Treasure map: {count} of {total} pieces found",
+    },
   },
 };
 

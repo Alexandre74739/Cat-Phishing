@@ -35,10 +35,10 @@ export const totalStars = (stars: StarsBySlug) =>
 
 export type CourseLock = {
   stars: { have: number; need: number };
-  courses: { slug: string; title: string; done: boolean }[];
+  courses: { slug: string; title: string; color: string; done: boolean }[];
 };
 
-export function courseLock(
+export function unlockStatus(
   course: Course,
   stars: StarsBySlug,
 ): CourseLock | null {
@@ -49,9 +49,22 @@ export function courseLock(
     .map((item) => ({
       slug: item.slug,
       title: item.title,
+      color: item.color,
       done: courseStats(item, stars).done === levelsPerCourse,
     }));
-  const have = totalStars(stars);
-  if (have >= need && required.every(({ done }) => done)) return null;
-  return { stars: { have: Math.min(have, need), need }, courses: required };
+  return {
+    stars: { have: Math.min(totalStars(stars), need), need },
+    courses: required,
+  };
+}
+
+export const isUnlocked = ({ stars, courses: required }: CourseLock) =>
+  stars.have >= stars.need && required.every(({ done }) => done);
+
+export function courseLock(
+  course: Course,
+  stars: StarsBySlug,
+): CourseLock | null {
+  const status = unlockStatus(course, stars);
+  return status && !isUnlocked(status) ? status : null;
 }

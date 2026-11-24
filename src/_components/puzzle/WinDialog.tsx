@@ -3,7 +3,7 @@
 import { ArrowRight, RotateCcw, Star, Trophy } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { CatFace } from "@/_components/cat/CatFace";
 import { useDismiss } from "@/hooks/useDismiss";
 import { playClickSound, playSound } from "@/lib/sound";
@@ -21,6 +21,7 @@ type WinDialogProps = {
   detail?: string;
   badges?: { label: string; names: string[] };
   next?: { label: string; href: string };
+  children?: ReactNode;
   onClose: () => void;
   onReplay: () => void;
 };
@@ -35,6 +36,7 @@ export function WinDialog({
   detail,
   badges,
   next,
+  children,
   onClose,
   onReplay,
 }: WinDialogProps) {
@@ -136,6 +138,7 @@ export function WinDialog({
             ))}
           </motion.ul>
         )}
+        {children}
         <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row">
           <button
             type="button"

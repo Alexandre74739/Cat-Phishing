@@ -1,4 +1,5 @@
 import { Check, Star } from "lucide-react";
+import { ProgressBar } from "./ProgressBar";
 
 type CourseProgressProps = {
   done: number;
@@ -34,19 +35,11 @@ export function CourseProgress({
           {stars} / {maxStars}
         </span>
       </div>
-      <div
-        role="progressbar"
-        aria-valuemin={0}
-        aria-valuemax={maxStars}
-        aria-valuenow={stars}
-        aria-label={`${stars} / ${maxStars} ${texts.stars}`}
-        className="mt-1.5 h-4 overflow-hidden rounded-full border-[3px] border-ink bg-cream"
-      >
-        <div
-          className="h-full bg-orange motion-safe:transition-[width] motion-safe:duration-700"
-          style={{ width: `${(stars / maxStars) * 100}%` }}
-        />
-      </div>
+      <ProgressBar
+        value={stars}
+        max={maxStars}
+        label={`${stars} / ${maxStars} ${texts.stars}`}
+      />
     </div>
   );
 }

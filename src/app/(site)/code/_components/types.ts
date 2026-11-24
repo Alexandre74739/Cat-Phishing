@@ -16,3 +16,18 @@ export type HubTexts = {
   locked: LockedCourseTexts;
   blocks: EditorTexts["blocks"];
 };
+
+export type TreasureTexts = {
+  title: string;
+  text: string;
+  complete: string;
+  open: string;
+  map: string;
+  pieces: string;
+  stars: string;
+  courses: string;
+  done: string;
+  newPiece: string;
+  found: string;
+  play: string;
+};

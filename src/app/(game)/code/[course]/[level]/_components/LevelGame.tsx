@@ -3,6 +3,7 @@
 import { AnimatePresence } from "motion/react";
 import { WinDialog } from "@/_components/puzzle/WinDialog";
 import { WorldView } from "@/_components/puzzle/WorldView";
+import { MapReward } from "@/_components/puzzle/map/MapReward";
 import { ProgramEditor } from "@/_components/puzzle/editor/ProgramEditor";
 import { useStars } from "@/hooks/useStars";
 import { courseLock } from "@/lib/courseProgress";
@@ -97,7 +98,9 @@ export function LevelGame({ courseIndex, number, texts }: LevelGameProps) {
             next={winLink(courseIndex, number, texts.win)}
             onClose={game.closeWin}
             onReplay={game.replay}
-          />
+          >
+            {win.piece && <MapReward piece={win.piece} texts={texts.win.map} />}
+          </WinDialog>
         )}
       </AnimatePresence>
     </div>

@@ -9,8 +9,14 @@ import { buildWorld } from "@/lib/levels";
 import { getStars, recordKey, saveStars } from "@/lib/progress";
 import { starsFor, type Outcome } from "@/lib/runtime";
 import { playSound } from "@/lib/sound";
+import { newPiece } from "@/lib/treasureMap";
 
-type Win = { stars: number; used: number; badges: string[] };
+type Win = {
+  stars: number;
+  used: number;
+  badges: string[];
+  piece?: string;
+};
 
 export function useLevelGame(course: Course, number: number) {
   const level = course.levels[number - 1];
@@ -32,14 +38,16 @@ export function useLevelGame(course: Course, number: number) {
     }
     const used = countBlocks(program);
     const stars = starsFor(used, level.optimal);
-    const before = earnedBadges(getStars()).map((badge) => badge.id);
+    const starsBefore = getStars();
+    const before = earnedBadges(starsBefore).map((badge) => badge.id);
     const key = levelKey(course.slug, number);
     saveStars(key, stars);
     if (used < level.optimal) saveStars(recordKey(key), 1);
     const badges = earnedBadges(getStars())
       .filter((badge) => !before.includes(badge.id))
       .map((badge) => badge.name);
-    setTimeout(() => setWin({ stars, used, badges }), 700);
+    const piece = newPiece(starsBefore, getStars());
+    setTimeout(() => setWin({ stars, used, badges, piece }), 700);
   };
 
   const reset = () => {
