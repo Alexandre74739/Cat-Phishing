@@ -1,6 +1,7 @@
 import {
   ArrowRight,
   Blocks,
+  Cat,
   CloudUpload,
   Download,
   Gamepad2,
@@ -27,6 +28,7 @@ export const sizes = {
 export const icons = {
   play: Gamepad2,
   code: Blocks,
+  cat: Cat,
   install: Download,
   next: ArrowRight,
   edit: Pencil,

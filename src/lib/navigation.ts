@@ -2,6 +2,7 @@ export const routes = {
   home: "/",
   play: "/play",
   code: "/code",
+  cosplay: "/cosplay",
   legalNotice: "/legal-notice",
   privacy: "/privacy",
   terms: "/terms",

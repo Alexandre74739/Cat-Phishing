@@ -11,30 +11,34 @@ const sections = [
   { id: "faq", label: "FAQ" },
 ];
 
+const sectionLinks = sections.map((section) => ({
+  label: section.label,
+  href: `/#${section.id}`,
+}));
+
+const install = {
+  label: "Install the app",
+  help: {
+    dialogLabel: "How to install the app",
+    closeLabel: "Close",
+    edgeLabel: "Or: open in Edge",
+    guide: installGuide,
+  },
+};
+
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
     <>
       <Header
-        sections={sections}
-        actions={[
-          {
-            label: "Play",
-            href: routes.play,
-            icon: "next",
-            iconSide: "end",
-            variant: "orange",
-          },
+        pages={[
+          { label: "Play", href: routes.play, icon: "play" },
+          { label: "Code puzzles", href: routes.code, icon: "code" },
+          { label: "Cosplay", href: routes.cosplay, icon: "cat" },
         ]}
-        install={{
-          label: "Install the app",
-          help: {
-            dialogLabel: "How to install the app",
-            closeLabel: "Close",
-            edgeLabel: "Or: open in Edge",
-            guide: installGuide,
-          },
-        }}
+        sections={{ title: "Discover the game", links: sectionLinks }}
+        install={install}
         players={playerTexts}
+        menu={{ open: "Open menu", close: "Close menu" }}
       />
       {children}
       <Footer
@@ -42,23 +46,19 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
         action={{
           label: "Play now",
           href: routes.play,
-          variant: "mint",
+          variant: "orange",
           icon: "next",
           iconSide: "end",
         }}
+        install={install}
         groups={[
-          {
-            title: "Explore",
-            links: sections.map((section) => ({
-              label: section.label,
-              href: `/#${section.id}`,
-            })),
-          },
+          { title: "Explore", links: sectionLinks },
           {
             title: "Play",
             links: [
               { label: "Start a game", href: routes.play },
               { label: "Code puzzles", href: routes.code },
+              { label: "Cosplay", href: routes.cosplay },
             ],
           },
         ]}
