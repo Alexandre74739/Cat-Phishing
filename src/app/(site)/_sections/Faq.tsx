@@ -1,13 +1,9 @@
 "use client";
 
-import { Plus } from "lucide-react";
 import { motion } from "motion/react";
+import { useState } from "react";
 import { Button, type ButtonAction } from "@/_components/ui/Button";
-
-type FaqItem = {
-  question: string;
-  answer: string;
-};
+import { FaqEntry, type FaqItem } from "./FaqEntry";
 
 type FaqProps = {
   id: string;
@@ -20,6 +16,8 @@ type FaqProps = {
 const pop = { type: "spring", stiffness: 200, damping: 22 } as const;
 
 export function Faq({ id, title, intro, items, action }: FaqProps) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   return (
     <section
       id={id}
@@ -56,34 +54,18 @@ export function Faq({ id, title, intro, items, action }: FaqProps) {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ ...pop, delay: index * 0.05 }}
             >
-              <FaqEntry item={item} name={id} />
+              <FaqEntry
+                item={item}
+                id={`${id}-${index}`}
+                open={openIndex === index}
+                onToggle={() =>
+                  setOpenIndex((current) => (current === index ? null : index))
+                }
+              />
             </motion.li>
           ))}
         </ul>
       </div>
     </section>
-  );
-}
-
-function FaqEntry({
-  item: { question, answer },
-  name,
-}: {
-  item: FaqItem;
-  name: string;
-}) {
-  return (
-    <details name={name} className="group toon rounded-3xl bg-paper text-ink">
-      <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 rounded-3xl px-5 py-4 font-ui text-lg font-semibold sm:px-6 [&::-webkit-details-marker]:hidden">
-        {question}
-        <span
-          aria-hidden="true"
-          className="grid size-10 shrink-0 place-items-center rounded-full border-2 border-ink bg-paper motion-safe:transition-transform group-open:rotate-45"
-        >
-          <Plus size={20} strokeWidth={3} />
-        </span>
-      </summary>
-      <p className="px-5 pb-5 text-lg font-semibold sm:px-6">{answer}</p>
-    </details>
   );
 }
