@@ -3,6 +3,7 @@ import { About } from "./_sections/About";
 import { Banner } from "./_sections/Banner";
 import { Deck } from "./_sections/Deck";
 import { Demo } from "./_sections/Demo";
+import { Faq } from "./_sections/Faq";
 import { Hero } from "./_sections/Hero";
 import { Reveal } from "./_sections/Reveal";
 
@@ -173,6 +174,19 @@ export default function Home() {
           },
         ]}
       />
+      <Banner
+        id="ready"
+        title="Ready to pass the"
+        highlight="virus?"
+        text="Grab your cards, gather your friends and put one phone in the middle of the table. Type your nicknames, see who gets the virus first and start dropping your cats. No signup, no download: the first game starts in seconds!"
+        action={{
+          label: "Play now",
+          href: routes.play,
+          variant: "sun",
+          icon: "next",
+          iconSide: "end",
+        }}
+      />
       <Demo
         id="puzzles"
         title="Write your very first program, right here, in under a minute"
@@ -208,11 +222,37 @@ export default function Home() {
           },
         }}
       />
-      <Banner
-        id="ready"
-        title="Ready to pass the"
-        highlight="virus?"
-        text="Grab your cards, gather your friends and put one phone in the middle of the table. Type your nicknames, see who gets the virus first and start dropping your cats. No signup, no download: the first game starts in seconds!"
+      <Faq
+        id="faq"
+        title="Got questions? We've got answers"
+        intro="Everything you need to know before the virus lands in your hands. Still stuck? Ask the cat… or just start a game!"
+        items={[
+          {
+            question: "Does every player need a phone?",
+            answer:
+              "Nope! One phone sits in the middle of the table and goes from hand to hand. It shows who holds the virus and lets you pass it on.",
+          },
+          {
+            question: "How do I get rid of the virus?",
+            answer:
+              "Lay down one of your cat cards. Once you do, you can send the virus to another player on the phone. Got a No ! card? Use it to block the virus when it comes your way.",
+          },
+          {
+            question: "What happens when someone makes a mistake?",
+            answer:
+              "They lose, and so does the player holding the virus. So keep your eyes open, even when it's not your turn!",
+          },
+          {
+            question: "Do I need to know how to code?",
+            answer:
+              "Not at all. You snap blocks together, press Run and watch the cat follow your program. Levels start easy and get trickier step by step.",
+          },
+          {
+            question: "Do I need an account?",
+            answer:
+              "You only need a nickname. No email, no ads, no trackers, and your data stays in Europe.",
+          },
+        ]}
         action={{
           label: "Play now",
           href: routes.play,
