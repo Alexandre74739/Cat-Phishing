@@ -54,7 +54,7 @@ When a task depends on one of these points, ask Alexandre instead of choosing yo
 - **Next.js 16** (App Router), **TypeScript strict**, React 19
 - **Tailwind CSS 4** (design tokens in the theme, see "Art direction")
 - **three.js** via **React Three Fiber** + **@react-three/drei** for the 3D puzzles
-- **Neon** (PostgreSQL, EU region). The driver/ORM is not chosen yet: ask before adding one.
+- **MongoDB Atlas** (free M0 cluster, EU region) with the official `mongodb` driver, no ORM. Used only for the optional online save of player accounts, same design as CuboCode (pseudo + 4-digit code, one document per account). Players and progress live on the device first.
 - **PWA**, mobile-first (the game is played on one phone, in portrait)
 - Deployment: Vercel
 - Tooling: ESLint (Next.js config, strict react-hooks rules), Prettier (default settings). No automated tests for now.
@@ -129,7 +129,7 @@ scripts/                 build / verification scripts
 Players are minors:
 - Collect only what the game needs (a first name or nickname is enough, no email, no exact age).
 - No third-party trackers, no ads. Fonts are self-hosted: `.woff2` files in `public/fonts/`, declared with `@font-face` in `globals.css` (no external CDN).
-- Data stays in the EU (Neon EU region).
+- Data stays in the EU (MongoDB Atlas cluster in an EU region: Paris or Frankfurt).
 
 ## Git and traces: strict rules
 

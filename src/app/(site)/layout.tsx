@@ -63,7 +63,6 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
             links: [
               { label: "Start a game", href: routes.play },
               { label: "Code puzzles", href: routes.code },
-              { label: "My account", href: routes.account },
             ],
           },
         ]}
