@@ -3,6 +3,9 @@ export const routes = {
   play: "/play",
   code: "/code",
   account: "/account",
+  legalNotice: "/legal-notice",
+  privacy: "/privacy",
+  terms: "/terms",
 } as const;
 
 export const levelHref = (course: string, level: number) =>
