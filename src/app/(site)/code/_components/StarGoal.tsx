@@ -1,5 +1,5 @@
 import { Star } from "lucide-react";
-import { ProgressBar } from "./ProgressBar";
+import { ProgressBar } from "@/_components/ui/ProgressBar";
 
 type StarGoalProps = {
   label: string;

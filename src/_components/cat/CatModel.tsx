@@ -10,9 +10,11 @@ import {
   materials,
   palette,
 } from "@/_components/puzzle/world3d/materials";
+import { useOutfit } from "@/hooks/useOutfit";
 import type { Cat } from "@/lib/levels";
 import { CatBody } from "./CatBody";
 import { applyEvent, createMotion, stepCat } from "./catMotion";
+import { Trail } from "./Trail";
 
 type CatModelProps = {
   cat: Cat;
@@ -24,6 +26,7 @@ export function CatModel({ cat, event, offset }: CatModelProps) {
   const root = useRef<THREE.Group>(null);
   const body = useRef<THREE.Group>(null);
   const motion = useRef(createMotion());
+  const outfit = useOutfit();
 
   useEffect(
     () => applyEvent(motion.current, event.kind, event.duration),
@@ -36,24 +39,27 @@ export function CatModel({ cat, event, offset }: CatModelProps) {
   });
 
   return (
-    <group ref={root}>
-      <mesh
-        position={[0, 0.02, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
-        material={materials.shadow}
-      >
-        <circleGeometry args={[0.32, 20]} />
-      </mesh>
-      <mesh
-        position={[0, 0.03, 0.4]}
-        geometry={arrowGeometry}
-        material={materials.arrow}
-      >
-        <Edges color={palette.ink} />
-      </mesh>
-      <group ref={body}>
-        <CatBody />
+    <>
+      <Trail target={root} kind={outfit.trail} />
+      <group ref={root}>
+        <mesh
+          position={[0, 0.02, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+          material={materials.shadow}
+        >
+          <circleGeometry args={[0.32, 20]} />
+        </mesh>
+        <mesh
+          position={[0, 0.03, 0.4]}
+          geometry={arrowGeometry}
+          material={materials.arrow}
+        >
+          <Edges color={palette.ink} />
+        </mesh>
+        <group ref={body}>
+          <CatBody outfit={outfit} />
+        </group>
       </group>
-    </group>
+    </>
   );
 }

@@ -1,0 +1,99 @@
+// No value import here: the API route sanitizes saved outfits with this file.
+import type { BadgeId } from "./badges";
+
+export type Slot = "fur" | "hat" | "face" | "back" | "trail";
+
+export type OutfitItem = {
+  id: string;
+  name: string;
+  stars: number;
+  badge?: BadgeId;
+  hidden?: boolean;
+};
+
+export type Outfit = Record<Slot, string>;
+
+export const slots: Record<Slot, OutfitItem[]> = {
+  fur: [
+    { id: "ginger", name: "Ginger", stars: 0 },
+    { id: "snow", name: "Snow", stars: 5 },
+    { id: "midnight", name: "Midnight", stars: 14 },
+    { id: "mint", name: "Mint", stars: 26 },
+    { id: "bubblegum", name: "Bubblegum", stars: 40 },
+    { id: "lilac", name: "Lilac", stars: 60 },
+    { id: "gold", name: "Gold", stars: 150 },
+    {
+      id: "matrix",
+      name: "Matrix",
+      stars: 0,
+      badge: "debugger",
+      hidden: true,
+    },
+  ],
+  hat: [
+    { id: "none", name: "No hat", stars: 0 },
+    { id: "cap", name: "Coder cap", stars: 3 },
+    { id: "propeller", name: "Propeller cap", stars: 10 },
+    { id: "antenna", name: "Wi-Fi antenna", stars: 22 },
+    { id: "wizard", name: "Code wizard hat", stars: 35 },
+    { id: "crown", name: "Crown", stars: 90 },
+    { id: "helmet", name: "Firewall helmet", stars: 0, badge: "castleHero" },
+  ],
+  face: [
+    { id: "none", name: "Nothing", stars: 0 },
+    { id: "glasses", name: "Round glasses", stars: 8 },
+    { id: "shades", name: "Sunglasses", stars: 30 },
+    { id: "visor", name: "Hacker visor", stars: 70 },
+    { id: "mask", name: "Hero mask", stars: 0, badge: "bugSquasher" },
+  ],
+  back: [
+    { id: "none", name: "Nothing", stars: 0 },
+    { id: "backpack", name: "Backpack", stars: 0 },
+    { id: "cape", name: "Hero cape", stars: 18 },
+    { id: "wings", name: "Butterfly wings", stars: 50 },
+    { id: "jetpack", name: "Jetpack", stars: 0, badge: "lavaJumper" },
+  ],
+  trail: [
+    { id: "none", name: "None", stars: 0 },
+    { id: "sparkles", name: "Sparkles", stars: 12 },
+    { id: "bubbles", name: "Bubbles", stars: 45 },
+    { id: "bits", name: "Binary bits", stars: 80 },
+    { id: "rainbow", name: "Rainbow", stars: 120 },
+    { id: "flames", name: "Flames", stars: 200 },
+  ],
+};
+
+export const slotNames = Object.keys(slots) as Slot[];
+
+export const defaultOutfit: Outfit = {
+  fur: "ginger",
+  hat: "none",
+  face: "none",
+  back: "backpack",
+  trail: "none",
+};
+
+export const isItemOpen = (
+  item: OutfitItem,
+  stars: number,
+  badgeIds: readonly string[],
+) => (item.badge ? badgeIds.includes(item.badge) : item.stars <= stars);
+
+export function cleanOutfit(raw: unknown): Outfit {
+  const source = raw && typeof raw === "object" ? raw : {};
+  const entries = slotNames.map((slot) => {
+    const id = (source as Record<string, unknown>)[slot];
+    const isKnown = slots[slot].some((item) => item.id === id);
+    return [slot, isKnown ? id : defaultOutfit[slot]];
+  });
+  return Object.fromEntries(entries) as Outfit;
+}
+
+export function nextGift(stars: number) {
+  return (
+    slotNames
+      .flatMap((slot) => slots[slot])
+      .filter((item) => !item.badge && item.stars > stars)
+      .sort((a, b) => a.stars - b.stars)[0] ?? null
+  );
+}

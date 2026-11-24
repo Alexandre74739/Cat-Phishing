@@ -6,6 +6,7 @@ import {
   type CloudErrorCode,
 } from "./cloud";
 import { notifyStores, subscribeStores } from "./localStore";
+import { getSavedOutfit, setSavedOutfit } from "./outfitStore";
 import { getActivePlayer, updatePlayer } from "./players";
 import { getStars, setStars } from "./progress";
 
@@ -57,11 +58,16 @@ const setStatus = (next: SyncStatus) => {
 export const getSyncStatus = () => status;
 export const getServerSyncStatus = (): SyncStatus => "off";
 
-export const localData = (): CloudData => sanitizeData({ stars: getStars() });
+export const localData = (): CloudData =>
+  sanitizeData({ stars: getStars(), outfit: getSavedOutfit() });
 
 export function applyData(data: CloudData) {
-  const merged = mergeData(localData(), sanitizeData(data));
-  if (!sameData(merged, localData())) setStars(merged.stars);
+  const local = localData();
+  const merged = mergeData(local, sanitizeData(data));
+  if (!sameData({ stars: merged.stars }, { stars: local.stars }))
+    setStars(merged.stars);
+  if (merged.outfit && merged.outfit.at !== local.outfit?.at)
+    setSavedOutfit(merged.outfit);
 }
 
 let running: Promise<void> | null = null;
@@ -110,12 +116,13 @@ export function syncNow(): Promise<void> {
 
 let isStarted = false;
 
-// Syncs on load, after each star change (grouped), when the network or the tab comes back.
+// Syncs on load, after each star or outfit change (grouped), when the network or the tab comes back.
 export function startAutoSync() {
   if (isStarted) return;
   isStarted = true;
   let timer: ReturnType<typeof setTimeout> | undefined;
   let lastStars = getStars();
+  let lastOutfit = getSavedOutfit();
   const soon = (delay = 1500) => {
     clearTimeout(timer);
     timer = setTimeout(() => {
@@ -123,8 +130,9 @@ export function startAutoSync() {
     }, delay);
   };
   subscribeStores(() => {
-    if (getStars() === lastStars) return;
+    if (getStars() === lastStars && getSavedOutfit() === lastOutfit) return;
     lastStars = getStars();
+    lastOutfit = getSavedOutfit();
     soon();
   });
   window.addEventListener("online", () => soon(200));

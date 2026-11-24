@@ -10,6 +10,7 @@ import {
   updatePlayer,
   type CloudLink,
 } from "./players";
+import { outfitKey } from "./outfitStore";
 import { getStars, starsKey } from "./progress";
 import { seenPiecesKey } from "./treasureMap";
 
@@ -80,5 +81,5 @@ export async function removePlayer(id: string, everywhere: boolean) {
       token: player.cloud.token,
     });
   else await logoutAccount(id);
-  forgetPlayer(id, [starsKey, seenPiecesKey]);
+  forgetPlayer(id, [starsKey, seenPiecesKey, outfitKey]);
 }

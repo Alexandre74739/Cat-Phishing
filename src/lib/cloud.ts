@@ -1,8 +1,10 @@
 // Shared by the browser and the API route: no Node or browser import here.
 import { defaultAvatarId } from "./avatars";
+import type { SavedOutfit } from "./outfitStore";
+import { cleanOutfit } from "./outfits";
 import type { StarsBySlug } from "./progress";
 
-export type CloudData = { stars: StarsBySlug };
+export type CloudData = { stars: StarsBySlug; outfit?: SavedOutfit };
 
 export type CloudErrorCode =
   | "badPseudo"
@@ -47,9 +49,19 @@ export const pseudoKey = (pseudo: string) =>
 
 const starKey = /^(record:)?[a-z-]{1,40}:\d{1,3}$/;
 
+function cleanSavedOutfit(raw: unknown): SavedOutfit | undefined {
+  if (!raw || typeof raw !== "object") return undefined;
+  const at = (raw as { at?: unknown }).at;
+  if (typeof at !== "number" || !Number.isFinite(at) || at <= 0)
+    return undefined;
+  return { ...cleanOutfit(raw), at: Math.floor(at) };
+}
+
 export function sanitizeData(raw: unknown): CloudData {
   const data = emptyCloudData();
   if (!raw || typeof raw !== "object") return data;
+  const outfit = cleanSavedOutfit((raw as { outfit?: unknown }).outfit);
+  if (outfit) data.outfit = outfit;
   const stars = (raw as { stars?: unknown }).stars;
   if (!stars || typeof stars !== "object") return data;
   for (const [key, value] of Object.entries(stars).slice(0, maxStarKeys)) {
@@ -59,17 +71,22 @@ export function sanitizeData(raw: unknown): CloudData {
   return data;
 }
 
-// Keeps the best of both saves: a star is never lost.
+const newestOutfit = (a?: SavedOutfit, b?: SavedOutfit) =>
+  !a || (b && b.at > a.at) ? b : a;
+
+// Keeps the best of both saves: a star is never lost, the newest outfit wins.
 export function mergeData(a: CloudData, b: CloudData): CloudData {
   const stars = { ...a.stars };
   for (const [key, value] of Object.entries(b.stars))
     stars[key] = Math.max(stars[key] ?? 0, value);
-  return { stars };
+  const outfit = newestOutfit(a.outfit, b.outfit);
+  return outfit ? { stars, outfit } : { stars };
 }
 
 export const sameData = (a: CloudData, b: CloudData) => {
   const keys = Object.keys(a.stars);
   return (
+    a.outfit?.at === b.outfit?.at &&
     keys.length === Object.keys(b.stars).length &&
     keys.every((key) => a.stars[key] === b.stars[key])
   );
