@@ -11,7 +11,6 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
           { id: "about", label: "About" },
           { id: "game", label: "The game" },
           { id: "puzzles", label: "Puzzles" },
-          { id: "how-to-play", label: "How to play" },
           { id: "faq", label: "FAQ" },
         ]}
         actions={[
