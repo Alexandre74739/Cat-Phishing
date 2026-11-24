@@ -7,8 +7,10 @@ import {
   moveBlock,
   removeBlock,
   rootList,
+  setCondition,
   setTimes,
   type Block,
+  type Condition,
 } from "@/lib/blocks";
 import { playSound } from "@/lib/sound";
 
@@ -53,6 +55,11 @@ export function useProgramEdit({ program, disabled, onChange }: EditOptions) {
     playSound("click");
   };
 
+  const changeCondition = (id: string, condition: Condition) => {
+    onChange(setCondition(program, id, condition));
+    playSound("click");
+  };
+
   const onKey = (event: KeyboardEvent, id: string) => {
     if (disabled || event.target !== event.currentTarget) return;
     const action =
@@ -70,7 +77,16 @@ export function useProgramEdit({ program, disabled, onChange }: EditOptions) {
     action();
   };
 
-  return { selectedId, setSelectedId, add, move, remove, changeTimes, onKey };
+  return {
+    selectedId,
+    setSelectedId,
+    add,
+    move,
+    remove,
+    changeTimes,
+    changeCondition,
+    onKey,
+  };
 }
 
 export type ProgramEdit = ReturnType<typeof useProgramEdit>;

@@ -54,6 +54,11 @@ export function EditableBlock({
           onTimes={
             disabled ? undefined : (times) => edit.changeTimes(block.id, times)
           }
+          onCondition={
+            disabled
+              ? undefined
+              : (condition) => edit.changeCondition(block.id, condition)
+          }
           renderChild={(child) => (
             <EditableBlock key={child.id} {...shared} block={child} />
           )}

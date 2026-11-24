@@ -1,4 +1,4 @@
-import type { Block, BlockType } from "@/lib/blocks";
+import type { Block, BlockType, Condition } from "@/lib/blocks";
 
 export type EditorTexts = {
   paletteTitle: string;
@@ -16,7 +16,10 @@ export type EditorTexts = {
   keyboardHelp: string;
   score: string;
   dropToDelete: string;
+  else: string;
+  condition: string;
   blocks: Record<BlockType, string>;
+  conditions: Record<Condition, string>;
 };
 
 export type DropTarget = {

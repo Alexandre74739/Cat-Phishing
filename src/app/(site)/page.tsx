@@ -104,7 +104,7 @@ export default function Home() {
           },
           {
             label: "Try a puzzle",
-            href: "#puzzles",
+            href: routes.code,
             variant: "sky",
             icon: "code",
           },

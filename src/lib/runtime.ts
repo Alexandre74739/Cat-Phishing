@@ -1,14 +1,9 @@
-import type { Block, BlockType } from "./blocks";
-import {
-  bugsInRange,
-  catcher,
-  enemyAt,
-  patrolAll,
-  virusComing,
-} from "./enemies";
+import type { Block, BlockType, Condition } from "./blocks";
+import { bugAhead, catcher, enemyAt, enemyComing, patrolAll } from "./enemies";
 import {
   ahead,
   cellKey,
+  isWalkable,
   setTile,
   tileAt,
   turn,
@@ -59,6 +54,7 @@ export type FailReason =
 export type Outcome = { ok: true } | { ok: false; reason: FailReason };
 
 const maxSteps = 600;
+const maxLoops = 120;
 
 const same = (a: Point, b: Point) => a.x === b.x && a.y === b.y;
 
@@ -68,12 +64,23 @@ const solidReasons: Partial<Record<Tile, FailReason>> = {
   D: "locked",
 };
 
-const tileChecks: Partial<Record<BlockType, Tile>> = {
-  ifWall: "#",
-  ifStream: "~",
-  ifSpam: "R",
-  ifGate: "D",
-  ifLava: "L",
+const tileChecks: Partial<Record<Condition, Tile>> = {
+  stream: "~",
+  spam: "R",
+  lava: "L",
+  gate: "D",
+};
+
+const sideTurns: Partial<Record<Condition, number>> = {
+  path: 0,
+  pathRight: 1,
+  pathLeft: -1,
+};
+
+const turns: Partial<Record<BlockType, number>> = {
+  left: -1,
+  right: 1,
+  turnAround: 2,
 };
 
 const tileActions: Partial<
@@ -85,13 +92,27 @@ const tileActions: Partial<
 };
 
 class Stop {
-  constructor(readonly outcome: Outcome) {}
+  readonly outcome: Outcome;
+  constructor(outcome: Outcome) {
+    this.outcome = outcome;
+  }
 }
 
 const fail = (reason: FailReason) => new Stop({ ok: false, reason });
 
+export function holds(world: World, condition: Condition): boolean {
+  const { cat } = world;
+  const side = sideTurns[condition];
+  if (side !== undefined)
+    return isWalkable(tileAt(world, ahead(cat, turn(cat.dir, side))));
+  const tile = tileChecks[condition];
+  if (tile) return tileAt(world, ahead(cat, cat.dir)) === tile;
+  if (condition === "bug") return bugAhead(world) !== null;
+  return enemyComing(world);
+}
+
 // Turning, grabbing, zapping and building are free: only moving, jumping and waiting let the enemies step.
-// The program must end on the chest with every gem grabbed.
+// The level is won as soon as the cat stands on the chest with every gem grabbed.
 export function* runProgram(
   start: World,
   program: Block[],
@@ -107,6 +128,12 @@ export function* runProgram(
     at,
   });
 
+  function* checkWin(blockId: string) {
+    if (!same(world.cat, world.goal) || world.gems.length > 0) return;
+    yield snap("win", blockId);
+    throw new Stop({ ok: true });
+  }
+
   function* act(blockId: string, kind: StepKind, to: Point) {
     const from = world.cat;
     const moved = patrolAll(world);
@@ -119,10 +146,12 @@ export function* runProgram(
     }
   }
 
-  function* fall(blockId: string, at: Point, tile: "~" | "L") {
+  function* caught(blockId: string, at: Point) {
+    const enemy = enemyAt(world, at);
+    if (!enemy) return;
     world = { ...world, cat: { ...world.cat, ...at } };
-    yield snap(tile === "~" ? "splash" : "burn", blockId, at);
-    throw fail(tile === "~" ? "stream" : "lava");
+    yield snap("caught", blockId, at);
+    throw fail(enemy);
   }
 
   function* enter(blockId: string, kind: StepKind, to: Point) {
@@ -132,31 +161,25 @@ export function* runProgram(
       yield snap("bump", blockId, to);
       throw fail(solid);
     }
-    const enemy = enemyAt(world, to);
-    if (enemy) {
+    yield* caught(blockId, to);
+    if (tile === "~" || tile === "L") {
       world = { ...world, cat: { ...world.cat, ...to } };
-      yield snap("caught", blockId, to);
-      throw fail(enemy);
+      yield snap(tile === "~" ? "splash" : "burn", blockId, to);
+      throw fail(tile === "~" ? "stream" : "lava");
     }
-    if (tile === "~" || tile === "L") yield* fall(blockId, to, tile);
     yield* act(blockId, kind, to);
+    yield* checkWin(blockId);
   }
 
+  // The cat can jump over a stream, lava or spam, but never over a firewall, a gate or an enemy.
   function* jump(blockId: string) {
     const over = ahead(world.cat, world.cat.dir);
     const tile = tileAt(world, over);
-    const solid = solidReasons[tile];
-    if (solid) {
+    if (tile === "#" || tile === "D") {
       yield snap("bump", blockId, over);
-      throw fail(solid);
+      throw fail(solidReasons[tile] ?? "blocked");
     }
-    if (tile === "~") yield* fall(blockId, over, tile);
-    const enemy = enemyAt(world, over);
-    if (enemy) {
-      world = { ...world, cat: { ...world.cat, ...over } };
-      yield snap("caught", blockId, over);
-      throw fail(enemy);
-    }
+    yield* caught(blockId, over);
     yield* enter(blockId, "jump", ahead(over, world.cat.dir));
   }
 
@@ -165,6 +188,7 @@ export function* runProgram(
     if (world.gems.includes(key)) {
       world = { ...world, gems: world.gems.filter((gem) => gem !== key) };
       yield snap("grab", blockId, world.cat);
+      yield* checkWin(blockId);
     } else if (world.keys.includes(key)) {
       world = {
         ...world,
@@ -189,53 +213,33 @@ export function* runProgram(
     yield snap(action.kind, block.id, front);
   }
 
+  // Only a bug right in front can be zapped: viruses are too strong and must be dodged.
   function* zap(blockId: string) {
-    const zapped = bugsInRange(world);
-    if (zapped.length === 0) {
+    const bug = bugAhead(world);
+    if (!bug) {
       yield snap("nothing", blockId);
       return;
     }
-    world = {
-      ...world,
-      bugs: world.bugs.filter((bug) => !zapped.includes(bug)),
-    };
-    yield snap("zap", blockId, zapped[0]);
+    world = { ...world, bugs: world.bugs.filter((item) => item !== bug) };
+    yield snap("zap", blockId, bug);
   }
-
-  function* loop(block: Block, keepGoing: () => boolean) {
-    const children = block.children ?? [];
-    while (keepGoing()) {
-      if (children.length === 0) throw fail("tooLong");
-      yield* run(children);
-    }
-  }
-
-  const holds = (type: BlockType) => {
-    const front = ahead(world.cat, world.cat.dir);
-    const tile = tileChecks[type];
-    if (tile) return tileAt(world, front) === tile;
-    if (type === "ifGem") return world.gems.includes(cellKey(world.cat));
-    return bugsInRange(world).length > 0;
-  };
 
   function* run(list: Block[]): Generator<Step, void> {
     for (const block of list) {
       if (++steps > maxSteps) throw fail("tooLong");
       const { cat } = world;
+      const quarter = turns[block.type];
+      if (quarter !== undefined) {
+        world = { ...world, cat: { ...cat, dir: turn(cat.dir, quarter) } };
+        yield snap("turn", block.id);
+        continue;
+      }
       switch (block.type) {
         case "forward":
           yield* enter(block.id, "move", ahead(cat, cat.dir));
           break;
         case "jump":
           yield* jump(block.id);
-          break;
-        case "left":
-        case "right":
-          world = {
-            ...world,
-            cat: { ...cat, dir: turn(cat.dir, block.type === "left" ? -1 : 1) },
-          };
-          yield snap("turn", block.id);
           break;
         case "grab":
           yield* grab(block.id);
@@ -255,16 +259,19 @@ export function* runProgram(
           for (let round = 0; round < (block.times ?? 0); round++)
             yield* run(block.children ?? []);
           break;
-        case "until":
-          yield* loop(block, () => !same(world.cat, world.goal));
+        case "until": {
+          const children = block.children ?? [];
+          for (let round = 0; !same(world.cat, world.goal); round++) {
+            if (round >= maxLoops || children.length === 0)
+              throw fail("tooLong");
+            yield* run(children);
+          }
           break;
-        case "whileVirus":
-          yield* loop(block, () => virusComing(world));
-          break;
+        }
         default: {
-          const yes = holds(block.type);
+          const yes = holds(world, block.condition ?? "path");
           yield snap("check", block.id);
-          if (yes) yield* run(block.children ?? []);
+          yield* run((yes ? block.children : block.alt) ?? []);
         }
       }
     }
@@ -277,10 +284,8 @@ export function* runProgram(
     throw error;
   }
 
-  if (!same(world.cat, world.goal)) return { ok: false, reason: "notAtGoal" };
-  if (world.gems.length > 0) return { ok: false, reason: "gemsMissing" };
-  yield snap("win", program[program.length - 1].id);
-  return { ok: true };
+  if (same(world.cat, world.goal)) return { ok: false, reason: "gemsMissing" };
+  return { ok: false, reason: "notAtGoal" };
 }
 
 export function starsFor(used: number, optimal: number): 1 | 2 | 3 {

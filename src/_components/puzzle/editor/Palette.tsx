@@ -2,7 +2,12 @@
 
 import { Trash2 } from "lucide-react";
 import type { PointerEvent } from "react";
-import { createBlock, type Block, type BlockType } from "@/lib/blocks";
+import {
+  createBlock,
+  defaultCondition,
+  type Block,
+  type BlockType,
+} from "@/lib/blocks";
 import { BlockView } from "./BlockView";
 import type { EditorTexts } from "./types";
 
@@ -45,7 +50,14 @@ export function Palette({
               className="block max-w-full cursor-grab touch-pan-y rounded-2xl text-left motion-safe:transition-transform motion-safe:hover:-rotate-1 motion-safe:hover:scale-[1.03] disabled:cursor-not-allowed disabled:opacity-50"
             >
               <BlockView
-                block={{ id: type, type, times: 3, children: [] }}
+                block={{
+                  id: type,
+                  type,
+                  times: 3,
+                  condition: defaultCondition(type),
+                  children: [],
+                  alt: type === "ifElse" ? [] : undefined,
+                }}
                 texts={texts}
               />
             </button>

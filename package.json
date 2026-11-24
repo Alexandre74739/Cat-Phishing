@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "verify:levels": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/verify-levels.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

@@ -6,37 +6,33 @@ export type BadgeId =
   | "firstCode"
   | "shiningStar"
   | "betterThanCatchat"
-  | "loopRookie"
-  | "nestedLoops"
-  | "untilLoop"
   | "firstCatch"
-  | "ifThen"
-  | "bugSquasher"
+  | "loopRookie"
   | "bridgeBuilder"
+  | "nestedLoops"
+  | "ifThen"
+  | "keyFinder"
   | "lavaJumper"
+  | "untilLoop"
+  | "bugSquasher"
   | "virusDodger"
-  | "whileLoop"
+  | "ifElsePro"
   | "halfway"
   | "starCollector"
+  | "halfwayThere"
   | "starHoarder"
+  | "starGalaxy"
   | "graduate"
-  | "loopMaster"
-  | "phishHunter"
-  | "antivirusHero"
-  | "debugger"
-  | "kittenGraduate"
-  | "gemHunter"
-  | "mazeRunner"
+  | "gatekeeper"
   | "networkFixer"
   | "coreCooler"
-  | "vaultCracker"
-  | "stormChaser"
-  | "loopLegend"
-  | "halfwayThere"
-  | "marathon"
-  | "starGalaxy"
-  | "perfectTrio"
+  | "debugger"
+  | "mazeRunner"
+  | "castleHero"
+  | "islandExplorer"
   | "perfectCourse"
+  | "perfectTrio"
+  | "marathon"
   | "legend";
 
 export type Badge = {
@@ -77,64 +73,70 @@ export const badges: Badge[] = [
     earned: hasRecord,
   },
   {
-    id: "loopRookie",
-    name: "Loop rookie",
-    text: "Use your first loop in Cat school.",
-    earned: levelDone("cat-school", 7),
-  },
-  {
-    id: "nestedLoops",
-    name: "Loop in a loop",
-    text: "Solve “Loop in a loop” in Data loops.",
-    earned: levelDone("data-loops", 3),
-  },
-  {
-    id: "untilLoop",
-    name: "Until the end",
-    text: "Use “repeat until chest” for the first time.",
-    earned: levelDone("data-loops", 6),
-  },
-  {
     id: "firstCatch",
     name: "First catch",
     text: "Grab your first shiny gem.",
-    earned: levelDone("phish-market", 1),
+    earned: levelDone("boot-camp", 4),
   },
   {
-    id: "ifThen",
-    name: "If… then!",
-    text: "Write your first condition.",
-    earned: levelDone("phish-market", 6),
-  },
-  {
-    id: "bugSquasher",
-    name: "Bug squasher",
-    text: "Zap your first bug.",
-    earned: levelDone("bugs-and-viruses", 1),
+    id: "loopRookie",
+    name: "Loop rookie",
+    text: "Use your first loop in Boot camp.",
+    earned: levelDone("boot-camp", 5),
   },
   {
     id: "bridgeBuilder",
     name: "Bridge builder",
     text: "Build your first bridge over a data stream.",
-    earned: levelDone("data-streams", 1),
+    earned: levelDone("boot-camp", 7),
+  },
+  {
+    id: "nestedLoops",
+    name: "Loop in a loop",
+    text: "Put a loop inside another loop.",
+    earned: levelDone("boot-camp", 9),
+  },
+  {
+    id: "ifThen",
+    name: "If… then!",
+    text: "Write your first condition.",
+    earned: levelDone("boot-camp", 10),
+  },
+  {
+    id: "keyFinder",
+    name: "Key finder",
+    text: "Open your first locked gate.",
+    earned: levelDone("password-valley", 1),
   },
   {
     id: "lavaJumper",
     name: "Lava jumper",
     text: "Jump over the lava for the first time.",
-    earned: levelDone("lava-core", 1),
+    earned: levelDone("server-volcano", 1),
+  },
+  {
+    id: "untilLoop",
+    name: "Until the end",
+    text: "Use “repeat until chest” for the first time.",
+    earned: levelDone("server-volcano", 3),
+  },
+  {
+    id: "bugSquasher",
+    name: "Bug squasher",
+    text: "Zap your first bug.",
+    earned: levelDone("bug-village", 1),
   },
   {
     id: "virusDodger",
     name: "Virus dodger",
     text: "Dodge your first virus.",
-    earned: levelDone("virus-patrol", 1),
+    earned: levelDone("bug-village", 2),
   },
   {
-    id: "whileLoop",
-    name: "While loop pro",
-    text: "Use “while virus ahead” for the first time.",
-    earned: levelDone("virus-patrol", 4),
+    id: "ifElsePro",
+    name: "If… else pro",
+    text: "Use “if… else” for the first time.",
+    earned: levelDone("bug-village", 5),
   },
   {
     id: "halfway",
@@ -149,16 +151,16 @@ export const badges: Badge[] = [
     earned: (stars) => totalStars(stars) >= 50,
   },
   {
+    id: "halfwayThere",
+    name: "Halfway there",
+    text: "Solve 40 levels.",
+    earned: (stars) => levelsDone(stars) >= 40,
+  },
+  {
     id: "starHoarder",
     name: "Star hoarder",
     text: "Collect 100 stars.",
     earned: (stars) => totalStars(stars) >= 100,
-  },
-  {
-    id: "halfwayThere",
-    name: "Halfway there",
-    text: "Solve 50 levels.",
-    earned: (stars) => levelsDone(stars) >= 50,
   },
   {
     id: "starGalaxy",
@@ -168,81 +170,51 @@ export const badges: Badge[] = [
   },
   {
     id: "graduate",
-    name: "Cat school graduate",
-    text: "Finish all 10 levels of Cat school.",
-    earned: courseDone("cat-school"),
+    name: "Boot camp graduate",
+    text: "Finish all 10 levels of Boot camp.",
+    earned: courseDone("boot-camp"),
   },
   {
-    id: "loopMaster",
-    name: "Loop master",
-    text: "Finish all 10 levels of Data loops.",
-    earned: courseDone("data-loops"),
-  },
-  {
-    id: "phishHunter",
-    name: "Phish hunter",
-    text: "Finish all 10 levels of Phish market.",
-    earned: courseDone("phish-market"),
-  },
-  {
-    id: "antivirusHero",
-    name: "Antivirus hero",
-    text: "Finish all 10 levels of Virus patrol.",
-    earned: courseDone("virus-patrol"),
-  },
-  {
-    id: "debugger",
-    name: "Debugger",
-    text: "Finish all 10 levels of Bugs & viruses.",
-    earned: courseDone("bugs-and-viruses"),
-  },
-  {
-    id: "kittenGraduate",
-    name: "Tiny paws",
-    text: "Finish all 10 levels of Kitten steps.",
-    earned: courseDone("kitten-steps"),
-  },
-  {
-    id: "gemHunter",
-    name: "Gem hunter",
-    text: "Finish all 10 levels of Gem hunt.",
-    earned: courseDone("gem-hunt"),
-  },
-  {
-    id: "mazeRunner",
-    name: "Maze runner",
-    text: "Finish all 10 levels of Firewall maze.",
-    earned: courseDone("firewall-maze"),
+    id: "gatekeeper",
+    name: "Gatekeeper",
+    text: "Finish all 10 levels of Password valley.",
+    earned: courseDone("password-valley"),
   },
   {
     id: "networkFixer",
     name: "Network fixer",
-    text: "Finish all 10 levels of Data streams.",
-    earned: courseDone("data-streams"),
+    text: "Finish all 10 levels of Data river.",
+    earned: courseDone("data-river"),
   },
   {
     id: "coreCooler",
     name: "Core cooler",
-    text: "Finish all 10 levels of Lava core.",
-    earned: courseDone("lava-core"),
+    text: "Finish all 10 levels of Server volcano.",
+    earned: courseDone("server-volcano"),
   },
   {
-    id: "vaultCracker",
-    name: "Vault cracker",
-    text: "Finish all 10 levels of Gem vault.",
-    earned: courseDone("gem-vault"),
+    id: "debugger",
+    name: "Debugger",
+    text: "Finish all 10 levels of Bug village.",
+    earned: courseDone("bug-village"),
   },
   {
-    id: "stormChaser",
-    name: "Storm chaser",
-    text: "Finish all 10 levels of Virus storm.",
-    earned: courseDone("virus-storm"),
+    id: "mazeRunner",
+    name: "Maze runner",
+    text: "Finish all 10 levels of Master maze.",
+    earned: courseDone("master-maze"),
   },
   {
-    id: "loopLegend",
-    name: "Loop legend",
-    text: "Finish all 10 levels of Loop legends.",
-    earned: courseDone("loop-legends"),
+    id: "castleHero",
+    name: "Castle hero",
+    text: "Finish all 10 levels of Firewall castle.",
+    earned: courseDone("firewall-castle"),
+  },
+  {
+    id: "islandExplorer",
+    name: "Island explorer",
+    text: "Finish all 10 levels of Secret island.",
+    earned: courseDone("secret-island"),
   },
   {
     id: "perfectCourse",
