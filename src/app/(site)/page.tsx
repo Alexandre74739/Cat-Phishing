@@ -1,5 +1,6 @@
 import { routes } from "@/lib/navigation";
 import { About } from "./_sections/About";
+import { Banner } from "./_sections/Banner";
 import { Deck } from "./_sections/Deck";
 import { Demo } from "./_sections/Demo";
 import { Hero } from "./_sections/Hero";
@@ -102,7 +103,7 @@ export default function Home() {
             icon: "play",
           },
           {
-            label: "Try a puzzle",
+            label: "Start coding",
             href: routes.code,
             variant: "sky",
             icon: "code",
@@ -132,15 +133,15 @@ export default function Home() {
           },
           {
             eyebrow: "Your lifesaver",
-            title: "Non !",
+            title: "No !",
             description:
-              "The card everyone wants to keep. Someone plays a nasty cat-astrophe card on you? Non ! The virus is coming your way? Non ! Slam it on the table and the attack is blocked, like a firewall.",
+              "The card everyone wants to keep. Someone plays a nasty cat-astrophe card on you? No ! The virus is coming your way? No ! Slam it on the table and the attack is blocked, like a firewall.",
             size: "tall",
             color: "pink",
             icon: "nope",
             visual: {
               kind: "card",
-              card: "Non !",
+              card: "No !",
               caption: "Blocks a cat-astrophe or the virus",
             },
           },
@@ -205,6 +206,19 @@ export default function Home() {
             replay: "Play again",
             next: { label: "See all puzzles", href: routes.code },
           },
+        }}
+      />
+      <Banner
+        id="ready"
+        title="Ready to pass the"
+        highlight="virus?"
+        text="Grab your cards, gather your friends and put one phone in the middle of the table. Type your nicknames, see who gets the virus first and start dropping your cats. No signup, no download: the first game starts in seconds!"
+        action={{
+          label: "Play now",
+          href: routes.play,
+          variant: "sun",
+          icon: "next",
+          iconSide: "end",
         }}
       />
     </main>
