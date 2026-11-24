@@ -12,6 +12,10 @@ export const furClasses: Record<string, string> = {
   gold: "[--color-fur:var(--color-fur-gold)] [--color-fur-dark:var(--color-fur-gold-dark)]",
   matrix:
     "[--color-fur:var(--color-fur-matrix)] [--color-fur-dark:var(--color-fur-matrix-dark)]",
+  sky: "[--color-fur:var(--color-fur-sky)] [--color-fur-dark:var(--color-fur-sky-dark)]",
+  coral:
+    "[--color-fur:var(--color-fur-coral)] [--color-fur-dark:var(--color-fur-coral-dark)]",
+  ash: "[--color-fur:var(--color-fur-ash)] [--color-fur-dark:var(--color-fur-ash-dark)]",
 };
 
 export const trailDots: Record<string, string[]> = {
@@ -27,4 +31,8 @@ export const trailDots: Record<string, string[]> = {
     "bg-grape",
   ],
   flames: ["bg-lava", "bg-orange", "bg-fur-gold"],
+  hearts: ["bg-pink", "bg-coral"],
+  snow: ["bg-paper", "bg-sky-soft"],
+  stars: ["bg-fur-gold", "bg-orange"],
+  viruses: ["bg-coral", "bg-lava"],
 };

@@ -27,50 +27,16 @@ export const backArt: Record<string, ReactElement> = {
   cape: (
     <path d="M6 16 H42 L54 50 H-6 Z" className="fill-coral" strokeWidth={2.5} />
   ),
-  wings: (
+  bow: (
     <>
-      <path
-        d="M8 24 Q-14 0 -10 28 Q-2 34 8 30 Z"
-        className="fill-lilac"
-        strokeWidth={2.5}
-      />
-      <path
-        d="M40 24 Q62 0 58 28 Q50 34 40 30 Z"
-        className="fill-lilac"
-        strokeWidth={2.5}
-      />
-      <path
-        d="M8 32 Q-8 36 -4 46 Q4 46 8 38 Z"
-        className="fill-pink"
-        strokeWidth={2.5}
-      />
-      <path
-        d="M40 32 Q56 36 52 46 Q44 46 40 38 Z"
-        className="fill-pink"
-        strokeWidth={2.5}
-      />
+      <path d="M24 8 L8 -2 L6 14 Z" className="fill-pink" strokeWidth={2.5} />
+      <path d="M24 8 L40 -2 L42 14 Z" className="fill-pink" strokeWidth={2.5} />
     </>
   ),
-  jetpack: (
+  shield: (
     <>
-      {[-4, 42].map((x) => (
-        <g key={x}>
-          <path
-            d={`M${x + 2} 40 L${x + 5} 49 L${x + 8} 40 Z`}
-            className="fill-orange"
-            strokeWidth={2}
-          />
-          <rect
-            x={x}
-            y={18}
-            width={10}
-            height={23}
-            rx={4}
-            className="fill-rock"
-            strokeWidth={2.5}
-          />
-        </g>
-      ))}
+      <circle cx={45} cy={30} r={12} className="fill-sky" strokeWidth={2.5} />
+      <circle cx={47} cy={30} r={5} className="fill-mint" strokeWidth={2} />
     </>
   ),
 };

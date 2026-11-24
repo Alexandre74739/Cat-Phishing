@@ -11,6 +11,8 @@ const lift: Record<string, number> = {
   flames: 1.6,
   bubbles: 0.7,
   sparkles: -0.2,
+  snow: -0.1,
+  hearts: 0.8,
 };
 
 type Particle = { life: number; at: THREE.Vector3; speed: THREE.Vector3 };

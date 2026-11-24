@@ -14,6 +14,7 @@ import { Back3D } from "./Back3D";
 import { Face3D } from "./Face3D";
 import { Hat3D } from "./Hat3D";
 import { catMaterials as cat, furMaterials } from "./materials";
+import { Neck3D } from "./Neck3D";
 
 const face: Detail[] = [
   [[0.15, 0.17, 0.04], [-0.14, 0.06, 0.33], cat.eye],
@@ -85,6 +86,7 @@ export function CatBody({ outfit }: { outfit: Outfit }) {
       </group>
       <Hat3D id={outfit.hat} />
       <Face3D id={outfit.face} />
+      <Neck3D id={outfit.neck} />
       <Back3D id={outfit.back} />
     </>
   );

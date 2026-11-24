@@ -11,6 +11,9 @@ const furColors: Record<string, [string, string]> = {
   lilac: ["#cdb9e3", "#a88cc9"],
   gold: ["#ffd23f", "#e0ae10"],
   matrix: ["#7bd88f", "#3fae4a"],
+  sky: ["#8fdcfb", "#2f9fd6"],
+  coral: ["#ff9a8c", "#e05a48"],
+  ash: ["#c2bccb", "#8c8599"],
 };
 
 export const furMaterials = Object.fromEntries(
@@ -38,6 +41,8 @@ export const outfitMaterials = {
   rock: flat(palette.rock),
   steel: flat("#c9ced8"),
   ink: flat(palette.ink),
+  paper: flat(palette.paper),
+  midnight: flat("#3f3770"),
   gold: new THREE.MeshPhongMaterial({
     color: "#ffd23f",
     emissive: "#7a5a00",
@@ -67,6 +72,10 @@ const trailColors: Record<string, string[]> = {
   bits: ["#7bd88f", "#3fae4a"],
   rainbow: ["#ff6b57", "#f39d43", "#ffd23f", "#7bd88f", "#4fc3f7", "#814f96"],
   flames: ["#ff5a1f", "#f39d43", "#ffd23f"],
+  hearts: ["#ff8fc7", "#ff6b57"],
+  snow: ["#ffffff", "#d5f1fd"],
+  stars: ["#ffd23f", "#f39d43"],
+  viruses: ["#ff6b57", "#c93a2a"],
 };
 
 export const trailMaterials = Object.fromEntries(
@@ -82,4 +91,8 @@ export const trailGeometries: Record<string, THREE.BufferGeometry> = {
   bits: new THREE.BoxGeometry(0.07, 0.07, 0.07),
   rainbow: new THREE.BoxGeometry(0.06, 0.06, 0.06),
   flames: new THREE.TetrahedronGeometry(0.08),
+  hearts: new THREE.OctahedronGeometry(0.07),
+  snow: new THREE.IcosahedronGeometry(0.05),
+  stars: new THREE.DodecahedronGeometry(0.06),
+  viruses: new THREE.IcosahedronGeometry(0.08),
 };

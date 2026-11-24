@@ -15,7 +15,7 @@ export default function CosplayPage() {
         </h1>
         <p className="mx-auto mt-5 max-w-2xl text-center text-lg font-semibold text-ink">
           Win stars and badges in the code puzzles to unlock new fur colors,
-          hats, glasses, capes and magic trails for your cube cat!
+          hats, glasses, collars, capes and magic trails for your cube cat!
         </p>
         <Wardrobe
           texts={{
@@ -29,6 +29,7 @@ export default function CosplayPage() {
               fur: "Fur",
               hat: "Hats",
               face: "Face",
+              neck: "Neck",
               back: "Back",
               trail: "Trails",
             },

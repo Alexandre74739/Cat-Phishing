@@ -3,8 +3,7 @@
 import type { ReactElement } from "react";
 import { Box } from "@/_components/puzzle/world3d/Box";
 import { outfitMaterials as look } from "./materials";
-
-const sides = [-1, 1];
+import { wingModels } from "./wingModels";
 
 const backs: Record<string, ReactElement> = {
   backpack: (
@@ -21,6 +20,24 @@ const backs: Record<string, ReactElement> = {
       />
     </>
   ),
+  bow: (
+    <group position={[0, 0.2, -0.36]}>
+      {[-1, 1].map((side) => (
+        <Box
+          key={side}
+          size={[0.22, 0.16, 0.05]}
+          position={[side * 0.13, 0, 0]}
+          rotation={[0, 0, side * 0.4]}
+          material={look.pink}
+        />
+      ))}
+      <Box
+        size={[0.08, 0.08, 0.07]}
+        position={[0, 0, -0.01]}
+        material={look.pink}
+      />
+    </group>
+  ),
   cape: (
     <Box
       size={[0.6, 0.62, 0.04]}
@@ -29,50 +46,18 @@ const backs: Record<string, ReactElement> = {
       material={look.coral}
     />
   ),
-  wings: (
-    <>
-      {sides.map((side) => (
-        <group
-          key={side}
-          position={[side * 0.24, 0.08, -0.36]}
-          rotation={[0, side * -0.4, 0]}
-        >
-          <Box
-            size={[0.4, 0.3, 0.03]}
-            position={[side * 0.18, 0.08, 0]}
-            rotation={[0, 0, side * 0.35]}
-            material={look.lilac}
-          />
-          <Box
-            size={[0.26, 0.2, 0.03]}
-            position={[side * 0.14, -0.16, 0]}
-            rotation={[0, 0, side * -0.3]}
-            material={look.pink}
-          />
-        </group>
-      ))}
-    </>
-  ),
-  jetpack: (
-    <>
-      {sides.map((side) => (
-        <group key={side} position={[side * 0.13, 0, -0.43]}>
-          <mesh material={look.steel} castShadow>
-            <cylinderGeometry args={[0.1, 0.1, 0.44, 10]} />
-          </mesh>
-          <mesh
-            position={[0, -0.3, 0]}
-            rotation={[Math.PI, 0, 0]}
-            material={look.orange}
-          >
-            <coneGeometry args={[0.08, 0.18, 8]} />
-          </mesh>
-        </group>
-      ))}
-    </>
+  shield: (
+    <group position={[0, 0, -0.38]} rotation={[Math.PI / 2, 0, 0]}>
+      <mesh material={look.sky} castShadow>
+        <cylinderGeometry args={[0.3, 0.3, 0.05, 12]} />
+      </mesh>
+      <mesh position={[0, -0.03, 0]} material={look.mint}>
+        <cylinderGeometry args={[0.14, 0.14, 0.03, 12]} />
+      </mesh>
+    </group>
   ),
 };
 
 export function Back3D({ id }: { id: string }) {
-  return backs[id] ?? null;
+  return backs[id] ?? wingModels[id] ?? null;
 }
