@@ -1,3 +1,4 @@
+import type { LockedCourseTexts } from "@/_components/puzzle/LockedCourse";
 import type { WinTexts } from "@/_components/puzzle/WinDialog";
 import type { WorldViewTexts } from "@/_components/puzzle/WorldView";
 import type { EditorTexts } from "@/_components/puzzle/editor/types";
@@ -13,6 +14,7 @@ export type LevelTexts = {
     badges: string;
   };
   story: { listen: string };
+  locked: LockedCourseTexts;
   difficulty: string[];
   world: WorldViewTexts & { gems: string; keys: string };
   editor: EditorTexts;

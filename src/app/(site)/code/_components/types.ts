@@ -1,3 +1,4 @@
+import type { LockedCourseTexts } from "@/_components/puzzle/LockedCourse";
 import type { EditorTexts } from "@/_components/puzzle/editor/types";
 
 export type HubTexts = {
@@ -12,5 +13,6 @@ export type HubTexts = {
   replay: string;
   startHere: string;
   preview: string;
+  locked: LockedCourseTexts;
   blocks: EditorTexts["blocks"];
 };

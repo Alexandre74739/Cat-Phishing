@@ -3,10 +3,12 @@ import { bootCamp } from "./levelData/bootCamp";
 import { bugVillage } from "./levelData/bugVillage";
 import { dataRiver } from "./levelData/dataRiver";
 import { firewallCastle } from "./levelData/firewallCastle";
+import { kittenNetwork } from "./levelData/kittenNetwork";
 import { masterMaze } from "./levelData/masterMaze";
 import { passwordValley } from "./levelData/passwordValley";
 import { secretIsland } from "./levelData/secretIsland";
 import { serverVolcano } from "./levelData/serverVolcano";
+import { spamInbox } from "./levelData/spamInbox";
 import type { LevelMap } from "./levels";
 
 export type Level = LevelMap & {
@@ -28,6 +30,7 @@ export type Course = {
   newBlocks: BlockType[];
   preview: number;
   levels: Level[];
+  unlock?: { stars: number; courses: string[] };
 };
 
 // Every course has exactly 10 levels.
@@ -50,6 +53,16 @@ export const courses: Course[] = [
     levels: withOptimal(bootCamp),
   },
   {
+    slug: "kitten-network",
+    title: "Kitten network",
+    subtitle: "Easy practice: paths, loops, gems and your first checks.",
+    difficulty: 1,
+    color: "bg-lilac",
+    newBlocks: [],
+    preview: 6,
+    levels: withOptimal(kittenNetwork),
+  },
+  {
     slug: "password-valley",
     title: "Password valley",
     subtitle: "Locked gates everywhere! Find the password keys to get through.",
@@ -69,6 +82,17 @@ export const courses: Course[] = [
     newBlocks: [],
     preview: 5,
     levels: withOptimal(dataRiver),
+  },
+  {
+    slug: "spam-inbox",
+    title: "Spam inbox",
+    subtitle:
+      "Keys, gates, spam and sensors: clean the inbox with smart loops.",
+    difficulty: 2,
+    color: "bg-coral",
+    newBlocks: [],
+    preview: 9,
+    levels: withOptimal(spamInbox),
   },
   {
     slug: "server-volcano",
@@ -119,6 +143,15 @@ export const courses: Course[] = [
     newBlocks: [],
     preview: 2,
     levels: withOptimal(secretIsland),
+    unlock: {
+      stars: 60,
+      courses: [
+        "boot-camp",
+        "password-valley",
+        "server-volcano",
+        "master-maze",
+      ],
+    },
   },
 ];
 

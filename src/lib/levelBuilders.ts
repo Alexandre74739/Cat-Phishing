@@ -27,6 +27,17 @@ export const ifElse = (condition: Condition, yes: Block[], no: Block[]) =>
 // Each course hands over every block learned so far, so picking the right one is part of the puzzle.
 const move: BlockType[] = ["forward", "left", "right", "turnAround"];
 
+export const basicsPalette: BlockType[] = [
+  "forward",
+  "left",
+  "right",
+  "grab",
+  "smash",
+  "bridge",
+  "repeat",
+  "if",
+];
+
 export const keysPalette: BlockType[] = [
   ...move,
   "grab",
@@ -35,6 +46,8 @@ export const keysPalette: BlockType[] = [
   "open",
   "repeat",
 ];
+
+export const gatesPalette: BlockType[] = [...keysPalette, "if"];
 
 export const lavaPalette: BlockType[] = [
   ...move,

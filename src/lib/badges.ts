@@ -23,7 +23,9 @@ export type BadgeId =
   | "starHoarder"
   | "starGalaxy"
   | "graduate"
+  | "kittenGraduate"
   | "gatekeeper"
+  | "inboxZero"
   | "networkFixer"
   | "coreCooler"
   | "debugger"
@@ -173,6 +175,18 @@ export const badges: Badge[] = [
     name: "Boot camp graduate",
     text: "Finish all 10 levels of Boot camp.",
     earned: courseDone("boot-camp"),
+  },
+  {
+    id: "kittenGraduate",
+    name: "Tiny paws",
+    text: "Finish all 10 levels of Kitten network.",
+    earned: courseDone("kitten-network"),
+  },
+  {
+    id: "inboxZero",
+    name: "Inbox zero",
+    text: "Finish all 10 levels of Spam inbox.",
+    earned: courseDone("spam-inbox"),
   },
   {
     id: "gatekeeper",

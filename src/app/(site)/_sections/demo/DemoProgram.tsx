@@ -46,7 +46,7 @@ export function DemoProgram({
           {texts.clear}
         </button>
       </div>
-      <div className="dots flex min-h-64 flex-1 flex-col gap-2 p-5">
+      <div className="flex min-h-64 flex-1 flex-col gap-2 p-5">
         <BlockChip kind="start" label={texts.start} />
         <ol className="ml-5 flex flex-col gap-2 border-l-4 border-dashed border-ink/25 pl-3">
           <AnimatePresence initial={false}>
@@ -82,7 +82,7 @@ export function DemoProgram({
           type="button"
           onClick={onRun}
           disabled={running || program.length === 0}
-          className={`${control} flex-1 bg-mint`}
+          className={`${control} flex-1 bg-slime`}
         >
           {failed ? (
             <RotateCcw size={20} strokeWidth={3} aria-hidden="true" />

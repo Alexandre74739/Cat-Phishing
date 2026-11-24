@@ -4,8 +4,11 @@ import { AnimatePresence } from "motion/react";
 import { WinDialog } from "@/_components/puzzle/WinDialog";
 import { WorldView } from "@/_components/puzzle/WorldView";
 import { ProgramEditor } from "@/_components/puzzle/editor/ProgramEditor";
+import { useStars } from "@/hooks/useStars";
+import { courseLock } from "@/lib/courseProgress";
 import { courses } from "@/lib/courses";
 import { LevelHeader } from "./LevelHeader";
+import { LockedLevel } from "./LockedLevel";
 import { RunControls } from "./RunControls";
 import { StoryBubble } from "./StoryBubble";
 import type { LevelTexts } from "./types";
@@ -22,6 +25,11 @@ type LevelGameProps = {
 export function LevelGame({ courseIndex, number, texts }: LevelGameProps) {
   const course = courses[courseIndex];
   const game = useLevelGame(course, number);
+  const lock = courseLock(course, useStars());
+  if (lock)
+    return (
+      <LockedLevel course={course} number={number} lock={lock} texts={texts} />
+    );
   const { outcome, level, win } = game;
   const message = game.running
     ? texts.messages.running

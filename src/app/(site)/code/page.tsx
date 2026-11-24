@@ -41,6 +41,11 @@ export default function CodePage() {
               replay: "Play again",
               startHere: "Start here!",
               preview: "Preview of",
+              locked: {
+                text: "A secret world… Finish these courses and collect {stars} stars to discover it!",
+                stars: "stars",
+                done: "finished",
+              },
               blocks: {
                 forward: "move forward",
                 left: "turn left",

@@ -36,6 +36,11 @@ export async function generateMetadata({
   const found = await resolve(params);
   if (!found) return { title: "Cat-phishing" };
   const course = courses[found.courseIndex];
+  if (course.unlock)
+    return {
+      title: `${course.title} · Cat-phishing`,
+      robots: { index: false, follow: false },
+    };
   return {
     title: `${course.levels[found.number - 1].title} · ${course.title} · Cat-phishing`,
   };
@@ -51,6 +56,11 @@ const texts: LevelTexts = {
     badges: "badges",
   },
   story: { listen: "Read aloud" },
+  locked: {
+    text: "A secret world… Finish these courses and collect {stars} stars to discover it!",
+    stars: "stars",
+    done: "finished",
+  },
   difficulty: ["Beginner", "Medium", "Hard", "Expert"],
   world: {
     label: "The cube cat in the network, with the treasure chest to reach",

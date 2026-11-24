@@ -1,5 +1,4 @@
-import { courses } from "@/lib/courses";
-import { levelHref, routes } from "@/lib/navigation";
+import { routes } from "@/lib/navigation";
 import { About } from "./_sections/About";
 import { Deck } from "./_sections/Deck";
 import { Demo } from "./_sections/Demo";
@@ -204,7 +203,7 @@ export default function Home() {
             text: "You just wrote your very first program. Ready for the real puzzles?",
             stars: "3 stars out of 3",
             replay: "Play again",
-            next: { label: "Next level", href: levelHref(courses[0].slug, 1) },
+            next: { label: "See all puzzles", href: routes.code },
           },
         }}
       />

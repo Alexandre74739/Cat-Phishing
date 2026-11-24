@@ -32,3 +32,26 @@ export const totalStars = (stars: StarsBySlug) =>
     (total, course) => total + courseStats(course, stars).stars,
     0,
   );
+
+export type CourseLock = {
+  stars: { have: number; need: number };
+  courses: { slug: string; title: string; done: boolean }[];
+};
+
+export function courseLock(
+  course: Course,
+  stars: StarsBySlug,
+): CourseLock | null {
+  if (!course.unlock) return null;
+  const need = course.unlock.stars;
+  const required = courses
+    .filter(({ slug }) => course.unlock?.courses.includes(slug))
+    .map((item) => ({
+      slug: item.slug,
+      title: item.title,
+      done: courseStats(item, stars).done === levelsPerCourse,
+    }));
+  const have = totalStars(stars);
+  if (have >= need && required.every(({ done }) => done)) return null;
+  return { stars: { have: Math.min(have, need), need }, courses: required };
+}
