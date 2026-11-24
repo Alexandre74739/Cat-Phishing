@@ -24,17 +24,38 @@
 
 /* Temporary tokens: change them here only, keeping text/background pairs at WCAG AA. */
 @theme {
-  --color-ink: #16123a;
-  --color-ink-soft: #3d3866;
-  --color-cream: #fff7e8;
+  --color-ink: #2b1a37;
+  --color-ink-soft: #70568d;
+  --color-cream: #fbf1e5;
   --color-paper: #ffffff;
-  --color-grape: #5b3df5;
-  --color-lilac: #c3a6ff;
+  --color-grape: #814f96;
+  --color-lilac: #cdb9e3;
   --color-sky: #4fc3f7;
   --color-pink: #ff8fc7;
+  --color-gem: #36e2f5;
   --color-coral: #ff6b57;
-  --color-mint: #3ddc97;
+  --color-slime: #7bd88f;
+  --color-slime-dark: #3fae4a;
+  --color-mint: #68c1be;
   --color-sun: #ffd23f;
+  --color-fur: #ff9a3c;
+  --color-fur-dark: #e07a1f;
+  --color-orange: #f39d43;
+  --color-action: #68c1be;
+  --color-sun-soft: #fff1bf;
+  --color-sky-soft: #d5f1fd;
+  --color-scene: #fdf8f2;
+  --color-scene-deep: #dcc9ec;
+  --color-action-soft: #d7efee;
+  --color-orange-soft: #fde3c6;
+  --color-wood: #b5672d;
+  --color-wood-dark: #8a4a1f;
+  --color-lane: #fbf1e5;
+  --color-lane-alt: #f3dfca;
+  --color-block: #cdb9e3;
+  --color-block-alt: #b9a1d4;
+  --color-block-dark: #68c1be;
+  --color-island: #814f96;
 
   --font-display: "Luckiest Guy", "Trebuchet MS", sans-serif;
   --font-ui: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
@@ -61,6 +82,16 @@ body {
 :focus-visible {
   outline: 4px solid var(--color-grape);
   outline-offset: 3px;
+}
+
+@layer base {
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
 }
 
 @utility toon {
@@ -96,4 +127,80 @@ body {
     transparent 1.5px
   );
   background-size: 22px 22px;
+}
+
+@utility scene {
+  background:
+    linear-gradient(
+        color-mix(in srgb, var(--color-ink-soft) 12%, transparent) 1px,
+        transparent 1px
+      )
+      0 0 / 28px 28px,
+    linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--color-ink-soft) 12%, transparent) 1px,
+        transparent 1px
+      )
+      0 0 / 28px 28px,
+    radial-gradient(
+      circle at 50% 30%,
+      var(--color-scene) 0%,
+      var(--color-scene-deep) 100%
+    );
+}
+
+@utility scroll-soft {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-ink) 20%, transparent)
+    transparent;
+}
+
+@keyframes running-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 4px var(--color-paper),
+      0 0 0 8px var(--color-grape);
+  }
+  50% {
+    box-shadow:
+      0 0 0 4px var(--color-paper),
+      0 0 0 12px color-mix(in srgb, var(--color-grape) 50%, transparent);
+  }
+}
+
+@utility running-glow {
+  animation: running-glow 0.6s ease infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    box-shadow:
+      0 0 0 4px var(--color-paper),
+      0 0 0 8px var(--color-grape);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-10px) rotate(-1deg);
+  }
+  40% {
+    transform: translateX(9px) rotate(1deg);
+  }
+  60% {
+    transform: translateX(-6px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+@utility shake {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: shake 0.45s ease;
+  }
 }

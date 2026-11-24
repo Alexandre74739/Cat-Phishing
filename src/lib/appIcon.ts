@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { cacheLife } from "next/cache";
 
-export const appColors = { background: "#fff7e8" };
+export const appColors = { background: "#fbf1e5" };
 
 export const pwaIcons = {
   "icon-192.png": { size: 192, maskable: false },
