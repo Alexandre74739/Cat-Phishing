@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { CloudAutoSync } from "@/_components/layout/CloudAutoSync";
 import { MotionProvider } from "@/_components/layout/MotionProvider";
 import { ServiceWorker } from "@/_components/layout/ServiceWorker";
 import { appColors } from "@/lib/appIcon";
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-svh">
         <MotionProvider>{children}</MotionProvider>
         <ServiceWorker />
+        <CloudAutoSync />
       </body>
     </html>
   );
