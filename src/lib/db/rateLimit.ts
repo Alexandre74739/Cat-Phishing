@@ -13,6 +13,7 @@ const limits: Record<string, { max: number; windowMs: number }> = {
   sync: { max: 120, windowMs: minute },
   logout: { max: 30, windowMs: minute },
   delete: { max: 5, windowMs: 60 * minute },
+  show: { max: 60, windowMs: minute },
 };
 
 let isIndexed = false;

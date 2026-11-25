@@ -12,6 +12,7 @@ import {
   Pencil,
   RefreshCw,
   ShieldBan,
+  SquareTerminal,
   Trash2,
   Users,
 } from "lucide-react";
@@ -46,6 +47,7 @@ export const icons = {
   rules: BookOpen,
   players: Users,
   nope: ShieldBan,
+  terminal: SquareTerminal,
 };
 
 export type ButtonVariant = keyof typeof variants;

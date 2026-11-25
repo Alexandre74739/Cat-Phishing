@@ -85,6 +85,8 @@
   --color-virus: #c8161d;
   --color-virus-deep: #2e0f13;
   --color-virus-light: #ff6b6b;
+  --color-terminal: #39ff6a;
+  --color-void: #000000;
 
   --font-display: "Luckiest Guy", "Trebuchet MS", sans-serif;
   --font-ui: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
@@ -367,4 +369,102 @@ body {
 @utility drain {
   transform-origin: left;
   animation: drain linear forwards;
+}
+
+/* Presentation hack (/backstage): the overlay is a direct child of body, so the glitch never moves it. */
+html[data-hack] {
+  overflow: hidden;
+}
+
+/* GlitchStorm swaps data-glitch every 90 ms: each value deforms the real page differently. */
+html[data-glitch] body > :not([data-hack-overlay]) {
+  filter: hue-rotate(140deg) saturate(1.6);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-glitch="calm"] body > :not([data-hack-overlay]) {
+    transform: translateX(-4px);
+    filter: saturate(2);
+  }
+  html[data-glitch="stretch-x"] body > :not([data-hack-overlay]) {
+    transform: scaleX(1.6) skewX(-12deg);
+    filter: hue-rotate(80deg) saturate(3);
+  }
+  html[data-glitch="stretch-y"] body > :not([data-hack-overlay]) {
+    transform: scaleY(1.8);
+    transform-origin: top;
+    filter: contrast(2.2);
+  }
+  html[data-glitch="squash"] body > :not([data-hack-overlay]) {
+    transform: scale(1.15, 0.55);
+    filter: brightness(1.6) saturate(2);
+  }
+  html[data-glitch="tear"] body > :not([data-hack-overlay]) {
+    clip-path: inset(18% 0 38% 0);
+    transform: translateX(-12%) skewX(20deg);
+  }
+  html[data-glitch="invert"] body > :not([data-hack-overlay]) {
+    filter: invert(1) hue-rotate(180deg) contrast(1.5);
+  }
+  html[data-glitch="split"] body > :not([data-hack-overlay]) {
+    transform: translateX(8px);
+    filter: drop-shadow(14px 0 var(--color-virus))
+      drop-shadow(-14px 0 var(--color-gem));
+  }
+  html[data-glitch="shift"] body > :not([data-hack-overlay]) {
+    transform: translate(-14%, 3%) skewY(4deg);
+    filter: saturate(4) hue-rotate(-90deg);
+  }
+}
+
+@keyframes crt-off {
+  0% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(1, 0.004);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0, 0.004);
+    opacity: 0;
+  }
+}
+
+@utility crt-off {
+  animation: crt-off 0.5s ease-in forwards;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@utility blink {
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes talking {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: scaleY(0.94) translateY(2%);
+  }
+}
+
+@utility talking {
+  transform-origin: bottom;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: talking 0.22s ease-in-out infinite;
+  }
 }

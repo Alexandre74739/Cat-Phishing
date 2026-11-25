@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import { HackOverlay } from "@/_components/hack/HackOverlay";
 import { CloudAutoSync } from "@/_components/layout/CloudAutoSync";
 import { MotionProvider } from "@/_components/layout/MotionProvider";
 import { ServiceWorker } from "@/_components/layout/ServiceWorker";
 import { appColors } from "@/lib/appIcon";
+import { hackTexts } from "@/lib/hackTexts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,7 +28,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <body className="min-h-svh">
-        <MotionProvider>{children}</MotionProvider>
+        <MotionProvider>
+          {children}
+          <HackOverlay texts={hackTexts} />
+        </MotionProvider>
         <ServiceWorker />
         <CloudAutoSync />
       </body>

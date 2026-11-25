@@ -2,6 +2,7 @@
 
 import { Cloud } from "lucide-react";
 import { Button } from "@/_components/ui/Button";
+import { useShowAdmin } from "@/hooks/useShowAdmin";
 import { useSyncStatus } from "@/hooks/useSyncStatus";
 import { syncNow } from "@/lib/cloudSync";
 import { fillText } from "@/lib/fillText";
@@ -18,6 +19,7 @@ type CloudSectionProps = {
 export function CloudSection({ texts, player, onStart }: CloudSectionProps) {
   const status = useSyncStatus();
   const { cloud } = player;
+  const isAdmin = useShowAdmin(cloud);
 
   return (
     <section
@@ -59,6 +61,18 @@ export function CloudSection({ texts, player, onStart }: CloudSectionProps) {
             >
               {texts.logout}
             </Button>
+            {isAdmin && (
+              <Button
+                href={texts.backstage.href}
+                variant="grape"
+                size="sm"
+                icon="terminal"
+                fullWidth
+                className="sm:col-span-2"
+              >
+                {texts.backstage.label}
+              </Button>
+            )}
           </div>
         </>
       ) : (

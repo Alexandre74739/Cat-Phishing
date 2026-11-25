@@ -1,5 +1,6 @@
 import type { CloudErrorCode } from "./cloud";
 import type { SyncStatus } from "./cloudSync";
+import { routes } from "./navigation";
 
 export type PlayerTexts = {
   open: string;
@@ -30,6 +31,7 @@ export type PlayerTexts = {
     status: Record<SyncStatus, string>;
     sync: string;
     logout: string;
+    backstage: { label: string; href: string };
   };
   account: {
     createTitle: string;
@@ -96,6 +98,7 @@ export const playerTexts: PlayerTexts = {
     },
     sync: "Sync",
     logout: "Log out",
+    backstage: { label: "Backstage", href: routes.backstage },
   },
   account: {
     createTitle: "Save online",

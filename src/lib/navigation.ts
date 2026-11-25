@@ -6,6 +6,7 @@ export const routes = {
   legalNotice: "/legal-notice",
   privacy: "/privacy",
   terms: "/terms",
+  backstage: "/backstage",
 } as const;
 
 export const levelHref = (course: string, level: number) =>

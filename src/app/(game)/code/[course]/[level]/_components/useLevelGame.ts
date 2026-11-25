@@ -6,6 +6,7 @@ import { earnedBadges } from "@/lib/badges";
 import { countBlocks, type Block } from "@/lib/blocks";
 import { levelKey, type Course } from "@/lib/courses";
 import { buildWorld } from "@/lib/levels";
+import { markHackTrained } from "@/lib/hackPassStore";
 import { getStars, recordKey, saveStars } from "@/lib/progress";
 import { starsFor, type Outcome } from "@/lib/runtime";
 import { playSound } from "@/lib/sound";
@@ -36,6 +37,7 @@ export function useLevelGame(course: Course, number: number) {
       setFails((count) => count + 1);
       return;
     }
+    markHackTrained();
     const used = countBlocks(program);
     const stars = starsFor(used, level.optimal);
     const starsBefore = getStars();
