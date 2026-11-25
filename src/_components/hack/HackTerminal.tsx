@@ -31,6 +31,7 @@ export function HackTerminal({ texts }: { texts: HackTexts["terminal"] }) {
         ? texts.intro[id - 1]
         : fillText(pick(texts.commands), {
             n: randomInt(999),
+            p: randomInt(100),
             hex: randomHex(),
           });
       const isAlert = text.startsWith("!");
