@@ -54,7 +54,7 @@ export function TalkingCat({ texts, isReturning, onLeave }: TalkingCatProps) {
           className={`h-auto w-full ${isTalking ? "talking" : ""}`}
         />
       </motion.div>
-      <div className="toon absolute inset-x-3 bottom-3 rounded-3xl bg-paper p-4 pt-6 font-ui text-lg font-semibold text-ink sm:inset-x-6 sm:bottom-6 sm:p-6 sm:pt-8">
+      <div className="toon absolute inset-x-3 bottom-3 rounded-3xl bg-paper p-4 pt-8 font-ui text-lg font-semibold text-ink sm:inset-x-6 sm:bottom-6 sm:p-6 sm:pt-12">
         <p className="toon absolute -top-5 left-5 -rotate-2 rounded-xl bg-grape px-4 py-1 font-display text-xl tracking-wide text-paper">
           {texts.name}
         </p>

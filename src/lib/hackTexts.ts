@@ -35,7 +35,11 @@ export const hackTexts: HackTexts = {
   terminal: {
     critical: "Critical · system compromised",
     progress: "Taking control… {percent}%",
-    intro: ["! Willy hacked the app", "! Léo hacked the app"],
+    intro: [
+      "! Willy hacked the app",
+      "> Willy failed to hack the app after all",
+      "! Léo hacked the app",
+    ],
     commands: [
       "> rm -rf /players/stars",
       "! WARNING: furr-wall disabled",
