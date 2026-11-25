@@ -15,14 +15,20 @@ type BannerProps = {
 };
 
 const floatingIcons = [
-  { Icon: Cat, className: "left-[4%] top-8 bg-orange", rotate: -12 },
-  { Icon: Smartphone, className: "left-[4%] bottom-14 bg-lilac", rotate: 8 },
+  { Icon: Cat, position: "left-[4%] top-8", color: "bg-orange", rotate: -12 },
+  {
+    Icon: Smartphone,
+    position: "left-[4%] bottom-14",
+    color: "bg-lilac",
+    rotate: 8,
+  },
   {
     Icon: ShieldAlert,
-    className: "right-[4%] top-8 bg-orange-soft",
+    position: "right-[4%] top-8",
+    color: "bg-orange-soft",
     rotate: 12,
   },
-  { Icon: Zap, className: "right-[4%] bottom-16 bg-mint", rotate: -8 },
+  { Icon: Zap, position: "right-[4%] bottom-16", color: "bg-mint", rotate: -8 },
 ];
 
 const pop = { type: "spring", stiffness: 260, damping: 18 } as const;
@@ -41,15 +47,15 @@ export function Banner({ id, title, highlight, text, action }: BannerProps) {
       <div
         className={`relative overflow-hidden bg-action-soft pt-10 pb-16 sm:pt-12 sm:pb-20 ${slant}`}
       >
-        {floatingIcons.map(({ Icon, className, rotate }, index) => (
+        {floatingIcons.map(({ Icon, position, color, rotate }, index) => (
           <motion.span
-            key={className}
+            key={position}
             aria-hidden="true"
             initial={{ opacity: 0, scale: 0.4, rotate: 0 }}
             whileInView={{ opacity: 1, scale: 1, rotate }}
             viewport={{ once: true }}
             transition={{ ...pop, delay: 0.2 + index * 0.1 }}
-            className={`absolute hidden rounded-2xl xl:block ${className}`}
+            className={`absolute hidden xl:block ${position}`}
           >
             <motion.span
               animate={{ y: [0, -8, 0] }}
@@ -58,7 +64,7 @@ export function Banner({ id, title, highlight, text, action }: BannerProps) {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="toon grid size-14 place-items-center rounded-2xl text-ink"
+              className={`toon grid size-14 place-items-center rounded-2xl text-ink ${color}`}
             >
               <Icon size={28} strokeWidth={2.5} />
             </motion.span>
