@@ -1,8 +1,14 @@
 // Hand-written service worker, no dependency: network-first pages, cache-first static assets.
 // Served by app/sw.js/route.ts, which prepends APP_VERSION so each deploy installs a new worker.
 const CACHE = `cat-phishing-${APP_VERSION}`;
-const PRECACHE = ["/", "/manifest.webmanifest", "/icon.svg"];
-const STATIC_PATHS = ["/_next/static/", "/fonts/", "/avatars/", "/icons/"];
+const PRECACHE = ["/", "/manifest.webmanifest", "/icon.png"];
+const STATIC_PATHS = [
+  "/_next/static/",
+  "/_next/image",
+  "/fonts/",
+  "/avatars/",
+  "/icons/",
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

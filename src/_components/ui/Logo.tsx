@@ -1,20 +1,23 @@
+import Image from "next/image";
 import Link from "next/link";
 import { routes } from "@/lib/navigation";
-import { LogoMark } from "./LogoMark";
 
 export function Logo({ small = false }: { small?: boolean }) {
   return (
     <Link
       href={routes.home}
       aria-label="Cat-phishing, home"
-      className="flex items-center gap-2 rounded-xl select-none"
+      className="flex shrink-0 items-center rounded-xl select-none"
     >
-      <LogoMark size={small ? 40 : 48} />
-      <span
-        className={`${small ? "text-2xl" : "text-3xl"} translate-y-0.5 font-display leading-none text-ink`}
-      >
-        Cat<span className="text-grape">phishing</span>
-      </span>
+      <Image
+        src="/logo.png"
+        alt=""
+        width={960}
+        height={409}
+        preload={small}
+        sizes={small ? "136px" : "240px"}
+        className={`${small ? "h-14" : "h-24"} w-auto`}
+      />
     </Link>
   );
 }

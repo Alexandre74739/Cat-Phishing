@@ -18,7 +18,7 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: appColors.background,
     categories: ["games", "education", "entertainment"],
     icons: [
-      { src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
+      { src: "/icon.png", sizes: "512x512", type: "image/png", purpose: "any" },
       ...Object.entries(pwaIcons).map(([name, { size, maskable }]) => ({
         src: `/icons/${name}`,
         sizes: `${size}x${size}`,

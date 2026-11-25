@@ -19,6 +19,6 @@ export function isPwaIconName(name: string): name is PwaIconName {
 export async function readAppIconDataUri() {
   "use cache";
   cacheLife("max");
-  const svg = await readFile(join(process.cwd(), "src/app/icon.svg"));
-  return `data:image/svg+xml;base64,${svg.toString("base64")}`;
+  const png = await readFile(join(process.cwd(), "src/app/icon.png"));
+  return `data:image/png;base64,${png.toString("base64")}`;
 }
