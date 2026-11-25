@@ -10,6 +10,7 @@ type ProgramAreaProps = EditableShared & {
   program: Block[];
   optimal?: number;
   onClear: () => void;
+  onRun: () => void;
 };
 
 const tool =
@@ -19,6 +20,7 @@ export function ProgramArea({
   program,
   optimal,
   onClear,
+  onRun,
   ...shared
 }: ProgramAreaProps) {
   const { texts, disabled } = shared;
@@ -59,7 +61,12 @@ export function ProgramArea({
         </div>
       </div>
       <div className="dots scroll-soft relative flex min-h-0 flex-1 flex-col overflow-auto p-4">
-        <BlockChip kind="start" label={texts.start} />
+        <BlockChip
+          kind="start"
+          label={texts.start}
+          disabled={disabled}
+          onClick={onRun}
+        />
         <div
           data-list={rootList}
           className="relative mt-1.5 ml-5 flex flex-1 flex-col gap-1.5 border-l-4 border-dashed border-ink/25 pb-24 pl-3"

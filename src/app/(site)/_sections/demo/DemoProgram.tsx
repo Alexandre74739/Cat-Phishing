@@ -48,7 +48,12 @@ export function DemoProgram({
         </button>
       </div>
       <div className="flex min-h-64 flex-1 flex-col gap-2 p-5">
-        <BlockChip kind="start" label={texts.start} />
+        <BlockChip
+          kind="start"
+          label={texts.start}
+          disabled={running || program.length === 0}
+          onClick={onRun}
+        />
         <ol className="ml-5 flex flex-col gap-2 border-l-4 border-dashed border-ink/25 pl-3">
           <AnimatePresence initial={false}>
             {program.map((block) => (

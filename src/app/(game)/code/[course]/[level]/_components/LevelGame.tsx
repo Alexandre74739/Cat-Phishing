@@ -78,6 +78,7 @@ export function LevelGame({ courseIndex, number, texts }: LevelGameProps) {
           disabled={game.running}
           optimal={level.optimal}
           onChange={game.edit}
+          onRun={game.run}
         />
       </main>
       <AnimatePresence>

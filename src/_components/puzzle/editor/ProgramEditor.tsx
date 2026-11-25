@@ -17,6 +17,7 @@ type ProgramEditorProps = {
   disabled: boolean;
   optimal?: number;
   onChange: (program: Block[]) => void;
+  onRun: () => void;
 };
 
 export function ProgramEditor({
@@ -27,6 +28,7 @@ export function ProgramEditor({
   disabled,
   optimal,
   onChange,
+  onRun,
 }: ProgramEditorProps) {
   const edit = useProgramEdit({ program, disabled, onChange });
   const drag = useBlockDrag({
@@ -53,6 +55,10 @@ export function ProgramEditor({
       <ProgramArea
         program={program}
         optimal={optimal}
+        onRun={() => {
+          edit.setSelectedId(null);
+          onRun();
+        }}
         onClear={() => {
           onChange([]);
           edit.setSelectedId(null);

@@ -8,18 +8,39 @@ type BlockChipProps = {
   children?: ReactNode;
 };
 
-export function BlockChip({ kind, label, active, children }: BlockChipProps) {
+type BlockChipButtonProps = BlockChipProps & {
+  disabled?: boolean;
+  onClick?: () => void;
+};
+
+export function BlockChip({
+  kind,
+  label,
+  active,
+  children,
+  disabled,
+  onClick,
+}: BlockChipButtonProps) {
   const { color } = blockLooks[kind];
   const hat = kind === "start";
+  const className = `toon block w-fit max-w-full text-left font-ui text-[17px] font-semibold text-ink select-none ${color} ${hat ? "rounded-t-[26px] rounded-b-2xl px-3 pt-3 pb-2" : "rounded-2xl px-3 py-1.5"} ${active ? "running-glow" : ""}`;
+  const content = (
+    <BlockLabel kind={kind} label={label}>
+      {children}
+    </BlockLabel>
+  );
+
+  if (!onClick) return <span className={className}>{content}</span>;
 
   return (
-    <span
-      className={`toon block w-fit max-w-full font-ui text-[17px] font-semibold text-ink select-none ${color} ${hat ? "rounded-t-[26px] rounded-b-2xl px-3 pt-3 pb-2" : "rounded-2xl px-3 py-1.5"} ${active ? "running-glow" : ""}`}
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      className={`${className} pressable disabled:opacity-60`}
     >
-      <BlockLabel kind={kind} label={label}>
-        {children}
-      </BlockLabel>
-    </span>
+      {content}
+    </button>
   );
 }
 
