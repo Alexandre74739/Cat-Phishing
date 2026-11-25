@@ -27,6 +27,8 @@ const introMs = hackTimeline.reduce(
   0,
 );
 const terminalMinMs = 6000;
+// Safety net: a show left running (admin page closed) stops by itself.
+const maxShowMs = 30 * 60_000;
 
 export const offState: ShowState = {
   phase: "off",
@@ -56,19 +58,21 @@ export function hackStageAt(
 ): { stage: HackStage; msLeft: number | null } {
   if (!signal || signal.phase === "off") return { stage: "idle", msLeft: null };
   const elapsed = now + signal.offset - signal.hackAt;
+  if (elapsed > maxShowMs) return { stage: "idle", msLeft: null };
   let left = elapsed;
   for (const [stage, duration] of hackTimeline) {
     if (left < duration) return { stage, msLeft: duration - left };
     left -= duration;
   }
-  if (signal.phase === "hack") return { stage: "terminal", msLeft: null };
+  const untilStop = maxShowMs - elapsed;
+  if (signal.phase === "hack") return { stage: "terminal", msLeft: untilStop };
   const talkFrom = Math.max(
     signal.talkAt - signal.hackAt,
     introMs + terminalMinMs,
   );
   return elapsed < talkFrom
     ? { stage: "terminal", msLeft: talkFrom - elapsed }
-    : { stage: "talk", msLeft: null };
+    : { stage: "talk", msLeft: untilStop };
 }
 
 export async function fetchShow(): Promise<ShowSignal | null> {

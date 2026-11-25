@@ -2,6 +2,8 @@
 
 import { usePathname } from "next/navigation";
 import { useSyncExternalStore } from "react";
+import { usePlayers } from "@/hooks/usePlayers";
+import { useShowAdmin } from "@/hooks/useShowAdmin";
 import { useShowSignal } from "@/hooks/useShowSignal";
 import {
   getHackPass,
@@ -18,11 +20,15 @@ import { TalkingCat } from "./TalkingCat";
 import { useHackEffects } from "./useHackEffects";
 import { useHackStage } from "./useHackStage";
 
-// Presentation effect driven from /backstage: every phone except the admin page polls the show state.
+// Presentation effect driven from /backstage: every phone polls the show state, the admin account is never hacked.
 export function HackOverlay({ texts }: { texts: HackTexts }) {
   const pathname = usePathname();
   const signal = useShowSignal(!pathname.startsWith(routes.backstage));
   const stage = useHackStage(signal);
+  const { active } = usePlayers();
+  const isAdmin = useShowAdmin(
+    signal && signal.phase !== "off" ? active.cloud : undefined,
+  );
   const pass = useSyncExternalStore(
     subscribeStores,
     getHackPass,
@@ -31,7 +37,7 @@ export function HackOverlay({ texts }: { texts: HackTexts }) {
   const hasPass = !!signal && pass?.runId === signal.runId;
   const isFree =
     hasPass && (pass.isTrained || pathname.startsWith(routes.code));
-  const isActive = !!signal && stage !== "idle" && !isFree;
+  const isActive = !!signal && stage !== "idle" && !isFree && !isAdmin;
   useHackEffects(stage, isActive);
 
   if (!isActive) return null;
