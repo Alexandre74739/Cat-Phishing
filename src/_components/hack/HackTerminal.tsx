@@ -12,6 +12,7 @@ type Line = { id: number; text: string; isAlert: boolean };
 
 const lineMs = 160;
 const calmLineMs = 600;
+const introPauseMs = 500;
 const maxLines = 40;
 
 export function HackTerminal({ texts }: { texts: HackTexts["terminal"] }) {
@@ -21,26 +22,28 @@ export function HackTerminal({ texts }: { texts: HackTexts["terminal"] }) {
 
   useEffect(() => {
     let id = 0;
-    const timer = window.setInterval(
-      () => {
-        id += 1;
-        const text =
-          texts.intro[id - 1] ??
-          fillText(pick(texts.commands), {
+    let timer: number | undefined;
+    const stepMs = reduceMotion ? calmLineMs : lineMs;
+    const print = () => {
+      id += 1;
+      const isIntro = id <= texts.intro.length;
+      const text = isIntro
+        ? texts.intro[id - 1]
+        : fillText(pick(texts.commands), {
             n: randomInt(999),
             hex: randomHex(),
           });
-        const isAlert = text.startsWith("!");
-        playSound(isAlert ? "alarm" : id % 8 === 0 ? "data" : "keys");
-        setLines((current) => [
-          ...current.slice(1 - maxLines),
-          { id, text, isAlert },
-        ]);
-        setPercent((current) => Math.min(99, current + randomInt(3)));
-      },
-      reduceMotion ? calmLineMs : lineMs,
-    );
-    return () => window.clearInterval(timer);
+      const isAlert = text.startsWith("!");
+      playSound(isAlert ? "alarm" : id % 8 === 0 ? "data" : "keys");
+      setLines((current) => [
+        ...current.slice(1 - maxLines),
+        { id, text, isAlert },
+      ]);
+      setPercent((current) => Math.min(99, current + randomInt(3)));
+      timer = window.setTimeout(print, isIntro ? introPauseMs : stepMs);
+    };
+    timer = window.setTimeout(print, stepMs);
+    return () => window.clearTimeout(timer);
   }, [texts.intro, texts.commands, reduceMotion]);
 
   return (
