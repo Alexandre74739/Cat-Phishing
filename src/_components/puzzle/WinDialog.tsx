@@ -60,7 +60,7 @@ export function WinDialog({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-ink/50 px-4 py-16"
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto overscroll-contain bg-ink/50 px-4 py-16"
     >
       <motion.div
         ref={box}
@@ -70,7 +70,7 @@ export function WinDialog({
         initial={{ scale: 0.4, rotate: -6, y: 60 }}
         animate={{ scale: 1, rotate: 0, y: 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 16 }}
-        className="toon relative w-110 max-w-full rounded-[32px] bg-paper p-6 pt-14 text-center sm:p-8 sm:pt-16"
+        className="toon relative my-auto w-110 max-w-full rounded-[32px] bg-paper p-6 pt-14 text-center sm:p-8 sm:pt-16"
       >
         <motion.span
           className="absolute -top-14 left-1/2 -ml-14"

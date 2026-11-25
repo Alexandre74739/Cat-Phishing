@@ -28,7 +28,7 @@ export function PlayerDialog({ texts, onClose }: PlayerDialogProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-ink/50 px-3 py-8 sm:items-center sm:px-6"
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto overscroll-contain bg-ink/50 px-3 py-8 sm:px-6"
     >
       <motion.div
         ref={box}
@@ -40,7 +40,7 @@ export function PlayerDialog({ texts, onClose }: PlayerDialogProps) {
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.8, y: 40, opacity: 0 }}
         transition={{ type: "spring", stiffness: 320, damping: 22 }}
-        className="relative w-full max-w-125 outline-none"
+        className="relative my-auto w-full max-w-125 outline-none"
       >
         <span
           aria-hidden="true"

@@ -20,7 +20,12 @@ export function useDismiss(
       if (event.key === "Escape") onClose();
     };
     const onPointerDown = (event: PointerEvent) => {
-      if (box && !box.current?.contains(event.target as Node)) onClose();
+      const target = event.target as HTMLElement;
+      const onScrollbar =
+        target.scrollHeight > target.clientHeight &&
+        event.offsetX >= target.clientWidth;
+      if (onScrollbar) return;
+      if (box && !box.current?.contains(target)) onClose();
     };
     const onResize = () => {
       if (closeAboveWidth && window.innerWidth >= closeAboveWidth) onClose();
