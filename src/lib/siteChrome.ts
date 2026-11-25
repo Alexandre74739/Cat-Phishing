@@ -49,7 +49,6 @@ export const footerTexts: ComponentProps<typeof Footer> = {
     icon: "next",
     iconSide: "end",
   },
-  install,
   groups: [
     { title: "Explore", links: sectionLinks },
     {

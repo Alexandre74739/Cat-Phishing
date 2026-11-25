@@ -1,10 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Button, type ButtonAction } from "@/_components/ui/Button";
-import {
-  InstallButton,
-  type InstallTexts,
-} from "@/_components/ui/InstallButton";
 import { Logo } from "@/_components/ui/Logo";
 
 type FooterLink = { label: string; href: string };
@@ -14,7 +10,6 @@ type FooterGroup = { title: string; links: FooterLink[] };
 type FooterProps = {
   tagline: string;
   action: ButtonAction;
-  install: InstallTexts;
   groups: FooterGroup[];
   team: { title: string; members: string[] };
   copyright: string;
@@ -26,7 +21,6 @@ const slant = "[clip-path:polygon(0_40px,100%_0,100%_100%,0_100%)]";
 export function Footer({
   tagline,
   action,
-  install,
   groups,
   team,
   copyright,
@@ -39,12 +33,9 @@ export function Footer({
           <div className="flex flex-col gap-4">
             <Logo />
             <p className="max-w-sm text-lg font-semibold text-ink">{tagline}</p>
-            <div className="flex max-w-sm flex-col gap-3 sm:w-fit">
-              <Button {...action} className="w-full">
-                {action.label}
-              </Button>
-              <InstallButton {...install} inline />
-            </div>
+            <Button {...action} className="w-full max-w-sm sm:w-fit">
+              {action.label}
+            </Button>
           </div>
           {groups.map((group) => (
             <FooterColumn key={group.title} title={group.title} isNav>

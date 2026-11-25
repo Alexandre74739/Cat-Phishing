@@ -16,13 +16,13 @@ type BannerProps = {
 
 const floatingIcons = [
   { Icon: Cat, className: "left-[4%] top-8 bg-orange", rotate: -12 },
-  { Icon: Smartphone, className: "left-[10%] bottom-14 bg-lilac", rotate: 8 },
+  { Icon: Smartphone, className: "left-[4%] bottom-14 bg-lilac", rotate: 8 },
   {
     Icon: ShieldAlert,
     className: "right-[4%] top-8 bg-orange-soft",
     rotate: 12,
   },
-  { Icon: Zap, className: "right-[10%] bottom-16 bg-mint", rotate: -8 },
+  { Icon: Zap, className: "right-[4%] bottom-16 bg-mint", rotate: -8 },
 ];
 
 const pop = { type: "spring", stiffness: 260, damping: 18 } as const;
