@@ -2,6 +2,7 @@
 
 import { Users } from "lucide-react";
 import { useState, type ReactNode } from "react";
+import { playClickSound } from "@/lib/sound";
 import { PlayersDrawer } from "./PlayersDrawer";
 
 export type SideTexts = { title: string; open: string; close: string };
@@ -28,7 +29,10 @@ export function GameFrame({
           {toolbar}
           <button
             type="button"
-            onClick={() => setOpen(true)}
+            onClick={() => {
+              playClickSound();
+              setOpen(true);
+            }}
             aria-expanded={open}
             className="toon pressable flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-paper px-4 font-ui font-semibold lg:hidden"
           >

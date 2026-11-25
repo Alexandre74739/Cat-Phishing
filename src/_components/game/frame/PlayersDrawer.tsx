@@ -1,8 +1,8 @@
 "use client";
 
-import { X } from "lucide-react";
 import { motion } from "motion/react";
 import { useRef, type ReactNode } from "react";
+import { CloseButton } from "@/_components/ui/CloseButton";
 import { useDismiss } from "@/hooks/useDismiss";
 
 type PlayersDrawerProps = {
@@ -41,15 +41,7 @@ export function PlayersDrawer({
       >
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-display text-3xl tracking-wide">{title}</h2>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label={close}
-            autoFocus
-            className="toon pressable grid size-12 place-items-center rounded-full bg-paper"
-          >
-            <X size={22} strokeWidth={3} aria-hidden="true" />
-          </button>
+          <CloseButton label={close} onClick={onClose} autoFocus />
         </div>
         <div className="scroll-soft mt-4 min-h-0 flex-1 overflow-y-auto p-1">
           {children}

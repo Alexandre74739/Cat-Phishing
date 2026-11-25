@@ -1,8 +1,8 @@
 "use client";
 
-import { X } from "lucide-react";
 import { useRef, useState } from "react";
 import { Button } from "@/_components/ui/Button";
+import { CloseButton } from "@/_components/ui/CloseButton";
 import { useDismiss } from "@/hooks/useDismiss";
 import { fillText } from "@/lib/fillText";
 import { maxPartyNameLength } from "@/lib/party";
@@ -52,14 +52,7 @@ export function AddPlayerDialog({
               {fillText(texts.seat, { count: seat })}
             </p>
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label={texts.close}
-            className="toon pressable grid size-12 shrink-0 place-items-center rounded-full bg-paper"
-          >
-            <X size={22} strokeWidth={3} aria-hidden="true" />
-          </button>
+          <CloseButton label={texts.close} onClick={onClose} />
         </div>
         <label htmlFor="party-name" className="sr-only">
           {texts.name}
