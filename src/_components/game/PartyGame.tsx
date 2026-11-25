@@ -5,7 +5,6 @@ import { RulesView } from "./rules/RulesView";
 import { SetupView } from "./SetupView";
 import type { PartyTexts } from "./types";
 import { useParty, type PartyState } from "./useParty";
-import { VictoryView } from "./VictoryView";
 
 function PartyScreen({ texts, game }: { texts: PartyTexts; game: PartyState }) {
   const { party } = game;
@@ -28,17 +27,6 @@ function PartyScreen({ texts, game }: { texts: PartyTexts; game: PartyState }) {
         onRemove={game.removePlayer}
         onStart={game.start}
         onRules={game.showRules}
-      />
-    );
-
-  if (party.victory)
-    return (
-      <VictoryView
-        texts={texts.over}
-        party={party}
-        victory={party.victory}
-        onAgain={game.again}
-        onChangePlayers={game.showSetup}
       />
     );
 

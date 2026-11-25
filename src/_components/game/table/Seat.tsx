@@ -1,93 +1,61 @@
 "use client";
 
-import { Bug, Megaphone, X } from "lucide-react";
+import { Bug } from "lucide-react";
 import { motion } from "motion/react";
 import { Avatar } from "@/_components/ui/Avatar";
 import type { PartyPlayer } from "@/lib/party";
 import type { TableTexts } from "../types";
 
-export type SeatState = {
-  holder?: boolean;
-  active?: boolean;
-  out?: boolean;
-  spotlight?: boolean;
-  dimmed?: boolean;
-};
-
-type SeatProps = SeatState & {
+type SeatProps = {
   player: PartyPlayer;
   texts: TableTexts;
+  holder?: boolean;
+  spotlight?: boolean;
+  dimmed?: boolean;
+  labelAbove?: boolean;
   onSelect?: () => void;
 };
-
-const badge =
-  "absolute grid size-7 place-items-center rounded-lg border-[3px] border-ink";
 
 export function Seat({
   player,
   texts,
   holder,
-  active,
-  out,
   spotlight,
   dimmed,
+  labelAbove,
   onSelect,
 }: SeatProps) {
-  const status = [
-    holder && texts.holder,
-    active && texts.active,
-    out && texts.out,
-  ]
-    .filter(Boolean)
-    .join(", ");
-  const infected = holder && !out;
-  const color = spotlight ? "bg-orange" : out ? "bg-lilac" : "bg-cream";
   const face = (
     <>
       <motion.span
-        animate={{ scale: spotlight ? 1.2 : 1 }}
-        className={`relative grid size-14 place-items-center rounded-full border-[3px] border-ink shadow-pop ${color} ${infected ? "outline-4 outline-offset-2 outline-virus" : ""} ${onSelect ? "running-glow" : ""}`}
+        animate={{ scale: spotlight ? 1.15 : 1 }}
+        className={`relative grid aspect-square w-full place-items-center rounded-full border-[3px] border-ink shadow-pop ${spotlight ? "bg-orange" : "bg-paper"} ${holder ? "outline-4 outline-offset-2 outline-virus" : ""} ${onSelect ? "running-glow" : ""}`}
       >
-        <span className={out ? "opacity-40 grayscale" : ""}>
-          <Avatar id={player.avatar} size={36} />
+        <span className="w-3/5 [&>img]:h-auto [&>img]:w-full">
+          <Avatar id={player.avatar} size={64} />
         </span>
-        {out && (
-          <X
-            className="absolute size-12 text-virus"
-            strokeWidth={4}
-            aria-hidden="true"
-          />
-        )}
-        {infected && (
+        {holder && (
           <motion.span
             layoutId="catware"
-            className={`${badge} -right-3 -bottom-2 bg-virus text-cream`}
+            className="absolute -right-[12%] -bottom-[6%] grid size-[42%] place-items-center rounded-lg border-[3px] border-ink bg-virus text-cream"
           >
-            <Bug size={16} strokeWidth={3} aria-hidden="true" />
-          </motion.span>
-        )}
-        {active && !out && (
-          <motion.span
-            layoutId="caller"
-            className={`${badge} -top-2 -left-3 bg-orange text-ink`}
-          >
-            <Megaphone size={15} strokeWidth={3} aria-hidden="true" />
+            <Bug className="size-3/5" strokeWidth={3} aria-hidden="true" />
           </motion.span>
         )}
       </motion.span>
       <span
-        className={`max-w-full truncate rounded-md px-2 py-0.5 font-ui text-[13px] leading-tight font-bold ${out ? "bg-lilac text-ink line-through" : infected ? "bg-virus text-cream" : "bg-ink text-cream"}`}
+        className={`absolute left-1/2 max-w-[9rem] -translate-x-1/2 truncate rounded-full border-[3px] border-ink px-3 py-0.5 font-ui text-base leading-tight font-bold whitespace-nowrap shadow-pop ${labelAbove ? "bottom-full mb-2" : "top-full mt-2"} ${holder ? "bg-virus text-cream" : "bg-paper text-ink"}`}
       >
         {player.name}
       </span>
-      {status && <span className="sr-only">{status}</span>}
+      {holder && <span className="sr-only">, {texts.holder}</span>}
     </>
   );
 
   if (!onSelect)
     return (
       <div
-        className={`flex flex-col items-center gap-1 motion-safe:transition-opacity ${dimmed ? "opacity-40" : ""}`}
+        className={`relative motion-safe:transition-opacity ${dimmed ? "opacity-40" : ""}`}
       >
         {face}
       </div>
@@ -96,7 +64,7 @@ export function Seat({
     <button
       type="button"
       onClick={onSelect}
-      className="flex flex-col items-center gap-1 rounded-2xl"
+      className="relative block w-full rounded-full"
     >
       {face}
     </button>

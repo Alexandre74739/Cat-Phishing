@@ -22,8 +22,7 @@ export type RuleSlide = {
 export type TableTexts = {
   label: string;
   holder: string;
-  active: string;
-  out: string;
+  first: string;
   empty: string;
 };
 
@@ -56,47 +55,21 @@ export type PartyTexts = {
   };
   side: { title: string; open: string; close: string };
   table: TableTexts;
-  cards: { back: string; catware: string };
-  draw: { title: string; holder: string; active: string; go: string };
-  turn: {
-    title: string;
-    text: string;
-    race: string;
-    missing: string;
-    empty: string;
-    rules: string;
-    out: string;
-    saved: string;
-    moved: string;
+  toolbar: { rules: string; newGame: string };
+  cards: {
+    catware: string;
+    zoom: string;
+    close: string;
+    heldBy: string;
+    points: string[];
   };
-  race: { title: string; text: string; cancel: string };
-  pass: {
+  draw: { title: string; alert: string; holder: string; holderHint: string };
+  give: {
     title: string;
     text: string;
-    keep: string;
     sent: string;
     blockHint: string;
     block: string;
     done: string;
-    none: string;
-  };
-  breach: {
-    title: string;
-    asker: string;
-    holder: string;
-    same: string;
-    saved: string;
-    hit: string;
-    next: string;
-  };
-  speed: { title: string; text: string; cancel: string };
-  over: {
-    speed: string;
-    survival: string;
-    none: string;
-    winner: string;
-    nobody: string;
-    again: string;
-    changePlayers: string;
   };
 };

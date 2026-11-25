@@ -2,11 +2,9 @@ import { Button } from "@/_components/ui/Button";
 import { fillText } from "@/lib/fillText";
 import { findPartyPlayer, type Party } from "@/lib/party";
 import type { PartyTexts } from "../types";
-import { eligibleTargets, type PartyState } from "../useParty";
-import { BreachPanel } from "./BreachPanel";
+import type { PartyState } from "../useParty";
+import { CatwareReveal } from "./CatwareReveal";
 import { Panel } from "./Panel";
-import { PassPanel } from "./PassPanel";
-import { TurnPanel } from "./TurnPanel";
 
 type PhasePanelProps = {
   texts: PartyTexts;
@@ -17,64 +15,63 @@ type PhasePanelProps = {
 
 export function PhasePanel({ texts, game, party, drawn }: PhasePanelProps) {
   const { phase } = game;
-  const name = (id: string) => findPartyPlayer(party, id).name;
-  const turn = () => game.setPhase({ kind: "turn" });
+  const holder = findPartyPlayer(party, party.holder);
 
   if (phase.kind === "draw")
-    return drawn ? (
+    return (
+      <>
+        <Panel title={texts.draw.title} />
+        {drawn && (
+          <CatwareReveal
+            texts={texts.draw}
+            close={texts.cards.close}
+            holder={holder}
+            onDone={game.give}
+          />
+        )}
+      </>
+    );
+
+  if (phase.kind === "sent")
+    return (
       <Panel
-        card="cat-ware"
-        title={fillText(texts.draw.holder, { name: name(party.holder) })}
-        text={fillText(texts.draw.active, { name: name(party.active) })}
+        color="mint"
+        card="paws-word"
+        title={fillText(texts.give.sent, {
+          from: findPartyPlayer(party, phase.from).name,
+          to: holder.name,
+        })}
+        text={texts.give.blockHint}
       >
-        <Button variant="orange" icon="play" fullWidth onClick={turn}>
-          {texts.draw.go}
-        </Button>
-      </Panel>
-    ) : (
-      <Panel title={texts.draw.title} />
-    );
-
-  if (phase.kind === "breach")
-    return (
-      <BreachPanel
-        texts={texts.breach}
-        party={party}
-        onResolve={game.resolveBreach}
-      />
-    );
-
-  if (phase.kind === "pass")
-    return (
-      <PassPanel
-        texts={texts.pass}
-        party={party}
-        sentTo={phase.sentTo}
-        targets={eligibleTargets(party, phase).length}
-        onBlock={game.block}
-        onDone={turn}
-      />
-    );
-
-  if (phase.kind === "race" || phase.kind === "speed") {
-    const pick = texts[phase.kind];
-    return (
-      <Panel color="night" title={pick.title} text={pick.text}>
-        <Button variant="paper" size="sm" onClick={turn}>
-          {pick.cancel}
-        </Button>
+        <div className="grid grid-cols-2 gap-2">
+          <Button
+            variant="grape"
+            size="compact"
+            icon="nope"
+            fullWidth
+            onClick={game.block}
+          >
+            {texts.give.block}
+          </Button>
+          <Button
+            variant="orange"
+            size="compact"
+            icon="next"
+            iconSide="end"
+            fullWidth
+            onClick={game.give}
+          >
+            {texts.give.done}
+          </Button>
+        </div>
       </Panel>
     );
-  }
 
   return (
-    <TurnPanel
-      texts={texts.turn}
-      party={party}
-      notice={game.notice}
-      onRace={() => game.setPhase({ kind: "race" })}
-      onMissing={() => game.setPhase({ kind: "breach" })}
-      onEmpty={() => game.setPhase({ kind: "speed" })}
+    <Panel
+      card="cat-ware"
+      title={fillText(texts.give.title, { name: holder.name })}
+      text={texts.give.text}
     />
   );
 }

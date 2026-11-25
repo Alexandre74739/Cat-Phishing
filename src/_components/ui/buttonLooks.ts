@@ -6,18 +6,13 @@ import {
   CloudUpload,
   Download,
   Gamepad2,
-  Hand,
   House,
   LogIn,
   LogOut,
   Pencil,
   RefreshCw,
-  RotateCcw,
-  Siren,
   ShieldBan,
-  ShieldCheck,
   Trash2,
-  Trophy,
   Users,
 } from "lucide-react";
 export const variants = {
@@ -51,11 +46,6 @@ export const icons = {
   rules: BookOpen,
   players: Users,
   nope: ShieldBan,
-  again: RotateCcw,
-  match: Hand,
-  breach: Siren,
-  trophy: Trophy,
-  defuse: ShieldCheck,
 };
 
 export type ButtonVariant = keyof typeof variants;

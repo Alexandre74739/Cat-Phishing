@@ -10,36 +10,25 @@ type PanelProps = {
   text?: string;
   color?: keyof typeof colors;
   card?: CardId;
-  shake?: boolean;
   children?: ReactNode;
 };
 
-const colors = {
-  paper: { box: "bg-paper text-ink", title: "" },
-  mint: { box: "bg-mint text-ink", title: "" },
-  night: { box: "bg-card-back text-cream", title: "text-orange" },
-  virus: { box: "bg-virus-deep text-cream", title: "text-virus-light" },
-};
+const colors = { paper: "bg-paper", mint: "bg-mint" };
 
 export function Panel({
   title,
   text,
   color = "paper",
   card,
-  shake,
   children,
 }: PanelProps) {
-  const look = colors[color];
-
   return (
     <motion.section
       aria-live="polite"
       initial={{ opacity: 0 }}
-      animate={
-        shake ? { opacity: 1, x: [0, -10, 10, -6, 6, 0] } : { opacity: 1 }
-      }
-      transition={{ duration: 0.4 }}
-      className={`toon scroll-soft flex h-56 shrink-0 flex-col gap-2 overflow-y-auto rounded-2xl p-4 ${look.box}`}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.25 }}
+      className={`toon scroll-soft flex max-h-[45%] shrink-0 flex-col gap-3 overflow-y-auto rounded-2xl p-4 text-ink ${colors[color]}`}
     >
       <div
         className={`flex items-center gap-3 ${card ? "text-left" : "justify-center text-center"}`}
@@ -52,17 +41,13 @@ export function Panel({
           />
         )}
         <div className="min-w-0">
-          <h2
-            className={`font-display text-2xl leading-tight tracking-wide break-words ${look.title}`}
-          >
+          <h2 className="font-display text-2xl leading-tight tracking-wide break-words">
             {title}
           </h2>
           {text && <p className="mt-1 font-semibold sm:text-lg">{text}</p>}
         </div>
       </div>
-      {children && (
-        <div className="mt-auto flex flex-col gap-2">{children}</div>
-      )}
+      {children}
     </motion.section>
   );
 }
