@@ -17,7 +17,13 @@ export function BreachPanel({ texts, party, onResolve }: BreachPanelProps) {
   const text = `${fillText(texts.asker, { name: asker })} ${fillText(same ? texts.same : texts.holder, { name: holder })}`;
 
   return (
-    <Panel color="coral" shake title={texts.title} text={text}>
+    <Panel
+      color="virus"
+      card={same ? "cat-ware" : "furr-wall"}
+      shake
+      title={texts.title}
+      text={text}
+    >
       {same ? (
         <Button
           variant="paper"

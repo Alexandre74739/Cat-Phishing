@@ -44,7 +44,7 @@ export default function Home() {
           {
             title: "One phone, one virus, zero chill",
             description:
-              "Everyone starts with six colorful cats: Charo, Chapardeur, Chad, Chapin, Charal and Chalon. The virus doesn't exist on paper, it only lives in the app, on top of someone's cards. Manage to lay down one of your cats and you can send the virus to another player. But watch out: when someone makes a mistake, they lose, and so does whoever is holding the virus.",
+              "Everyone starts with six colorful cats: Feline-system, Script Kitty, Root-kitty, Trojan Cat, Stalker-cat and Meownymous. The virus doesn't exist on paper, it only lives in the app, on top of someone's cards. Manage to lay down one of your cats and you can send the virus to another player. But watch out: when someone makes a mistake, they lose, and so does whoever is holding the virus.",
             highlights: [
               "6 cat cards and 2 action cards per player",
               "The virus only lives in the app",
@@ -115,7 +115,7 @@ export default function Home() {
             eyebrow: "In your hand",
             title: "Six cats in every hand",
             description:
-              "Every player gets the same squad of six colorful cats: Charo, Chapardeur, Chad, Chapin, Charal and Chalon. Each one has its own color and its own attitude. Learn them by heart: when the game speeds up, you'll need to spot the right cat in a flash and lay it down without a second thought.",
+              "Every player gets a deck in their own color with the same six cats: Feline-system, Script Kitty, Root-kitty, Trojan Cat, Stalker-cat and Meownymous. Each one has its own color and its own attitude. Learn them by heart: when the game speeds up, you'll need to spot the right cat in a flash and lay it down without a second thought.",
             stat: "×6",
             size: "large",
             color: "orange-soft",
@@ -123,38 +123,48 @@ export default function Home() {
             visual: {
               kind: "fan",
               cards: [
-                "Charo",
-                "Chapardeur",
-                "Chad",
-                "Chapin",
-                "Charal",
-                "Chalon",
+                { card: "feline-system", name: "Feline-system" },
+                { card: "script-kitty", name: "Script Kitty" },
+                { card: "root-kitty", name: "Root-kitty" },
+                { card: "trojan-cat", name: "Trojan Cat" },
+                { card: "stalker-cat", name: "Stalker-cat" },
+                { card: "meownymous", name: "Meownymous" },
               ],
             },
           },
           {
             eyebrow: "Your lifesaver",
-            title: "No !",
+            title: "Paws-word",
             description:
-              "The card everyone wants to keep. Someone plays a nasty cat-astrophe card on you? No ! The virus is coming your way? No ! Slam it on the table and the attack is blocked, like a firewall.",
+              "The card everyone wants to keep. Someone tries a Claw-jacking or a Spy-cat on you? Paws-word! The virus is coming your way? Paws-word! Slam it on the table and the attack is blocked.",
             size: "tall",
             color: "mint",
             icon: "nope",
             visual: {
               kind: "card",
-              card: "No !",
-              caption: "Blocks a cat-astrophe or the virus",
+              card: "paws-word",
+              name: "Paws-word",
+              caption: "Blocks a hack or the virus",
             },
           },
           {
             eyebrow: "Cat-astrophe cards",
             title: "Two tricks up your sleeve",
             description:
-              "On top of your cats, you hold two action cards. Play them at the right moment to turn the game around. New effects are being tested right now: stay tuned!",
+              "On top of your cats, you hold two cat-astrophe cards. Play them at the right moment to turn the game around.",
             stat: "×2",
             size: "small",
             color: "lilac",
             icon: "action",
+            visual: {
+              kind: "fan",
+              cards: [
+                { card: "furr-wall", name: "Furr-wall" },
+                { card: "paws-word", name: "Paws-word" },
+                { card: "claw-jacking", name: "Claw-jacking" },
+                { card: "spy-cat", name: "Spy-cat" },
+              ],
+            },
           },
           {
             eyebrow: "On the phone",
@@ -235,7 +245,7 @@ export default function Home() {
           {
             question: "How do I get rid of the virus?",
             answer:
-              "Lay down one of your cat cards. Once you do, you can send the virus to another player on the phone. Got a No ! card? Use it to block the virus when it comes your way.",
+              "Lay down one of your cat cards. Once you do, you can send the virus to another player on the phone. Got a Paws-word card? Use it to block the virus when it comes your way.",
           },
           {
             question: "What happens when someone makes a mistake?",

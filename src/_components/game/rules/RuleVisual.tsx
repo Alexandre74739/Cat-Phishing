@@ -1,41 +1,24 @@
-import {
-  Cat,
-  Eye,
-  KeyRound,
-  MousePointerClick,
-  ShieldCheck,
-} from "lucide-react";
 import { CardBack } from "../cards/CardBack";
-import type { ActionCardIcon, RuleVisual as RuleVisualData } from "../types";
+import { GameCard } from "../cards/GameCard";
+import type { RuleVisual as RuleVisualData } from "../types";
 
-const familyColors = [
-  "bg-orange",
-  "bg-mint",
-  "bg-sky",
-  "bg-pink",
-  "bg-lilac",
-  "bg-slime",
-];
-
-const actionLooks: Record<ActionCardIcon, { Icon: typeof Cat; color: string }> =
-  {
-    defuse: { Icon: ShieldCheck, color: "bg-mint" },
-    cancel: { Icon: KeyRound, color: "bg-sky" },
-    steal: { Icon: MousePointerClick, color: "bg-orange" },
-    peek: { Icon: Eye, color: "bg-pink" },
-  };
+function Caption({ text }: { text: string }) {
+  return (
+    <figcaption className="font-ui font-bold text-ink-soft">{text}</figcaption>
+  );
+}
 
 export function RuleVisual({ visual }: { visual: RuleVisualData }) {
   if (visual.kind === "families")
     return (
       <ul className="grid grid-cols-3 gap-3 sm:grid-cols-6">
-        {visual.names.map((name, index) => (
+        {visual.cards.map(({ card, name }, index) => (
           <li
-            key={name}
-            className={`toon flex flex-col items-center gap-1 rounded-xl p-1.5 ${index % 2 ? "rotate-2" : "-rotate-2"} ${familyColors[index % familyColors.length]}`}
+            key={card}
+            className={`flex flex-col items-center gap-1 ${index % 2 ? "rotate-2" : "-rotate-2"}`}
           >
-            <Cat className="mt-1 size-7" strokeWidth={2.5} aria-hidden="true" />
-            <span className="grid min-h-9 w-full place-items-center rounded-md bg-paper px-0.5 text-center font-ui text-xs leading-tight font-bold">
+            <GameCard card={card} sizes="96px" className="shadow-pop" />
+            <span className="text-center font-ui text-xs leading-tight font-bold">
               {name}
             </span>
           </li>
@@ -45,29 +28,36 @@ export function RuleVisual({ visual }: { visual: RuleVisualData }) {
 
   if (visual.kind === "actions")
     return (
-      <ul className="grid grid-cols-2 gap-3">
-        {visual.cards.map(({ icon, name, effect }) => {
-          const { Icon, color } = actionLooks[icon];
-          return (
-            <li
-              key={name}
-              className="toon flex flex-col gap-2 rounded-2xl bg-paper p-3"
-            >
-              <span
-                className={`grid size-11 place-items-center rounded-xl border-[3px] border-ink ${color}`}
-              >
-                <Icon size={22} strokeWidth={2.5} aria-hidden="true" />
-              </span>
+      <ul className="grid gap-3 sm:grid-cols-2">
+        {visual.cards.map(({ card, name, effect }) => (
+          <li
+            key={card}
+            className="toon flex items-center gap-3 rounded-2xl bg-paper p-2"
+          >
+            <GameCard card={card} sizes="64px" className="w-16 shrink-0" />
+            <span className="flex flex-col gap-1">
               <span className="font-ui text-lg leading-tight font-bold">
                 {name}
               </span>
               <span className="text-sm font-semibold text-ink-soft">
                 {effect}
               </span>
-            </li>
-          );
-        })}
+            </span>
+          </li>
+        ))}
       </ul>
+    );
+
+  if (visual.kind === "card")
+    return (
+      <figure className="flex flex-col items-center gap-3">
+        <GameCard
+          card={visual.card}
+          sizes="112px"
+          className="w-28 -rotate-3 shadow-pop"
+        />
+        <Caption text={visual.caption} />
+      </figure>
     );
 
   return (
@@ -83,9 +73,7 @@ export function RuleVisual({ visual }: { visual: RuleVisualData }) {
           </span>
         ))}
       </div>
-      <figcaption className="font-ui font-bold text-ink-soft">
-        {visual.caption}
-      </figcaption>
+      <Caption text={visual.caption} />
     </figure>
   );
 }

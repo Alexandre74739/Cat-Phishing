@@ -21,7 +21,7 @@ type SeatProps = SeatState & {
 };
 
 const badge =
-  "toon absolute grid size-7 place-items-center rounded-full text-ink";
+  "absolute grid size-7 place-items-center rounded-lg border-[3px] border-ink";
 
 export function Seat({
   player,
@@ -40,31 +40,28 @@ export function Seat({
   ]
     .filter(Boolean)
     .join(", ");
-  const color = spotlight
-    ? "bg-orange"
-    : holder && !out
-      ? "bg-coral"
-      : "bg-paper";
+  const infected = holder && !out;
+  const color = spotlight ? "bg-orange" : out ? "bg-lilac" : "bg-cream";
   const face = (
     <>
       <motion.span
         animate={{ scale: spotlight ? 1.2 : 1 }}
-        className={`relative grid size-14 place-items-center rounded-full border-[3px] border-ink ${color} ${onSelect ? "running-glow" : ""}`}
+        className={`relative grid size-14 place-items-center rounded-full border-[3px] border-ink shadow-pop ${color} ${infected ? "outline-4 outline-offset-2 outline-virus" : ""} ${onSelect ? "running-glow" : ""}`}
       >
         <span className={out ? "opacity-40 grayscale" : ""}>
           <Avatar id={player.avatar} size={36} />
         </span>
         {out && (
           <X
-            className="absolute size-12 text-coral"
+            className="absolute size-12 text-virus"
             strokeWidth={4}
             aria-hidden="true"
           />
         )}
-        {holder && !out && (
+        {infected && (
           <motion.span
             layoutId="catware"
-            className={`${badge} -right-2 -bottom-2 bg-mint`}
+            className={`${badge} -right-3 -bottom-2 bg-virus text-cream`}
           >
             <Bug size={16} strokeWidth={3} aria-hidden="true" />
           </motion.span>
@@ -72,14 +69,14 @@ export function Seat({
         {active && !out && (
           <motion.span
             layoutId="caller"
-            className={`${badge} -top-2 -left-2 bg-orange`}
+            className={`${badge} -top-2 -left-3 bg-orange text-ink`}
           >
             <Megaphone size={15} strokeWidth={3} aria-hidden="true" />
           </motion.span>
         )}
       </motion.span>
       <span
-        className={`max-w-full truncate rounded-full border-2 border-ink px-1.5 font-ui text-xs font-bold ${out ? "bg-lilac line-through" : "bg-paper"}`}
+        className={`max-w-full truncate rounded-md px-2 py-0.5 font-ui text-[13px] leading-tight font-bold ${out ? "bg-lilac text-ink line-through" : infected ? "bg-virus text-cream" : "bg-ink text-cream"}`}
       >
         {player.name}
       </span>

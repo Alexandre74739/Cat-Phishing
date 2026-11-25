@@ -1,14 +1,14 @@
+import type { CardId } from "@/lib/cards";
+
 export type SlideIcon =
   "setup" | "call" | "catware" | "breach" | "cards" | "win";
 
-export type ActionCardIcon = "defuse" | "cancel" | "steal" | "peek";
+export type RuleCard = { card: CardId; name: string };
 
 export type RuleVisual =
-  | { kind: "families"; names: string[] }
-  | {
-      kind: "actions";
-      cards: { icon: ActionCardIcon; name: string; effect: string }[];
-    }
+  | { kind: "families"; cards: RuleCard[] }
+  | { kind: "actions"; cards: (RuleCard & { effect: string })[] }
+  | { kind: "card"; card: CardId; caption: string }
   | { kind: "deck"; caption: string };
 
 export type RuleSlide = {

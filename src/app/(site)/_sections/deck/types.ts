@@ -1,12 +1,16 @@
+import type { CardId } from "@/lib/cards";
+
 export type DeckTileSize = "large" | "tall" | "small" | "wide";
 
 export type DeckTileColor = "orange-soft" | "mint" | "lilac" | "action-soft";
 
 export type DeckTileIcon = "cats" | "nope" | "action" | "phone";
 
+export type DeckCard = { card: CardId; name: string };
+
 export type DeckVisual =
-  | { kind: "fan"; cards: string[] }
-  | { kind: "card"; card: string; caption: string }
+  | { kind: "fan"; cards: DeckCard[] }
+  | ({ kind: "card"; caption: string } & DeckCard)
   | {
       kind: "phone";
       holder: string;

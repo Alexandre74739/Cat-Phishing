@@ -82,6 +82,9 @@
   --color-island: #814f96;
   --color-card-back: #281c45;
   --color-card-line: #a67db5;
+  --color-virus: #c8161d;
+  --color-virus-deep: #2e0f13;
+  --color-virus-light: #ff6b6b;
 
   --font-display: "Luckiest Guy", "Trebuchet MS", sans-serif;
   --font-ui: "Fredoka", "Trebuchet MS", system-ui, sans-serif;

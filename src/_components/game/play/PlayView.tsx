@@ -56,9 +56,9 @@ export function PlayView({ texts, game, party }: PlayViewProps) {
           <CatwareCard
             label={texts.cards.catware}
             revealed={shown}
-            className="w-12 sm:w-16"
+            className="w-16 sm:w-20"
           />
-          <span className="max-w-20 truncate font-ui text-xs font-bold text-paper sm:text-sm">
+          <span className="max-w-24 truncate font-ui text-sm font-bold text-cream">
             {shown
               ? findPartyPlayer(party, party.holder).name
               : texts.cards.back}

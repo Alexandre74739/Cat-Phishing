@@ -24,7 +24,7 @@ export function PassPanel({
   const sender = findPartyPlayer(party, party.active).name;
   const done = (
     <Button
-      variant="mint"
+      variant="orange"
       size="compact"
       icon="next"
       iconSide="end"
@@ -39,7 +39,8 @@ export function PassPanel({
     const receiver = findPartyPlayer(party, sentTo).name;
     return (
       <Panel
-        color="sky"
+        color="mint"
+        card="paws-word"
         title={fillText(texts.sent, { from: sender, to: receiver })}
         text={texts.blockHint}
       >
@@ -61,14 +62,15 @@ export function PassPanel({
 
   if (!targets)
     return (
-      <Panel color="sky" title={texts.none}>
+      <Panel color="mint" title={texts.none}>
         {done}
       </Panel>
     );
 
   return (
     <Panel
-      color="sky"
+      color="mint"
+      card="cat-ware"
       title={fillText(texts.title, { name: sender })}
       text={texts.text}
     >

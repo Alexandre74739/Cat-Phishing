@@ -23,6 +23,7 @@ export function PhasePanel({ texts, game, party, drawn }: PhasePanelProps) {
   if (phase.kind === "draw")
     return drawn ? (
       <Panel
+        card="cat-ware"
         title={fillText(texts.draw.holder, { name: name(party.holder) })}
         text={fillText(texts.draw.active, { name: name(party.active) })}
       >
@@ -58,7 +59,7 @@ export function PhasePanel({ texts, game, party, drawn }: PhasePanelProps) {
   if (phase.kind === "race" || phase.kind === "speed") {
     const pick = texts[phase.kind];
     return (
-      <Panel color="lilac" title={pick.title} text={pick.text}>
+      <Panel color="night" title={pick.title} text={pick.text}>
         <Button variant="paper" size="sm" onClick={turn}>
           {pick.cancel}
         </Button>

@@ -46,8 +46,9 @@ export function PartyTable({
   return (
     <div className="grid min-h-0 flex-1 place-items-center [container-type:size]">
       <div className="relative aspect-square w-[min(100cqw_-_0.5rem,100cqh_-_1.5rem,32rem)]">
-        <div className="toon absolute inset-[19%] grid place-items-center rounded-full bg-grape">
-          <span className="absolute inset-2 rounded-full border-[3px] border-dashed border-lilac/50" />
+        <div className="toon absolute inset-[19%] grid place-items-center rounded-full bg-card-back">
+          <span className="absolute inset-2 rounded-full border-4 border-card-line/35" />
+          <span className="absolute inset-5 rounded-full border-2 border-card-line/15" />
           <div className="relative">{children}</div>
         </div>
         <ul aria-label={texts.label} className="absolute inset-0">

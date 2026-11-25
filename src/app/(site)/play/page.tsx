@@ -26,13 +26,13 @@ export default function PlayPage() {
               title: "Deal the cards",
               visual: {
                 kind: "families",
-                names: [
-                  "Feline-system",
-                  "Script Kitty",
-                  "Root-kitty",
-                  "Trojan Cat",
-                  "Stalker-cat",
-                  "Meownymous",
+                cards: [
+                  { card: "feline-system", name: "Feline-system" },
+                  { card: "script-kitty", name: "Script Kitty" },
+                  { card: "root-kitty", name: "Root-kitty" },
+                  { card: "trojan-cat", name: "Trojan Cat" },
+                  { card: "stalker-cat", name: "Stalker-cat" },
+                  { card: "meownymous", name: "Meownymous" },
                 ],
               },
               points: [
@@ -56,6 +56,11 @@ export default function PlayPage() {
               icon: "catware",
               eyebrow: "The digital bomb",
               title: "Pass the cat-ware",
+              visual: {
+                kind: "card",
+                card: "cat-ware",
+                caption: "Only on the phone",
+              },
               points: [
                 "The cat-ware only lives on this phone: everyone can see who holds it.",
                 "Win a race while holding it? You may pass it to a player who didn't play a card this turn.",
@@ -79,24 +84,24 @@ export default function PlayPage() {
                 kind: "actions",
                 cards: [
                   {
-                    icon: "defuse",
+                    card: "furr-wall",
                     name: "Furr-wall",
                     effect:
                       "Blocks the explosion when the cat-ware blows up on you.",
                   },
                   {
-                    icon: "cancel",
+                    card: "paws-word",
                     name: "Paws-word",
                     effect:
                       "Any time: cancels a Claw-jacking, a Spy-cat or a cat-ware sent to you.",
                   },
                   {
-                    icon: "steal",
+                    card: "claw-jacking",
                     name: "Claw-jacking",
                     effect: "Your turn: steal 1 random card from a player.",
                   },
                   {
-                    icon: "peek",
+                    card: "spy-cat",
                     name: "Spy-cat",
                     effect: "Your turn: secretly look at a player's hand.",
                   },
