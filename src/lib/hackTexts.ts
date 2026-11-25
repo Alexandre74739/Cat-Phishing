@@ -3,7 +3,12 @@ import { routes } from "./navigation";
 export type HackTexts = {
   alert: string;
   rain: string[];
-  terminal: { critical: string; progress: string; commands: string[] };
+  terminal: {
+    critical: string;
+    progress: string;
+    intro: string[];
+    commands: string[];
+  };
   cat: {
     name: string;
     dialogue: string[];
@@ -30,6 +35,7 @@ export const hackTexts: HackTexts = {
   terminal: {
     critical: "Critical · system compromised",
     progress: "Taking control… {percent}%",
+    intro: ["! Willy hacked the app", "! Léo hacked the app"],
     commands: [
       "> rm -rf /players/stars",
       "! WARNING: furr-wall disabled",

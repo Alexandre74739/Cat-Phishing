@@ -24,10 +24,12 @@ export function HackTerminal({ texts }: { texts: HackTexts["terminal"] }) {
     const timer = window.setInterval(
       () => {
         id += 1;
-        const text = fillText(pick(texts.commands), {
-          n: randomInt(999),
-          hex: randomHex(),
-        });
+        const text =
+          texts.intro[id - 1] ??
+          fillText(pick(texts.commands), {
+            n: randomInt(999),
+            hex: randomHex(),
+          });
         const isAlert = text.startsWith("!");
         playSound(isAlert ? "alarm" : id % 8 === 0 ? "data" : "keys");
         setLines((current) => [
@@ -39,7 +41,7 @@ export function HackTerminal({ texts }: { texts: HackTexts["terminal"] }) {
       reduceMotion ? calmLineMs : lineMs,
     );
     return () => window.clearInterval(timer);
-  }, [texts.commands, reduceMotion]);
+  }, [texts.intro, texts.commands, reduceMotion]);
 
   return (
     <div className="absolute inset-0 flex flex-col font-mono font-bold text-terminal">
