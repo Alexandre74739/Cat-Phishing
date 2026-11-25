@@ -168,18 +168,17 @@ export default function Home() {
           },
           {
             eyebrow: "On the phone",
-            title: "The virus lives in the app",
+            title: "The cat-ware lives in the app",
             description:
-              "There's no virus card in the deck. The phone in the middle of the table shows who is infected. Managed to lay down one of your cats? You can pass the virus to another player. Pick their name, hand them the phone and enjoy the panic.",
+              "The cat-ware is never in your hand: the phone in the middle of the table shows who is infected. Won a race while holding it? Tap another player to pass it on, then enjoy the panic.",
             size: "wide",
             color: "action-soft",
             icon: "phone",
             visual: {
-              kind: "phone",
-              holder: "Maya",
-              status: "has the virus!",
-              action: "Pass it on",
-              next: "Tom",
+              kind: "card",
+              card: "cat-ware",
+              name: "Cat-ware",
+              caption: "Only on the phone",
             },
           },
         ]}

@@ -10,14 +10,7 @@ export type DeckCard = { card: CardId; name: string };
 
 export type DeckVisual =
   | { kind: "fan"; cards: DeckCard[] }
-  | ({ kind: "card"; caption: string } & DeckCard)
-  | {
-      kind: "phone";
-      holder: string;
-      status: string;
-      action: string;
-      next: string;
-    };
+  | ({ kind: "card"; caption: string } & DeckCard);
 
 export type DeckTileContent = {
   eyebrow: string;

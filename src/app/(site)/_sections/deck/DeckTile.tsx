@@ -37,6 +37,7 @@ export function DeckTile({
 }: DeckTileProps) {
   const Icon = icons[icon];
   const large = size === "large";
+  const big = large || size === "wide";
 
   return (
     <motion.li
@@ -66,19 +67,21 @@ export function DeckTile({
           )}
         </div>
         <h3
-          className={`mt-4 font-display leading-tight tracking-wide ${large ? "text-3xl sm:text-5xl" : "text-2xl sm:text-3xl"}`}
+          className={`mt-4 font-display leading-tight tracking-wide ${big ? "text-3xl sm:text-5xl" : "text-2xl sm:text-3xl"}`}
         >
           {title}
         </h3>
         <p
-          className={`mt-3 font-semibold ${large ? "max-w-2xl text-lg" : "text-base"}`}
+          className={`mt-3 font-semibold ${big ? "max-w-2xl text-lg sm:text-xl" : "text-base"}`}
         >
           {description}
         </p>
       </div>
       {visual && (
-        <div className="relative flex lg:min-w-0 lg:flex-1 [&>*]:flex-1">
-          <DeckVisual visual={visual} />
+        <div
+          className={`relative flex lg:min-w-0 [&>*]:flex-1 ${size === "wide" ? "lg:flex-none lg:px-6" : "lg:flex-1"}`}
+        >
+          <DeckVisual visual={visual} wide={size === "wide"} />
         </div>
       )}
     </motion.li>

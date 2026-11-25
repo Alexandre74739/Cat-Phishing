@@ -3,10 +3,11 @@
 import { motion } from "motion/react";
 import { GameCard } from "@/_components/game/cards/GameCard";
 import { CardFan } from "./CardFan";
-import { PhoneVisual } from "./PhoneVisual";
 import type { DeckVisual as DeckVisualContent } from "./types";
 
-export function DeckVisual({ visual }: { visual: DeckVisualContent }) {
+type DeckVisualProps = { visual: DeckVisualContent; wide?: boolean };
+
+export function DeckVisual({ visual, wide }: DeckVisualProps) {
   switch (visual.kind) {
     case "fan":
       return <CardFan cards={visual.cards} />;
@@ -16,12 +17,12 @@ export function DeckVisual({ visual }: { visual: DeckVisualContent }) {
           <motion.div
             animate={{ rotate: [-6, -2, -6], y: [0, -8, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="w-32 sm:w-36"
+            className={wide ? "w-40 sm:w-44 lg:w-48" : "w-32 sm:w-36"}
           >
             <GameCard
               card={visual.card}
               alt={visual.name}
-              sizes="144px"
+              sizes={wide ? "192px" : "144px"}
               className="shadow-pop"
             />
           </motion.div>
@@ -30,7 +31,5 @@ export function DeckVisual({ visual }: { visual: DeckVisualContent }) {
           </figcaption>
         </figure>
       );
-    case "phone":
-      return <PhoneVisual {...visual} />;
   }
 }
