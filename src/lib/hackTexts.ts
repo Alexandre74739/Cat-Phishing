@@ -37,7 +37,7 @@ export const hackTexts: HackTexts = {
     progress: "Taking control… {percent}%",
     intro: [
       "! Willy hacked the app",
-      "> Willy failed to hack the app after all",
+      "> In the end, Willy did not manage to hack the app",
       "! Léo hacked the app",
     ],
     commands: [
