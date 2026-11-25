@@ -1,16 +1,24 @@
 import {
   ArrowRight,
   Blocks,
+  BookOpen,
   Cat,
   CloudUpload,
   Download,
   Gamepad2,
+  Hand,
   House,
   LogIn,
   LogOut,
   Pencil,
   RefreshCw,
+  RotateCcw,
+  Siren,
+  ShieldBan,
+  ShieldCheck,
   Trash2,
+  Trophy,
+  Users,
 } from "lucide-react";
 export const variants = {
   grape: "bg-grape text-paper",
@@ -24,6 +32,7 @@ export const variants = {
 export const sizes = {
   md: { className: "min-h-14 px-7 text-xl", icon: 22 },
   sm: { className: "min-h-12 px-5 text-lg", icon: 20 },
+  compact: { className: "min-h-12 px-3 text-lg", icon: 20 },
 };
 
 export const icons = {
@@ -39,6 +48,14 @@ export const icons = {
   login: LogIn,
   logout: LogOut,
   remove: Trash2,
+  rules: BookOpen,
+  players: Users,
+  nope: ShieldBan,
+  again: RotateCcw,
+  match: Hand,
+  breach: Siren,
+  trophy: Trophy,
+  defuse: ShieldCheck,
 };
 
 export type ButtonVariant = keyof typeof variants;
