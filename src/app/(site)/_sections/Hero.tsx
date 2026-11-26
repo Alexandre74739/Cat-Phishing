@@ -4,6 +4,7 @@ import { Play } from "lucide-react";
 import { motion } from "motion/react";
 import { Button, type ButtonAction } from "@/_components/ui/Button";
 import { CheckList } from "@/_components/ui/CheckList";
+import { HeroVideo, type HeroVideoTexts } from "./HeroVideo";
 import { GutterTiles, NearTiles } from "./Tiles";
 
 type HeroProps = {
@@ -12,7 +13,7 @@ type HeroProps = {
   description: string;
   actions: ButtonAction[];
   highlights: string[];
-  video?: { src: string; poster?: string; label: string };
+  video?: HeroVideoTexts;
 };
 
 const pop = { type: "spring", stiffness: 260, damping: 20 } as const;
@@ -70,29 +71,18 @@ export function Hero({
             aria-hidden="true"
             className="toon absolute inset-0 translate-x-3 translate-y-3 rounded-[30px] bg-grape"
           />
-          <div className="toon dots relative aspect-video w-full overflow-hidden rounded-[30px] bg-mint">
-            {video ? (
-              <video
-                src={video.src}
-                poster={video.poster}
-                aria-label={video.label}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="size-full object-cover"
-              />
-            ) : (
-              <div
-                aria-hidden="true"
-                className="grid size-full place-items-center"
-              >
-                <span className="toon grid size-20 place-items-center rounded-full bg-paper text-ink">
-                  <Play size={36} strokeWidth={3} className="translate-x-0.5" />
-                </span>
-              </div>
-            )}
-          </div>
+          {video ? (
+            <HeroVideo {...video} />
+          ) : (
+            <div
+              aria-hidden="true"
+              className="toon dots relative grid aspect-video w-full place-items-center rounded-[30px] bg-mint"
+            >
+              <span className="toon grid size-20 place-items-center rounded-full bg-paper text-ink">
+                <Play size={36} strokeWidth={3} className="translate-x-0.5" />
+              </span>
+            </div>
+          )}
         </motion.div>
       </div>
     </section>

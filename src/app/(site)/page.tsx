@@ -30,6 +30,10 @@ export default function Home() {
           },
         ]}
         highlights={["Ages 12+", "One shared phone", "Code puzzles"]}
+        video={{
+          src: "/cat-phishing-trailer.mp4",
+          label: "Cat-phishing trailer",
+        }}
       />
       <Reveal
         id="intro"
