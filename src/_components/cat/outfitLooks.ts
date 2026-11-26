@@ -1,6 +1,8 @@
 // Full class names so Tailwind finds them: each fur swaps the two tokens CatFace paints with.
 export const furClasses: Record<string, string> = {
-  ginger: "",
+  meownymous: "",
+  ginger:
+    "[--color-fur:var(--color-fur-ginger)] [--color-fur-dark:var(--color-fur-ginger-dark)]",
   snow: "[--color-fur:var(--color-fur-snow)] [--color-fur-dark:var(--color-fur-snow-dark)]",
   midnight:
     "[--color-fur:var(--color-fur-midnight)] [--color-fur-dark:var(--color-fur-midnight-dark)]",

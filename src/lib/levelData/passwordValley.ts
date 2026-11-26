@@ -16,7 +16,7 @@ export const passwordValley: RawLevel[] = [
   {
     title: "The first key",
     concept: "Keys and gates",
-    goal: "A gate blocks the way! Grab the key, then use “open gate” when the gate is right in front of Catchat.",
+    goal: "A gate blocks the way! Grab the key, then use “open gate” when the gate is right in front of Meownymous.",
     tip: "Walk to the key, grab it, open the gate, then walk to the chest.",
     blocks: keysPalette,
     startDir: 1,
@@ -26,7 +26,7 @@ export const passwordValley: RawLevel[] = [
   {
     title: "Turn around!",
     concept: "Turn around",
-    goal: "The key is behind Catchat! The “turn around” block flips it in one go.",
+    goal: "The key is behind Meownymous! The “turn around” block flips it in one go.",
     tip: "Turn around, forward, grab, turn around… then walk to the gate.",
     blocks: keysPalette,
     startDir: 1,

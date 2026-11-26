@@ -153,8 +153,8 @@ const texts: LevelTexts = {
     nextCourse: "Next course",
     allDone: "All courses",
     perfect: "Perfect score: you found the shortest program!",
-    beatCatchat:
-      "You beat Catchat! Your program is even shorter than Catchat's.",
+    beatMeownymous:
+      "You beat Meownymous! Your program is even shorter than Meownymous's.",
     improve: "You used {used} blocks. Try with {optimal} or fewer for 3 stars!",
     newBadge: "New badge:",
     map: {

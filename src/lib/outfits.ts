@@ -15,6 +15,7 @@ export type Outfit = Record<Slot, string>;
 
 export const slots: Record<Slot, OutfitItem[]> = {
   fur: [
+    { id: "meownymous", name: "Meownymous", stars: 0 },
     { id: "ginger", name: "Ginger", stars: 0 },
     { id: "snow", name: "Snow", stars: 5 },
     { id: "sky", name: "Sky", stars: 9 },
@@ -51,7 +52,7 @@ export const slots: Record<Slot, OutfitItem[]> = {
     { id: "none", name: "Nothing", stars: 0 },
     { id: "mustache", name: "Mustache", stars: 4 },
     { id: "glasses", name: "Round glasses", stars: 8 },
-    { id: "shades", name: "Sunglasses", stars: 30 },
+    { id: "shades", name: "Sunglasses", stars: 0 },
     { id: "monocle", name: "Monocle", stars: 42 },
     { id: "pixel", name: "Pixel shades", stars: 60 },
     { id: "visor", name: "Hacker visor", stars: 70 },
@@ -92,9 +93,9 @@ export const slots: Record<Slot, OutfitItem[]> = {
 export const slotNames = Object.keys(slots) as Slot[];
 
 export const defaultOutfit: Outfit = {
-  fur: "ginger",
+  fur: "meownymous",
   hat: "none",
-  face: "none",
+  face: "shades",
   neck: "none",
   back: "backpack",
   trail: "none",

@@ -5,7 +5,7 @@ export const bootCamp: RawLevel[] = [
   {
     title: "First steps",
     concept: "Sequence",
-    goal: "Help Catchat reach the treasure chest! Drag the “move forward” block into your program.",
+    goal: "Help Meownymous reach the treasure chest! Drag the “move forward” block into your program.",
     tip: "The chest is 3 tiles away, so you need 3 “move forward” blocks.",
     blocks: ["forward"],
     startDir: 1,
@@ -25,7 +25,7 @@ export const bootCamp: RawLevel[] = [
   {
     title: "The big tour",
     concept: "Sequence",
-    goal: "Catchat is looking up. Find the path to the chest.",
+    goal: "Meownymous is looking up. Find the path to the chest.",
     tip: "Go up 2 tiles, turn right, forward 2 times, turn right, forward 2 times.",
     blocks: ["forward", "left", "right"],
     startDir: 0,
@@ -36,7 +36,7 @@ export const bootCamp: RawLevel[] = [
     title: "Gem hunt",
     concept: "Actions",
     goal: "Grab every gem before you open the chest!",
-    tip: "When Catchat stands ON a gem, use the “grab” block.",
+    tip: "When Meownymous stands ON a gem, use the “grab” block.",
     blocks: ["forward", "left", "right", "grab"],
     startDir: 1,
     grid: ["##.##.##", "#S.G.GC#", "###.####"],
@@ -55,7 +55,7 @@ export const bootCamp: RawLevel[] = [
   {
     title: "Spam smasher",
     concept: "Loop + actions",
-    goal: "Spam blocks the way! Catchat can smash it when it is right in front.",
+    goal: "Spam blocks the way! Meownymous can smash it when it is right in front.",
     tip: "The pattern “forward, smash spam, forward” repeats 2 times. Then one last step!",
     blocks: ["forward", "left", "right", "smash", "repeat"],
     startDir: 1,
@@ -65,7 +65,7 @@ export const bootCamp: RawLevel[] = [
   {
     title: "The bridge",
     concept: "Loop + actions",
-    goal: "A data stream! Catchat can't swim: build a bridge in front of it.",
+    goal: "A data stream! Meownymous can't swim: build a bridge in front of it.",
     tip: "Repeat 3 times “build bridge” then “move forward”. Then 2 more steps.",
     blocks: ["forward", "left", "right", "bridge", "repeat"],
     startDir: 1,
@@ -95,7 +95,7 @@ export const bootCamp: RawLevel[] = [
   {
     title: "If… then!",
     concept: "Condition",
-    goal: "The stream only shows up in some places. Catchat must check: IF there is a stream ahead, THEN build a bridge.",
+    goal: "The stream only shows up in some places. Meownymous must check: IF there is a stream ahead, THEN build a bridge.",
     tip: "Repeat 7 times: “if stream ahead → build bridge”, then “move forward”.",
     blocks: ["forward", "left", "right", "bridge", "smash", "repeat", "if"],
     startDir: 1,

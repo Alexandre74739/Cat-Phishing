@@ -3,6 +3,7 @@ import { flat, palette } from "@/_components/puzzle/world3d/materials";
 
 // three.js needs raw colors: they mirror the fur tokens of globals.css.
 const furColors: Record<string, [string, string]> = {
+  meownymous: ["#9466c9", "#6e45a6"],
   ginger: ["#ff9a3c", "#e07a1f"],
   snow: ["#f4f1f8", "#c9c1d6"],
   midnight: ["#5b5191", "#3f3770"],
@@ -24,7 +25,7 @@ export const furMaterials = Object.fromEntries(
 );
 
 export const catMaterials = {
-  ...furMaterials.ginger,
+  ...furMaterials.meownymous,
   ear: flat(palette.pink),
   eye: flat(palette.paper),
   ink: flat(palette.ink),

@@ -73,8 +73,8 @@ export const badges: Badge[] = [
   },
   {
     id: "betterThanCatchat",
-    name: "Better than Catchat",
-    text: "Solve a level with fewer blocks than Catchat.",
+    name: "Better than Meownymous",
+    text: "Solve a level with fewer blocks than Meownymous.",
     earned: hasRecord,
   },
   {

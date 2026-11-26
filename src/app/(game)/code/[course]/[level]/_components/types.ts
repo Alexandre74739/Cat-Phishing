@@ -33,7 +33,7 @@ export type LevelTexts = {
     nextCourse: string;
     allDone: string;
     perfect: string;
-    beatCatchat: string;
+    beatMeownymous: string;
     improve: string;
     newBadge: string;
     map: MapRewardTexts;

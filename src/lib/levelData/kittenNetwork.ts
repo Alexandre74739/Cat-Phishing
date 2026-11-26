@@ -15,7 +15,7 @@ export const kittenNetwork: RawLevel[] = [
   {
     title: "Snack run",
     concept: "Sequence",
-    goal: "Catchat smells a snack in the chest! Walk there and turn at the right place.",
+    goal: "Meownymous smells a snack in the chest! Walk there and turn at the right place.",
     tip: "Forward 3 times, turn left, then forward 2 times.",
     blocks: basicsPalette,
     startDir: 1,

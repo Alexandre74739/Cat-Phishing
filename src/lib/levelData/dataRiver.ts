@@ -93,7 +93,7 @@ export const dataRiver: RawLevel[] = [
   {
     title: "The hidden gem",
     concept: "Turn around",
-    goal: "A gem is hidden behind Catchat. Get it before you cross!",
+    goal: "A gem is hidden behind Meownymous. Get it before you cross!",
     tip: "Turn around, forward, grab, turn around, forward 2 times, build bridge, then forward 4 times.",
     blocks: [
       "forward",
@@ -161,7 +161,7 @@ export const dataRiver: RawLevel[] = [
   {
     title: "Spam or stream?",
     concept: "Conditions",
-    goal: "Spam? Smash it. A stream? Build a bridge. Catchat must check everything before each step.",
+    goal: "Spam? Smash it. A stream? Build a bridge. Meownymous must check everything before each step.",
     tip: "Repeat 8 times: if stream → bridge, if spam → smash, then forward.",
     blocks: [
       "forward",

@@ -17,7 +17,7 @@ export const serverVolcano: RawLevel[] = [
   {
     title: "The big jump",
     concept: "Jump",
-    goal: "Lava! You can't build a bridge on it… but Catchat can JUMP over one tile.",
+    goal: "Lava! You can't build a bridge on it… but Meownymous can JUMP over one tile.",
     tip: "Forward, jump over the lava, then forward.",
     blocks: lavaPalette,
     startDir: 1,
@@ -87,7 +87,7 @@ export const serverVolcano: RawLevel[] = [
   {
     title: "Jump if lava",
     concept: "Condition",
-    goal: "Lava can show up anywhere! Catchat must check IF there is lava ahead.",
+    goal: "Lava can show up anywhere! Meownymous must check IF there is lava ahead.",
     tip: "Until the chest: “if lava ahead → jump”, then “move forward”.",
     blocks: lavaPalette,
     startDir: 1,

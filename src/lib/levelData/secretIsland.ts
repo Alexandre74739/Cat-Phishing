@@ -57,7 +57,7 @@ export const secretIsland: RawLevel[] = [
   {
     title: "The hot ford",
     concept: "Conditions",
-    goal: "Streams and lava on the path! Let Catchat decide on its own at every step.",
+    goal: "Streams and lava on the path! Let Meownymous decide on its own at every step.",
     tip: "Until the chest: if stream → bridge. Then if lava → jump, else → forward.",
     blocks: fullPalette,
     startDir: 1,
@@ -91,7 +91,7 @@ export const secretIsland: RawLevel[] = [
   {
     title: "Spam and lava",
     concept: "Conditions",
-    goal: "The island volcano trail has spam and lava. Let Catchat decide on its own!",
+    goal: "The island volcano trail has spam and lava. Let Meownymous decide on its own!",
     tip: "Until the chest: if spam → smash. Then if lava → jump, else → forward.",
     blocks: fullPalette,
     startDir: 1,

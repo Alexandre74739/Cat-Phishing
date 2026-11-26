@@ -17,7 +17,7 @@ export const spamInbox: RawLevel[] = [
   {
     title: "Back door",
     concept: "Turn around",
-    goal: "The key is behind Catchat and the gate is ahead. Go back, then go forward!",
+    goal: "The key is behind Meownymous and the gate is ahead. Go back, then go forward!",
     tip: "Turn around, forward 3 times, grab, turn around, forward 5 times, open the gate, forward 3 times.",
     blocks: gatesPalette,
     startDir: 1,
@@ -35,7 +35,7 @@ export const spamInbox: RawLevel[] = [
   {
     title: "Count your keys",
     concept: "Keys and gates",
-    goal: "Two gates in a row! Catchat needs one key for each gate.",
+    goal: "Two gates in a row! Meownymous needs one key for each gate.",
     tip: "Grab both keys first. Then: open, forward, open, forward.",
     blocks: gatesPalette,
     startDir: 1,
@@ -122,7 +122,7 @@ export const spamInbox: RawLevel[] = [
   {
     title: "Bridge or gate?",
     concept: "Conditions",
-    goal: "Streams AND gates! Catchat must check both before every step.",
+    goal: "Streams AND gates! Meownymous must check both before every step.",
     tip: "Repeat 10 times: grab, if stream → bridge, if gate → open, forward.",
     blocks: gatesPalette,
     startDir: 1,
@@ -134,7 +134,7 @@ export const spamInbox: RawLevel[] = [
   {
     title: "Left sensor",
     concept: "Condition",
-    goal: "The cable turns left, but never at the same place. Let Catchat feel the path!",
+    goal: "The cable turns left, but never at the same place. Let Meownymous feel the path!",
     tip: "Repeat 9 times: forward, then “if path on left → turn left”.",
     blocks: gatesPalette,
     startDir: 1,

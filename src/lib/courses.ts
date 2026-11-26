@@ -45,7 +45,7 @@ export const courses: Course[] = [
   {
     slug: "boot-camp",
     title: "Boot camp",
-    subtitle: "Learn the basics with Catchat: move, turn and repeat.",
+    subtitle: "Learn the basics with Meownymous: move, turn and repeat.",
     difficulty: 1,
     color: "bg-sky",
     newBlocks: ["forward", "repeat", "if"],

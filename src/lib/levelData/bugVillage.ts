@@ -17,7 +17,7 @@ export const bugVillage: RawLevel[] = [
   {
     title: "Meet the bug",
     concept: "Zap",
-    goal: "Here is a bug! You can beat it: when it is RIGHT in front of Catchat, use “zap bug”.",
+    goal: "Here is a bug! You can beat it: when it is RIGHT in front of Meownymous, use “zap bug”.",
     tip: "Forward 4 times, wait for the bug to come right in front, zap it, then forward 2 times.",
     blocks: enemyPalette,
     startDir: 1,
@@ -27,7 +27,7 @@ export const bugVillage: RawLevel[] = [
   {
     title: "Wait your turn",
     concept: "Wait",
-    goal: "Here is a virus: you can't zap it! Every time Catchat steps, it steps too. Use “wait” to let it pass: never walk onto it.",
+    goal: "Here is a virus: you can't zap it! Every time Meownymous steps, it steps too. Use “wait” to let it pass: never walk onto it.",
     tip: "Forward once, wait 2 times for the virus to pass, then forward 4 times.",
     blocks: enemyPalette,
     startDir: 1,
@@ -72,7 +72,7 @@ export const bugVillage: RawLevel[] = [
   {
     title: "If enemy… else",
     concept: "Condition",
-    goal: "Two viruses guard the path. New block “if… else”: IF an enemy comes ahead, Catchat waits, ELSE it moves forward.",
+    goal: "Two viruses guard the path. New block “if… else”: IF an enemy comes ahead, Meownymous waits, ELSE it moves forward.",
     tip: "Until the chest: if enemy ahead → wait, else → forward.",
     blocks: enemyPalette,
     startDir: 1,
@@ -89,7 +89,7 @@ export const bugVillage: RawLevel[] = [
   {
     title: "Lava and virus",
     concept: "Nested conditions",
-    goal: "Lava AND a virus! Catchat checks the enemy first, then the lava.",
+    goal: "Lava AND a virus! Meownymous checks the enemy first, then the lava.",
     tip: "Until the chest: if enemy → wait, else (if lava → jump, else → forward).",
     blocks: enemyPalette,
     startDir: 1,

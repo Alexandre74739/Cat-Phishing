@@ -88,7 +88,7 @@ export function LevelGame({ courseIndex, number, texts }: LevelGameProps) {
             stars={win.stars}
             detail={
               win.used < level.optimal
-                ? texts.win.beatCatchat
+                ? texts.win.beatMeownymous
                 : win.stars === 3
                   ? texts.win.perfect
                   : texts.win.improve

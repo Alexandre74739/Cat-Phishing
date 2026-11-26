@@ -19,7 +19,7 @@ export const masterMaze: RawLevel[] = [
   {
     title: "If… else",
     concept: "If… else",
-    goal: "IF there is lava, Catchat jumps. ELSE, it moves forward.",
+    goal: "IF there is lava, Meownymous jumps. ELSE, it moves forward.",
     tip: "Until the chest: if lava ahead → jump, else → forward.",
     blocks: fullPalette,
     startDir: 1,
@@ -51,7 +51,7 @@ export const masterMaze: RawLevel[] = [
   {
     title: "The swamp",
     concept: "Several conditions",
-    goal: "Streams and spam everywhere. Catchat must check everything before each step!",
+    goal: "Streams and spam everywhere. Meownymous must check everything before each step!",
     tip: "Until the chest: if stream → bridge, if spam → smash, then forward.",
     blocks: fullPalette,
     startDir: 1,
@@ -108,7 +108,7 @@ export const masterMaze: RawLevel[] = [
   {
     title: "Smart U-turn",
     concept: "Conditions",
-    goal: "The gate is behind Catchat, but the key is ahead! Write a program that turns around at the end of the path.",
+    goal: "The gate is behind Meownymous, but the key is ahead! Write a program that turns around at the end of the path.",
     tip: "Until the chest: grab, if gate → open, then if path ahead → forward, else → turn around.",
     blocks: fullPalette,
     startDir: 1,
